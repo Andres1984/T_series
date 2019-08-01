@@ -1,0 +1,203 @@
+---
+title: "Session 1"
+author: "Andrés Martínez"
+date: "01 08 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Series de Tiempo
+
+# Tipo de series
+
+```{r, message=FALSE, warning=FALSE}
+
+
+
+
+set.seed(123)
+maturity <- 30
+simulation.length <- 30
+dt <-  maturity/(simulation.length-1)
+
+tiempo <- seq(0,maturity, dt)
+
+S0<-1
+
+
+f <-rep(0, 30)
+  f[1] <- S0
+
+for(i in 2:simulation.length){
+  f[i] <- 0.9*f[i-1]+rnorm(i)
+
+}
+
+o_range <- range(f)
+
+plot(tiempo,f, ylim=o_range, type="l")
+lines(tiempo,rep(0,30), col="red")
+
+
+
+
+
+
+
+
+```
+
+
+
+```{r, message=FALSE, warning=FALSE}
+
+for(i in 2:simulation.length){
+  f[i] <- 0.5*f[i-1]+rnorm(i)
+  
+}
+
+o_range <- range(f)
+
+plot(tiempo,f, ylim=o_range, type="l")
+lines(tiempo,rep(0,30), col="red")
+
+```
+
+
+```{r,message=FALSE, warning=FALSE}
+for(i in 2:simulation.length){
+  f[i] <- -0.5*f[i-1]+rnorm(i)
+  
+}
+
+o_range <- range(f)
+
+plot(tiempo,f, ylim=o_range, type="l")
+lines(tiempo,rep(0,30), col="red")
+
+
+
+
+```
+
+
+
+
+
+
+```{r , message=FALSE, warning=FALSE} 
+for(i in 2:simulation.length){
+  f[i] <- f[i-1]+rnorm(i)
+  
+}
+
+o_range <- range(f)
+
+plot(tiempo,f, ylim=o_range, type="l")
+lines(tiempo,rep(0,30), col="red")
+
+
+
+
+```
+
+
+
+```{r , message=FALSE, warning=FALSE}
+for(i in 2:simulation.length){
+  f[i] <- 1.2*f[i-1]+rnorm(i)
+  
+}
+
+o_range <- range(f)
+
+plot(tiempo,f, ylim=o_range, type="l")
+lines(tiempo,rep(0,30), col="red")
+
+
+
+
+```
+
+
+```{r, message=FALSE, warning=FALSE}
+
+for(i in 2:simulation.length){
+  f[i] <- -1.2*f[i-1]+rnorm(i)
+  
+}
+
+o_range <- range(f)
+
+plot(tiempo,f, ylim=o_range, type="l")
+lines(tiempo,rep(0,30), col="red")
+```
+
+## Caminata aleatoria
+
+
+```{r , message=FALSE, warning=FALSE}
+n=60
+set.seed(12345) # intialize the random number so that the simulation can be 
+# reproducible.
+sim.random.walk=ts(cumsum(rnorm(n)),freq=1,start=1)
+plot(sim.random.walk,type='o',ylab=' Random Walk')
+
+```
+
+
+
+
+
+
+
+## El desempleo
+
+You can also embed plots, for example:
+
+```{r ,message=FALSE, warning=FALSE}
+## Quantmod
+library(quantmod)
+symbols=c("COLLRUNTTTTSTM")# Vector de caracteres
+getSymbols(symbols,src='FRED')
+plot(COLLRUNTTTTSTM, main="Desempleo Colombia")
+```
+
+```{r, message=FALSE, warning=FALSE}
+library(forecast)
+
+ts_data <- ts(as.numeric(COLLRUNTTTTSTM), frequency = 12)
+de<- decompose(ts_data, type="additive")
+plot(de)
+decomposedRes <-  stl(ts_data, s.window="periodic") 
+plot (decomposedRes) # see plot below
+
+```
+
+
+
+
+
+```{r, message=FALSE, warning=FALSE}
+
+ts.sa <- seasadj(decomposedRes)
+
+plot(COLLRUNTTTTSTM, type="l")  # original series
+
+```
+
+
+
+```{r, message=FALSE, warning=FALSE}
+plot(ts.sa, type="l")  # seasonal adjusted
+
+
+```
+
+```{r, message=FALSE, warning=FALSE}
+seasonplot(ts.sa, 12, col=rainbow(12), year.labels=TRUE, main="Seasonal plot: Desempleo")
+```
+
