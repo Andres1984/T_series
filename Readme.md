@@ -16,21 +16,21 @@ email:manuelmartinez@unisalle.edu.co
    *	Promedios móviles e índices estacionales
    *	Suavización exponencial
 2.	Modelos de series de tiempo 
-   2.1	Procesos estacionarios
-   2.2	Test de raíz unitaria
-   2.3	Modelos autorregresivos – AR(p)
-   2.4	Modelos de media móvil – MA(q)
-   2.5	Proceso ARMA(p,q)
-   2.6	Metodología Box-Jenkins
-   2.7	Criterios de información (AIC, BIC, HQIC).
+   *	Procesos estacionarios
+   *	Test de raíz unitaria
+   *	Modelos autorregresivos – AR(p)
+   *	Modelos de media móvil – MA(q)
+   *	Proceso ARMA(p,q)
+   *	Metodología Box-Jenkins
+   *	Criterios de información (AIC, BIC, HQIC).
 3.	Modelos de volatilidad condicionada  
-   3.1	Modelos autorregresivos de heteroscedasticidad condicionada - ARCH  
-   3.2	Modelo ARCH generalizado - GARCH
-   3.3	Extensiones del modelo GARCH: modelos GJR y EGARCH 
+   *	Modelos autorregresivos de heteroscedasticidad condicionada - ARCH  
+   *	Modelo ARCH generalizado - GARCH
+   *	Extensiones del modelo GARCH: modelos GJR y EGARCH 
 4.	Modelos multivariados y concepto de cointegración
-   4.1	El modelo VAR
-   4.2	Términos contemporáneos y test de causalidad
-   4.3	Función impulso respuesta y descomposición de varianza
-   4.4	Cointegración 
-   4.5	Modelos de corrección de errores
-   4.6	Metodología de Johansen
+   *	El modelo VAR
+   *	Términos contemporáneos y test de causalidad
+   *	Función impulso respuesta y descomposición de varianza
+   *	Cointegración 
+   *	Modelos de corrección de errores
+   *	Metodología de Johansen
