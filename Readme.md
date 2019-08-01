@@ -9,12 +9,12 @@ email:manuelmartinez@unisalle.edu.co
 
 
 1. Introducción a las series de tiempo
-   1.1	Características de una serie de tiempo
-   1.2	Modelos de regresión polinomial
-   1.3	Pronósticos
-   1.4	Medidas de error de pronóstico
-   1.5	Promedios móviles e índices estacionales
-   1.6	Suavización exponencial
+   *	Características de una serie de tiempo
+   *	Modelos de regresión polinomial
+   *	Pronósticos
+   *	Medidas de error de pronóstico
+   *	Promedios móviles e índices estacionales
+   *	Suavización exponencial
 2.	Modelos de series de tiempo 
    2.1	Procesos estacionarios
    2.2	Test de raíz unitaria
