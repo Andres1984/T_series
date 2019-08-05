@@ -36,7 +36,7 @@ data$Date = seq(2002+1/12,2013+4/12,by=1/12)
 rsandp = 100*diff(log(data$SANDP))
 rford = 100*diff(log(data$FORD))
 ustb3m = data$USTB3M[-1]/12
-erford = rford-ustb3m
+data$erford = rford-ustb3m
 ersandp = rsandp-ustb3m
 
 
@@ -50,4 +50,100 @@ box()
 
 lm1 = lm(data$erford~data$ersandp)
 summary(lm1)
+
+library(leaps)
+
+
+
+
+path = file.path(file.choose())
+data = read.dta(path)
+#macro
+dspread = diff(data$BAAAAASPREAD)
+dcredit = diff(data$CONSUMERCREDIT)
+dprod = diff(data$Industrialproduction)
+rmsoft = 100*diff(log(data$Microsoft))
+rsandp = 100*diff(log(data$SANDP))
+dmoney = diff(data$M1MONEYSUPPLY)
+inflation = 100*diff(log(data$CPI))
+term = data$USTB10Y-data$USTB3M
+dinflation = diff(inflation)
+mustb3m = data$USTB3M/12
+rterm = diff(term)
+ermsoft = rmsoft-mustb3m[-1]
+ersandp = rsandp-mustb3m[-1]
+lm2 = lm(ermsoft~ersandp+dprod+dcredit+I(c(NA,dinflation))+dmoney+dspread+rterm)
+summary(lm2)
+
+#macro
+
+df = cbind(data$USTB3M,data$USTB6M,data$USTB1Y,data$USTB3Y,data$USTB5Y,data$USTB10Y)
+cor(df)
+evec = eigen(cor(df))$vectors
+evec
+eval = eigen(cor(df))$values
+eval
+diff(eval)
+prop = eval/sum(eval)
+prop
+cumsum(prop)
+
+## Regresiones sobre polinomios
+
+
+library(quantmod)
+symbols=c("COLLRUNTTTTSTM", "COLCSINFT02STSAM")# Vector de caracteres
+getSymbols(symbols,src='FRED')
+plot(COLLRUNTTTTSTM, main="Desempleo Colombia")
+head(COLLRUNTTTTSTM)
+plot(COLCSINFT02STSAM, main="CONSUMO")
+
+consu=COLCSINFT02STSAM[63:211]
+
+
+desem=Delt(COLLRUNTTTTSTM)[-1]
+conum=Delt(consu)[-1]
+colnames(desem)="diff"
+colnames(conum)="diff"
+reg=lm(desem$diff~I(desem$diff)+I(conum$diff)+I(conum$diff^2) + I(conum$diff^3))
+summary(reg)
+reg1=lm(COLLRUNTTTTSTM~I(COLLRUNTTTTSTM)+I(consu)+I(consu^2))
+summary(reg1)
+reg3=lm(desem$diff~I(desem$diff)+(consu[-1])+I(consu[-1]^2))
+summary(reg3)
+
+
+
+
+
+
+
+## Ejemplo simulado
+p <- 0.5
+q <- seq(0,100,1)
+y <- p*q
+plot(q,y,type='l',col='red',main='Linear relationship')
+y <- 450 + p*(q-10)^3
+plot(q,y,type='l',col='navy',main='Nonlinear relationship',lwd=3)
+
+set.seed(20)
+q <- seq(from=0, to=20, by=0.1)
+y <- 500 + 0.4 * (q-10)^3
+noise <- rnorm(length(q), mean=10, sd=80)
+noisy.y <- y + noise
+plot(q,noisy.y,col='deepskyblue4',xlab='q',main='Observed data')
+lines(q,y,col='firebrick1',lwd=3)
+model <- lm(noisy.y ~ q + I(q^2) + I(q^3))
+summary(model)
+
+
+confint(model, level=0.95)
+plot(fitted(model),residuals(model))
+predicted.intervals <- predict(model,data.frame(x=q),interval='confidence', level=0.99)
+
+plot(q,predicted.intervals[,1],col='green',lwd=3)
+lines(q,predicted.intervals[,2],col='black',lwd=1)
+lines(q,predicted.intervals[,3],col='black',lwd=1)
+legend("bottomright",c("Observ.","Signal","Predicted"), 
+       col=c("deepskyblue4","red","green"), lwd=3)
 
