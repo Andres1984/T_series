@@ -185,7 +185,7 @@ plot (decomposedRes) # see plot below
 
 ts.sa <- seasadj(decomposedRes)
 
-plot(COLLRUNTTTTSTM, type="l")  # original series
+plot(COLLRUNTTTTSTM, type="l", main="Desempleo en Colombia")  # original series
 
 ```
 
