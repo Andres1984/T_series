@@ -91,33 +91,6 @@ cumsum(prop)
 ## Regresiones sobre polinomios
 
 
-library(quantmod)
-symbols=c("COLLRUNTTTTSTM", "COLCSINFT02STSAM")# Vector de caracteres
-getSymbols(symbols,src='FRED')
-plot(COLLRUNTTTTSTM, main="Desempleo Colombia")
-head(COLLRUNTTTTSTM)
-plot(COLCSINFT02STSAM, main="CONSUMO")
-
-consu=COLCSINFT02STSAM[63:211]
-
-
-desem=Delt(COLLRUNTTTTSTM)[-1]
-conum=Delt(consu)[-1]
-colnames(desem)="diff"
-colnames(conum)="diff"
-reg=lm(desem$diff~I(desem$diff)+I(conum$diff)+I(conum$diff^2) + I(conum$diff^3))
-summary(reg)
-reg1=lm(COLLRUNTTTTSTM~I(COLLRUNTTTTSTM)+I(consu)+I(consu^2))
-summary(reg1)
-reg3=lm(desem$diff~I(desem$diff)+(consu[-1])+I(consu[-1]^2))
-summary(reg3)
-
-
-
-
-
-
-
 ## Ejemplo simulado
 p <- 0.5
 q <- seq(0,100,1)
@@ -139,11 +112,40 @@ summary(model)
 
 confint(model, level=0.95)
 plot(fitted(model),residuals(model))
-predicted.intervals <- predict(model,data.frame(x=q),interval='confidence', level=0.99)
-
-plot(q,predicted.intervals[,1],col='green',lwd=3)
+plot(q,noisy.y,col='deepskyblue4',xlab='q',main='Observed data')
+lines(q,y,col='firebrick1',lwd=3)
+lines(q,predicted.intervals[,1],col='green',lwd=3)
 lines(q,predicted.intervals[,2],col='black',lwd=1)
 lines(q,predicted.intervals[,3],col='black',lwd=1)
 legend("bottomright",c("Observ.","Signal","Predicted"), 
        col=c("deepskyblue4","red","green"), lwd=3)
+
+# Desempleo
+
+library(quantmod)
+symbols=c("COLLRUNTTTTSTM")# Vector de caracteres
+getSymbols(symbols,src='FRED')
+plot(COLLRUNTTTTSTM, main="Desempleo Colombia")
+
+
+reg1=lm(COLLRUNTTTTSTM$COLLRUNTTTTSTM~I(COLLRUNTTTTSTM$COLLRUNTTTTSTM),na.action="na.omit")
+reg2=lm(COLLRUNTTTTSTM$COLLRUNTTTTSTM~I(COLLRUNTTTTSTM$COLLRUNTTTTSTM)+I(COLLRUNTTTTSTM$COLLRUNTTTTSTM^2), na.action="na.omit")
+reg3=lm(COLLRUNTTTTSTM$COLLRUNTTTTSTM~I(COLLRUNTTTTSTM$COLLRUNTTTTSTM)+I(COLLRUNTTTTSTM$COLLRUNTTTTSTM^2)+I(COLLRUNTTTTSTM$COLLRUNTTTTSTM^3),na.action="na.omit")
+reg4=lm(COLLRUNTTTTSTM$COLLRUNTTTTSTM~I(COLLRUNTTTTSTM$COLLRUNTTTTSTM)+I(COLLRUNTTTTSTM$COLLRUNTTTTSTM^2)+I(COLLRUNTTTTSTM$COLLRUNTTTTSTM^3) + I(COLLRUNTTTTSTM$COLLRUNTTTTSTM^4),na.action="na.omit")
+reg=lm(COLLRUNTTTTSTM$COLLRUNTTTTSTM~I(COLLRUNTTTTSTM$COLLRUNTTTTSTM)+I(COLLRUNTTTTSTM$COLLRUNTTTTSTM^2)+I(COLLRUNTTTTSTM$COLLRUNTTTTSTM^3) + I(COLLRUNTTTTSTM$COLLRUNTTTTSTM^4)+I(COLLRUNTTTTSTM$COLLRUNTTTTSTM^5),na.action="na.omit")
+
+
+summary(reg1)
+summary(reg2)
+summary(reg3)
+summary(reg4)
+summary(reg)
+
+
+
+
+
+
+
+
 
