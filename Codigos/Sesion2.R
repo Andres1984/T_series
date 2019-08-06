@@ -109,7 +109,7 @@ lines(q,y,col='firebrick1',lwd=3)
 model <- lm(noisy.y ~ q + I(q^2) + I(q^3))
 summary(model)
 
-
+predicted.intervals <- predict(model,data.frame(x=q),interval='confidence',level=0.99)
 confint(model, level=0.95)
 plot(fitted(model),residuals(model))
 plot(q,noisy.y,col='deepskyblue4',xlab='q',main='Observed data')
@@ -127,25 +127,28 @@ symbols=c("COLLRUNTTTTSTM")# Vector de caracteres
 getSymbols(symbols,src='FRED')
 plot(COLLRUNTTTTSTM, main="Desempleo Colombia")
 
-
+q=seq(1,149)
 reg1=lm(COLLRUNTTTTSTM$COLLRUNTTTTSTM~I(COLLRUNTTTTSTM$COLLRUNTTTTSTM),na.action="na.omit")
 reg2=lm(COLLRUNTTTTSTM$COLLRUNTTTTSTM~I(COLLRUNTTTTSTM$COLLRUNTTTTSTM)+I(COLLRUNTTTTSTM$COLLRUNTTTTSTM^2), na.action="na.omit")
 reg3=lm(COLLRUNTTTTSTM$COLLRUNTTTTSTM~I(COLLRUNTTTTSTM$COLLRUNTTTTSTM)+I(COLLRUNTTTTSTM$COLLRUNTTTTSTM^2)+I(COLLRUNTTTTSTM$COLLRUNTTTTSTM^3),na.action="na.omit")
 reg4=lm(COLLRUNTTTTSTM$COLLRUNTTTTSTM~I(COLLRUNTTTTSTM$COLLRUNTTTTSTM)+I(COLLRUNTTTTSTM$COLLRUNTTTTSTM^2)+I(COLLRUNTTTTSTM$COLLRUNTTTTSTM^3) + I(COLLRUNTTTTSTM$COLLRUNTTTTSTM^4),na.action="na.omit")
 reg=lm(COLLRUNTTTTSTM$COLLRUNTTTTSTM~I(COLLRUNTTTTSTM$COLLRUNTTTTSTM)+I(COLLRUNTTTTSTM$COLLRUNTTTTSTM^2)+I(COLLRUNTTTTSTM$COLLRUNTTTTSTM^3) + I(COLLRUNTTTTSTM$COLLRUNTTTTSTM^4)+I(COLLRUNTTTTSTM$COLLRUNTTTTSTM^5),na.action="na.omit")
 
+fit1 <- lm(COLLRUNTTTTSTM$COLLRUNTTTTSTM ~ poly(COLLRUNTTTTSTM$COLLRUNTTTTSTM, 1, raw=TRUE))
+fit2 <- lm(COLLRUNTTTTSTM$COLLRUNTTTTSTM ~ poly(COLLRUNTTTTSTM$COLLRUNTTTTSTM, 2, raw=TRUE))
+fit3 <- lm(COLLRUNTTTTSTM$COLLRUNTTTTSTM ~ poly(COLLRUNTTTTSTM$COLLRUNTTTTSTM, 3, raw=TRUE))
+fit4 <- lm(COLLRUNTTTTSTM$COLLRUNTTTTSTM ~ poly(COLLRUNTTTTSTM$COLLRUNTTTTSTM, 4, raw=TRUE))
+fit5 <- lm(COLLRUNTTTTSTM$COLLRUNTTTTSTM ~ poly(COLLRUNTTTTSTM$COLLRUNTTTTSTM, 5, raw=TRUE))
 
 summary(reg1)
 summary(reg2)
 summary(reg3)
 summary(reg4)
 summary(reg)
-
-
-
-
-
-
-
+summary(fit1)
+summary(fit2)
+summary(fit3)
+summary(fit4)
+summary(fit5)
 
 
