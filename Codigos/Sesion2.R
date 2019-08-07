@@ -1,6 +1,3 @@
-
-
-
 library("foreign")
 path = file.path(file.choose())
 #SandPhedge
@@ -126,8 +123,13 @@ library(quantmod)
 symbols=c("COLLRUNTTTTSTM")# Vector de caracteres
 getSymbols(symbols,src='FRED')
 plot(COLLRUNTTTTSTM, main="Desempleo Colombia")
-
-q=seq(1,149)
+df <- data.frame(COLLRUNTTTTSTM)
+Fechas<-row.names(df)
+df<-as.numeric(COLLRUNTTTTSTM$COLLRUNTTTTSTM)
+df<-data.frame(df,df^2,df^3,df^4,df^5)
+regp=lm(df$df ~ df$df+df$df.2+df$df.3+df$df.4+df$df.5)
+summary(regp)
+q=seq(from=min(COLLRUNTTTTSTM$COLLRUNTTTTSTM),to=max(COLLRUNTTTTSTM$COLLRUNTTTTSTM),length.out = 149)
 reg1=lm(COLLRUNTTTTSTM$COLLRUNTTTTSTM~I(COLLRUNTTTTSTM$COLLRUNTTTTSTM),na.action="na.omit")
 reg2=lm(COLLRUNTTTTSTM$COLLRUNTTTTSTM~I(COLLRUNTTTTSTM$COLLRUNTTTTSTM)+I(COLLRUNTTTTSTM$COLLRUNTTTTSTM^2), na.action="na.omit")
 reg3=lm(COLLRUNTTTTSTM$COLLRUNTTTTSTM~I(COLLRUNTTTTSTM$COLLRUNTTTTSTM)+I(COLLRUNTTTTSTM$COLLRUNTTTTSTM^2)+I(COLLRUNTTTTSTM$COLLRUNTTTTSTM^3),na.action="na.omit")
@@ -150,5 +152,3 @@ summary(fit2)
 summary(fit3)
 summary(fit4)
 summary(fit5)
-
-
