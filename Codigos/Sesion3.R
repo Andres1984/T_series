@@ -36,9 +36,9 @@ S3
 
 ## Hacerlo para 12 números en una sola función
 
-x=matrix(rep(0,100),nrow=50,ncol=50)
-for (i in 1:1000) {
-  x[i,]=rnorm(i)
+x=rep(0,100)
+for (i in 1:100) {
+  x[i]=rnorm(i)
 }
 
 x
@@ -55,9 +55,47 @@ S[i+1]=S[i]+(mu*S[i]*1+sigma*S[i]*rnorm(i))
 S=as.data.frame(S)
 
 
+SM <- matrix(data = rep(0,1200 ), nrow = 100, ncol =12)
+SM[,1]<-as.numeric(tail(MSFT$MSFT.Close,1))
 
 
+x=matrix(data = rnorm(1200), nrow = 100, ncol =12)
+for (i in 1:nrow(x)) {
+  for (c in 2:ncol(x)){ 
+  x[i,c]=rnorm(i)
+}
+}
+x
+rnorm(r,c)
 
+alpha <- numeric(x)
+beta <- numeric(x)
+
+
+# Create the loop with r and c to iterate over the matrix
+for (r in 1:dim(SM)[1])  {  
+  for (c in 2:dim(SM)[2]-1) { 
+    
+    SM[r,c+1]=SM[r,c]+(mu*SM[r,c]*1+sigma*SM[r,c]*x[r,c])
+  }
+}
+      
+
+SM=as.data.frame(SM)
+
+SM=t(SM)
+tiempo=0:11
+par(mfrow=c(2,2))
+matplot(tiempo,SM[,1:100],  type='l')
+
+library(dplyr)
+EVSM=rowMeans(SM)
+VOLSM=sqrt(rowMeans(SM^{2})-EVSM^{2})
+SMC=as.data.frame(EVSM)
+SMC=mutate(SMC, VOLSU =EVSM+VOLSM)
+SMC=mutate(SMC, VOLSD =EVSM-VOLSM)
+
+matplot(SMC[,], type='l')
 
 ## Rolling con un año.
 
@@ -93,7 +131,10 @@ RS$M=MSFTM
 RMSE=sqrt((sum((RS$RS-RS$M)^2)/12))
 RMSE
 library(Metrics)
-rmse(RS$RS,RS$M)
+rmse(RS$RS,RS$M) 
 mae(RS$RS,RS$M)
 mape(RS$RS,RS$M)
+
+
+## Promedio Movil
 
