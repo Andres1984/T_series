@@ -2,7 +2,7 @@
 
 ## Pronóstico
 
-
+set.seed(12345)
 
 library(quantmod)
 getSymbols("MSFT", src="yahoo", from="2018-07-01",to="2019-07-21")
@@ -66,10 +66,7 @@ for (i in 1:nrow(x)) {
 }
 }
 x
-rnorm(r,c)
 
-alpha <- numeric(x)
-beta <- numeric(x)
 
 
 # Create the loop with r and c to iterate over the matrix
