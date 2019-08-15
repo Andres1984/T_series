@@ -20,16 +20,16 @@ S0=as.numeric(tail(MSFT$MSFT.Close,1))
 S0
 
 
-dS1=mu*S0*1+sigma*S0+rnorm(1)
+dS1=mu*S0*1+sigma*S0*rnorm(1)
 S1=S0+dS1
 S1
 
 
-dS2=mu*S1*1+sigma*S1+rnorm(1)
+dS2=mu*S1*1+sigma*S1*rnorm(1)
 S2=S1+dS2
 S2
 
-dS3=mu*S2*1+sigma*S2+rnorm(1)
+dS3=mu*S2*1+sigma*S2*rnorm(1)
 S3=S2+dS3
 S3
 
