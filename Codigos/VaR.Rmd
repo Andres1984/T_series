@@ -1,0 +1,620 @@
+---
+title: "Valor en Riesgo"
+author: "Andrés Martínez"
+date: "18 8 2019"
+output: html_document
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message=FALSE)
+
+
+```
+
+
+```{r, echo=FALSE, message=FALSE,results='hide',warning=FALSE}
+#install.packages("bookdown")
+#Librerias que se van a utilizar
+library(quantmod)# Descarga de datos
+library(kableExtra)# Tablas
+library(quantmod)# Descarga de datos
+library(knitr)#R Markdown
+library(psych)# Medidas descriptivas
+library(dplyr)# Transformación de tablas
+library(plotly)# Gráficos Interactivos
+library(ggplot2)# Gráficos 
+library(corrplot)# Gráfico de Correlación
+library(derivmkts)# Pronóstico de Precios
+library(quadprog)# Programación puede necesitar otra actualización dependiendo de la versión del R
+library(latex2exp)
+
+
+```
+
+## Introducción
+
+En este ejercicio usaremos la acción de 3M para obtener el VaR por los métodos aprendidos en clase. Asuma que se invierten $\$800.000$ dólares por un mes y se desea saber cuál llegaría a ser la máxima perdida.
+
+
+```{r, echo=FALSE, message=FALSE,results='hide',warning=FALSE}
+library(quantmod)# Descarga de datos
+
+getSymbols("MMM",src='yahoo',from="2018-01-01",to="2019-08-01")
+
+```
+
+
+Como parte de la exploración de datos, primero se revisarán los precios de cierre en el período observado para determinar si existen tendencias o ciclos que permitan comparar el comportamiento del precio de cada una.
+
+```{r Precios, fig.width = 8, fig.height = 4,fig.cap=" Precios Acciones", echo=FALSE, message=FALSE}
+
+plot(MMM$MMM.Close,type="l")
+
+```
+
+
+
+
+
+```{r vol, echo=FALSE, message=FALSE,fig.cap='Rendimientos'}
+mmm = Delt(MMM$MMM.Close) # Rendimientos
+mmm=mmm[-1,]
+
+plot(mmm)
+
+
+
+
+```
+
+## VaR Paramétrico
+
+
+
+De acuerdo a los visto en clase, el VaR paramétrico se calcula de la siguiente forma:
+
+\begin{equation}
+VaR=I\times N(I)\times \sigma\times \sqrt{t}
+\end{equation}
+
+
+
+
+Por lo tanto se obtiene la desviación estandar de tesla más el percentil 0,05 de la distribución normal.Si se invierten $800.000 usd a 20 días entonces:
+
+
+$VaR=800.000\times 1.64 \times 0.0156\times  \sqrt{20}$
+
+```{r, echo=FALSE, message=FALSE}
+VaRP=800000*qnorm(0.05)*  sd(mmm)*sqrt(20)*-1
+VaRP
+
+  
+  
+```
+
+Una persona puede llegar a perder $91.610 dólares si inverte en 3M durante un mes.
+
+Se calcula para un horizonte de 
+
+
+
+## VaR no Paramétrico
+
+
+```{r, echo=FALSE, message=FALSE,fig.cap='Rendimientos'}
+options(digits = 3)
+q=quantile(mmm,probs=c(0.025,0.05,0.1))
+hist(as.numeric(mmm),breaks=30,main="VaR no paramétrico",xlab="Rendimientos MMM", col="blue")
+abline(v = quantile(mmm,probs=c(0.025,0.05,0.1)), col="red", lwd=3, lty=2)
+
+
+
+```
+```{r, echo=FALSE, message=FALSE}
+VaRH=800000*q[2]*sqrt(20)*-1
+VaRH
+q[2]
+```
+
+Si se estima el mismo VaR a través de este método, entonces
+
+$VaRH=800000\times -0.0237\times \sqrt{20}= \$84.782$
+
+## Modelo Binomial para Acciones.
+
+Diversos autores han buscado representar los movimientos de los instrumentos financieros que están sujetos bajo incertidumbre. Muchos de ellos han optado por usar un modelo binomial, pues brinda las herramientas básicas a través de una tasa de interés y la volatilidad para mostrar los posibles cambios del precio de una acción, en un horizonte de tiempo determinado. En este espacio se usa el modelo que plantearon @cox1979option en donde se establece una probabilidad de acuerdo a dos supuestos:
+
+*La ausencia de arbitraje que es necesaria para mantener el escenario de incertidumbre.
+
+*Los rendimientos tienen una distribución normal $ln\Big(\frac{S_{t}}{S_{t-1}}\Big)\sim N(\mu t, \sigma^{2}t)$ donde $ln\Big(\frac{S_{t}}{S_{t-1}}\Big)$ son los rendimientos del precio de un instrumento financiero al momento $S_{t}$. 
+
+Se puede ver también que tanto $\mu$ como $\sigma^{2}$ se multiplican por $t$ dado que estamos hablando de variables que miden el valor del dinero en el tiempo.
+
+### El cálculo de  la probabilidad con ayuda de la combinación de conceptos de estadística 1 y  matemática financiera.
+
+
+Si bien la probabilidad que se ha abordado hasta este momento está relacionada con el cálculo de las frecuencias absolutas y relativas, se pueden usar también los conceptos de matemática financiera para encontrar una medida que permita determinar con qué probabilidad puede subir el precio de un instrumento financiero, y por consiguiente con qué probabilidad puede bajar el precio de una acción.
+
+Como se mencionó anteriormente es importante que no exista arbitraje en este modelo, ya que la no ausencia de arbitraje genera que la incertidumbre se pierda y el resultado sea seguro produciendo un evento determinista como los que se trabajan en matemática financiera.
+
+Para garantizar que el modelo se puede desarrollar se establece la siguiente desigualdad:
+
+\begin{equation}
+D<(1+r)<U
+(\#eq:ARB)
+\end{equation}
+
+Donde $D$ es la magnitud cuando el precio cae y $U$ es la magnitud cuando el precio sube, por otra parte $r$ es la tasa libre de riesgo. Como se puede ver en la desigualdad \@ref(eq:ARB) la tasa libre de riesgo que es la misma tasa de interés, debe encontrarse en la mitad de las posibilidades cuando el precio de un instrumento financiero sube o baja.
+
+El cálculo de $U$ se obtiene con ayuda de la desviación estándar que en finanzas es la volatilidad, multiplicada por la raíz del tiempo, la raíz del tiempo  se da porque como se mencionó desde el inicio del documento, los rendimientos tienen una distribución normal y como ellos nos dan el valor del dinero en el tiempo, siempre se deben multiplicar por $t$ para obtener la equivalencia deseada en términos de tiempo( De igual forma que se plantea la equivalencia de tasas en Matemática Financiera). Dado que los parámetros de una distribución normal son media y varianza, cada una debe ser multiplicada por $t$ entonces al obtener la raíz cuadrada de la varianza, se obtiene la desviación estándar multiplicada por la raíz de $t$.
+
+Estos procesos se calculan a través de procesos continuos por lo tanto el valor al que sube un precio se obtiene con $U=e^{\sigma\sqrt{t}}$ mientras que el valor del precio cuando baja se obtiene con $D=e^{-\sigma\sqrt{t}}$.
+
+
+Para calcular la probabilidad de este modelo, primero se define la magnitud del crecimiento y el decrecimiento del precio $S$ de un activo de acuerdo al nivel de riesgo, que en estadística 1 se conoce como la desviación estandar. De esta manera  se representan las subidas $U=e^{\sigma\sqrt{t}}$ y bajadas $D=e^{-\sigma\sqrt{t}}$ de los precios. El ejemplo de la moneda sirve de introducción pata entender este proceso, en donde el resultado de una  moneda que cae en cara $H=1$ genera un incremento en los ingresos, mientras que un resultado contrario sello $T=-1$,disminuyen los ingresos. Además, a mayor lanzamiento de monedas, mayor probabilidad de aumentar o disminuir las ganancias. 
+
+El número del lanzamiento de cada moneda se da por el literal $n$, de esta forma si se quiere conocer el valor del precio de una acción después de lanzar la moneda $n$ veces, se está buscando el valor $S_{n}$
+
+
+Antes de empezar se describe el conjunto $\Omega$ de todos los posibles resultados para el lanzamiento de una moneda.
+
+\begin{align}
+\Omega=\{U,D\}^{n}=\{(\omega_{1},\omega_{2},...,\omega_{n}\}; \omega_{i}=U \quad o \quad \omega_{i}=D
+\label{eq:omea}
+\end{align}
+
+En donde los resultados que se generan en $\Omega$ se ven reflejados en el espacio de los números reales $\mathbb{R}$.
+
+
+\begin{align}
+X_{n}=\Omega \rightarrow \mathbb{R} \quad \omega \rightarrow \omega_{n}
+\end{align}
+
+Por un lado se tienen los resultados cuando la moneda cae en cara
+
+
+\begin{align}
+H_{i}: \Omega \rightarrow \mathbb{R} \quad \omega \rightarrow \# \{j \leq i :\omega_{j}=U\}
+\end{align}
+
+Y por otro lado se tienen los resultados cuando la moneda cae sello.
+
+\begin{align}
+T_{i}: \Omega \rightarrow \mathbb{R} \quad \omega \rightarrow \# \{j \leq i :\omega_{j}=D\}
+\end{align}
+
+El precio de una acción al momento $S_{n}$ se da entonces por la multiplicación de los resultados de la variable aleatoria $X_{n}$ que son los resultados de la moneda por $S_{0}$.
+
+\begin{equation}
+S_{n}=S_{0}\Pi_{i=1}^{n}X_{i}=S_{0}U^{H_{n}}D^{T_{n}}
+(\#eq:PSMB)
+\end{equation}
+
+
+
+
+El valor esperado del precio se calcula con ayuda de la función de distribución binomial y la definición de valor esperado:
+
+\begin{equation}
+E [X]=\sum_{i=0}^{n} p_{i}X_{i}
+(\#eq:CRR1DVD)
+\end{equation}
+
+
+\begin{equation}
+P(X=x)=\binom{n}{x}  p^{x}q^{n-x}
+(\#eq:binom)
+\end{equation}
+
+Donde $p$ y $q$ son probabilidades, $n$ el número de escenarios y $x$ el valor que se desea obtener. Combinando \@ref(eq:binom) con \@ref(eq:PSMB) de acuerdo a los resultados de cara y sello se puede crear el valor esperado definido  para una variable discreta y aplicandoló al precio de una acción usando la función de distribución binomial. 
+
+
+\begin{equation}
+E [S_{n}]=\sum_{i=0}^{n}\binom{n}{i}  p^{i}(1-p )^{n-i}S_{0}U^{i}D^{n-i}
+\end{equation}
+
+
+
+El valor esperado se obtiene con ayuda de la definición discreta para una acción que es la combinación entre la definición de valor esperado  de una variable discreta y la definición de probabilidad  así como la ecuación para proyectar el precio, donde la variable aleatoria es el precio y la probabilidad es la función de distribución binomial.
+
+
+
+La varianza se calcula aplicando la propiedad $Var[x]=E[S_{n}^{2}]-E[S_{n}]^{2}$ junto con la ecuación \@ref(eq:CRR1).
+
+
+
+La probabilidad en este modelo, se puede obtener con los conceptos de matemática financiera, si bien hasta ahora los estudiantes han visto solo dos formas de obtener la probabilidad (Frecuencias y Subjetivas), modelos como el que se va a utilizar para proyectar los precios, ofrecen otras alternativas  usando conceptos financieros.
+
+\begin{equation}
+p = \frac{(1+r)-D}{U-D}
+(\#eq:pq)
+\end{equation}
+
+Se puede ver en  \@ref(eq:ARB) $p$ es el resultado de la combinación entre la tasa libre de riesgo y la posibilidad de que el precio suba o baje. Usando la propiedad de la probabilidad en donde $P(A^{c})=1-P(A)$ se puede obtener $q=1-p$.
+
+
+Con todas las variables del modelo, se puede proceder a generar un escenario para las cuatro acciones que se han trabajado hasta este momento.
+
+
+Para un mejor compresión del proceso, primero se van a crear un árbol binomial que muestre el comportamiento de la accion usando los parámetros del modelo binomial. Con la libreria derivmkts y la función binomplot, se puede generar un proceso binomial usando un precio inicial, la desviación estandar de los rendimientos, la tasa de interés y el número de períodos que se desea trabajar.
+
+
+
+```{r AB,fig.cap="Árbol Binomial", fig.width = 8, fig.height = 8,echo=FALSE, message=FALSE,warning=FALSE,echo=FALSE}
+library(derivmkts)
+
+binomplot(as.numeric(tail(MMM$MMM.Close, n=1)), 0, sd(mmm)*sqrt(5), (1.0231)^(1/52)-1,  4,0, nstep=4, american=TRUE, putopt=TRUE,
+          plotvalues=TRUE, plotarrows=TRUE,titles = FALSE,pointsize = 0,crr=TRUE)
+title("3M")
+
+```
+
+El proceso final es  un pronóstico de los precios de cada acción para un mes dividido en cuatro semanas como se observa en la figura \@ref(fig:AB) , se puede ver en que la varianza genera que el precio aumente y se aleje de la media a medida que avanzan las semanas(Aumentan los ensayos). A mayor horizonte de tiempo, mayor sera el grado de dispersión con respecto al valor esperado. 
+
+
+```{r  echo=FALSE, message=FALSE,warning=FALSE}
+#Precio Futuro bajo incertidumbre
+PFI <- function(X0, u , d , N ) {
+  X <- c()
+  X[1] <- X0
+  count <- 2
+  
+  for (i in 1:N) {
+    for (j in 0:i) {
+      X[count] <- X0 * u^j * d^(i-j)
+      count <- count + 1
+    }
+  }
+  return(X)
+}
+
+
+
+```
+
+
+Usando la  ecuacion \@ref(eq:PSMB) que construye el precio para un modelo binomial y la distribución binomial, se procede a calcular el valor esperado  y la varianza de cada una de las acciones.
+
+
+```{r  echo=FALSE, message=FALSE,warning=FALSE}
+
+
+ummm=exp(sd(mmm)*sqrt(5))
+dmmm=1/ummm
+
+
+N=4
+
+SMMM=PFI(as.numeric(tail(MMM$MMM.Close, n=1)), ummm, dmmm , N)
+
+
+
+
+p1=((1.0231)^(1/52)-dmmm)/(ummm-dmmm)
+
+
+pmmm=rep(0, N+1)
+
+
+pmmm[1]=dbinom(0, N,p1,log = FALSE)
+
+
+
+for (i in 1:N){
+  
+  pmmm[i+1]=dbinom(i, N, p1,log = FALSE)
+  
+  
+  
+}
+
+
+
+
+
+
+```
+
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+EVMMM=sum(pmmm*SMMM[11:15])
+EVmmm=sum(pmmm*SMMM[11:15]^2)
+volmmm= sqrt(EVmmm-EVMMM^2)
+cvmmm=volmmm/EVMMM
+VaRMB=EVMMM-2*volmmm
+VaRMB=log(VaRMB/as.numeric(tail(MMM$MMM.Close, n=1)))*800000*-1
+
+```
+
+
+
+En este pronóstico en comparación con el VaR usando datos históricos se puede ver que la estimación es mucho mayor, en parte porque 
+
+```{r echo=FALSE, message=FALSE,warning=FALSE}
+
+
+result=matrix(c(EVMMM,volmmm,cvmmm,VaRMB),nrow=4,ncol = 1)
+colnames(result)=c("3M")
+rownames(result)=c("EV","VOL","CV","VaR")
+
+result=as.data.frame(result)
+
+kable(result, booktabs=TRUE,caption = "Resultados") %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+```
+
+Los resultados muestran que en un mes los precios pueden estar variando hasta 150.64 dólares 
+
+
+Aunque se pueden obtener resultados completos con el modelo binomial, también es importante aclarar que se debe tener cuidado con el manejo de las estrategias, puesto que al tratarse de temas discretos, se están obviando un más de un centenar de posibilidades de variación del precio. Esto se puede resolver con ayuda de la implementación de modelos continuos que generan una mayor cantidad de escenarios y proponen otras alternativas que no se pueden ver en un escenario discreto dada su limitada capacidad de generación de escenarios.
+
+
+## Modelo Continuo para acciones
+
+El papel de las  funciones de distribución binomial y normal, es generar procesos aleatorios para generar escenarios que permitan obtener una aproximación a los eventos futuros.Así como en el anterior modelo la función de distribución binomial buscaba a través de la probabilidad medir el efecto aleatorio en el precio, en la distribución normal  el efecto se genera sobre la volatilidad (desviación estandar) del rendimiento del activo para crear  caminatas aleatorias que permitirán representar el precio de un instrumento financiero que está sujeto a incertidumbre.
+
+Para realizar el modelo de forma continua, es necesario entender porque se puede transformar un proceso discreto en uno continuo.
+
+En este caso usamos el teorema del límite central que propone la representación de ciertas distribuciones discretas en forma continua, en este caso  la relación que se espera obtener, es la que se encuentra entre la función de distribución binomial y la función de distribución normal.
+
+
+Como se sabe, la distribución normal es aquella que trabaja con variables continuas y que tiene parámetros de media $\mu$ y varianza $\sigma^{2}$, por lo tanto, se dice que una variable aleatoria continua se distribuye $X\sim(\mu,\sigma^{2})$, dado que estas variables obtienen sus parámetros derivados de su comportamiento en el tiempo, entonces se puede decir que  $X_{t}\sim(\mu t, \sigma^{2}t)$ donde $t$ hace referencia al tiempo en el cuál se está valorando la variable. 
+
+
+La función de densidad de la distribución normal se define así:
+
+\begin{equation}
+f(x_{t})=\frac{1}{\sqrt{2\pi\sigma^{2}}}e^{-(x-\mu)^{2}/2\sigma^{2}}
+\end{equation}
+Donde $\mu$ es la media y $\sigma^{2}$ la varianza.
+
+
+
+### Aproximación de la distribución binomial a la distribución normal 
+
+Sea $X$ cualquier variable aleatoria que tiene distribución binomial con parámetros $n$ y $p$.
+
+
+\begin{itemize}
+
+\item[a] Si $n\geq 30$, entonces la distribución binomial se puede aproximar a la distribución normal con $\mu=np$ y $\sigma^{2}=npq$
+\item[b] Si $np\geq 5$ y $n(1-p)\geq 5$, entonces también la distribución binomial se puede aproximar a la distribución normal con $\mu =np$, y $\sigma^{2}=npq$.
+
+En cualquiera de los casos se cumple que 
+
+\begin{equation}
+P(X\leq k)=B(k;n;p)=N\Big(\frac{k+0.5-np}{\sqrt{npq}}\Big)
+(\#eq:abn)
+\end{equation}
+
+La aproximación que se acaba de nombrar en la ecuación de probabilidad, establece que a mayor cantidad de ensayos, es más probable que estos se puedan leer a través de los parámetros de la distribución normal. Nuevamente se aclara que en este ejercicio se trabaja con la media y la varianza de los rendimientos, pues son estos los que presentan un comportamiento de una distribución normal ya que los precios presentan por lo general otro tipo de distribución.
+
+## Aplicación general
+
+La representación de los precios se hace con ayuda de los conceptos básicos de matemática financiera, en donde el valor futuro de un activo se calcula con ayuda del valor actual y un promedio geométrico en el tiempo que determina a que velocidad está creciendo el dinero.
+
+Sin embargo, la tasa a la que crecen los instrumentos financieros sujetos a incertidumbre contiene además de la tasa libre de riesgo, la volatilidad asociada a los rendimientos, ya que si se busca una mayor rentabilidad haciendo una inversión en una acción, esta debe ser mayor a la tasa libre de riesgo.
+
+Siendo $r$ la tasa libre de riesgo, el rendimiento promedio de un activo debería ser igual a $\mu=r+\frac{1}{2}\sigma^{2}$ donde $\sigma$ es la desviación estándar de los rendimientos, también conocida como la volatilidad. Usando los conceptos de estadística descriptiva, estos son la media y la desviación estándar.
+
+
+El concepto de valor del dinero en el tiempo en términos continuos se da por la ecuación
+
+\begin{equation}
+VF=VAe^{rt}
+\end{equation}
+
+Donde $VF$ es el valor futuro, $VA$ el valor actual, $r$ la tasa libre de riesgo y $t$ el tiempo. Esta ecuación es perfecta para un proceso determinista o un activo libre de riesgo que solo crece a una tasa $r$. 
+
+
+Una acción por otra parte podría valorarse de la siguiente forma:
+
+\begin{align}
+S_{t}=S_{0}e^{\mu t}
+
+\end{align}
+
+Donde $S_{t}$ es el precio futuro de la acción, $S_{0}$ el valor presente, $\mu$ la media de los rendimientos de la acción y $t$ el tiempo.
+
+Aunque a simple vista parece razonable, si se gráfica esta ecuación se podrá ver que el resultado no refleja realmente el comportamiento de una acción, ya que crece a una tasa constante. Por lo tanto, es necesario agregarle el proceso generador de la incertidumbre que está ligado a la volatilidad de los rendimientos y que en estadística 1 se conoce como el proceso de distribución normal estandar que tiene media $\mu=0$ y varianza $\sigma^{2}=1$ $X\sim Z(0,1)$.
+
+\begin{equation}
+S_{t}=S_{0}e^{\mu t+\sigma \sqrt{t}Z}
+
+\end{equation}
+
+
+Esta ecuación  se encuentra desarrollada en  diferentes modelos aplicados a finanzas y se puede encontrar en el libro de @hull2013fundamentals. Esta ecuación  representa de forma aproximada los movimientos del precio de una acción incluyendo el proceso de incertidumbre generado por la distribución normal. Se puede ver además que a diferencia de la ecuación de valor futuro, la ecuación estocásitca  tiene la desviación estándar $\sigma$ que es la raíz de la varianza, la raíz del tiempo $\sqrt{t}$ y $Z$ que es la distribución normal estándar y es la que se encarga de generar el proceso aleatorio.
+
+La representación gráfica del proceso se hace con ayuda de tres lineas en donde se representa  un proceso determinista como los que se abordan en matemática financiera,  un proceso aleatorio que se mueve con ayuda del tiempo y una variación estandar reflejando los procesos que se presentan en estadística y por último un proceso que refleja la unión de las dos asignaturas y que da como reslutado la representación de un instrumento financiero.
+
+
+```{r MTE,fig.cap= "Precios Instrumentos Financieros",echo=FALSE, message=FALSE, warning=FALSE}
+set.seed(123)
+maturity <- 15
+simulation.length <- 1000
+dt <-  maturity/(simulation.length-1)
+
+tiempo <- seq(0,maturity, dt)
+
+S0<-1
+r<-0.05
+mu<-0.1
+mu0<-0.2
+sigma<-0.2
+sigma0<-0.375
+
+f <- h <- h0 <- rep(0, times=simulation.length)
+ h0[1]  <-  h[1] <- S0
+
+for(i in 2:simulation.length){
+  f[i] <- f[i-1]+sqrt(dt)*rnorm(1)
+  h[i] <- h[1]*exp((mu0-sigma0^2/2)*(i-1)*dt+sigma0*f[i])
+  h0[i] <- h0[1]*exp(mu0*(i-1)*dt)
+}
+
+o_range <- range(f,h,h0)
+
+plot(tiempo,f, ylim=o_range, type="l", col="coral1")
+lines(tiempo,h, col="deepskyblue1")
+lines(tiempo,h0, col="chartreuse3")
+
+title(main="Precios de un Instrumento Financiero", col.main="blue", font.main=4)
+
+
+
+legend(1, o_range[2], c("Con Volatilidad","Sin Volatilidad ","Distribución Normal"), cex=0.8, 
+       col=c("deepskyblue1","chartreuse3","coral1"), pch=1, lty=1)
+```
+
+
+La figura de precios de un instrumento financiero  muestra el precio de una acción en verde cuando solo crece a una tasa $\mu$ a lo largo del tiempo como lo muestra la ecuación  que es un proceso determinista, en este caso el efecto de la volatilidad y la distribución normal no genera un efecto directo sobre el precio de la acción y por esa razón solo se aprecia una linea verde sin variaciones y con un crecimiento constante.
+
+La linea roja es una caminata aleatoria construida con la ayuda de una distribución normal a través de una linea de tiempo, se puede ver que las observaciones se forman de manera aleatoria y por eso se ve un gráfico errático creado usando los conceptos de una distribución normal. Por último se tiene la linea azul que es la combinación de la linea verde y la linea roja como en la  ecuación  que tiene en cuenta a $\mu$ y a $\sigma$ multiplicada por la distribución normal, ese efecto genera que la linea azul realmente refleje el comportamiento del precio de una acción en un horizonte de tiempo.
+
+
+Sin embargo, para implementar el concepto de valor esperado y varianza, es importante entender que se debe generar una cantidad considerable de escenarios que garantice que se está teniendo en cuenta absolutamente la mayoría de las posibilidades que puede llegar a tener el precio de una acción en el futuro no solo uno,por lo tanto, el siguiente paso consiste en generar los posibles eventos para poder calcular el valor esperado y la varianza del precio de una acción.
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+## Proceso Continuo
+set.seed(123)
+caminatas <- function(s0, mu, sigma, 
+                        nsims, 
+                        periods   # tiempo en el que se hace la simulación
+) 
+{
+  
+  s0 = as.vector(s0)
+  nsteps = length(periods)
+  dt = c(periods[1], diff(periods))
+  
+  if( length(s0) == 1 ) {
+    drift = mu - 0.5 * sigma^2
+    if( nsteps == 1 ) {
+      s0 * exp(drift * dt + sigma * sqrt(dt) * rnorm(nsims))
+    } else {
+      temp = matrix(exp(drift * dt + sigma * sqrt(dt) * rnorm(nsteps * nsims)), nc=nsims)
+      for(i in 2:nsteps) temp[i,] = temp[i,] * temp[(i-1),]
+      s0 * temp
+    }
+  } else {
+    require(MASS)
+    drift = mu - 0.5 * diag(sigma)
+    n = length(mu)
+    
+    if( nsteps == 1 ) {
+      s0 * exp(drift * dt + sqrt(dt) * t(mvrnorm(nsims, rep(0, n), sigma)))
+    } else {
+      temp = array(exp(as.vector(drift %*% t(dt)) + t(sqrt(dt) * mvrnorm(nsteps * nsims, rep(0, n), sigma))), c(n, nsteps, nsims))
+      for(i in 2:nsteps) temp[,i,] = temp[,i,] * temp[,(i-1),]
+      s0 * temp
+    }
+  }
+}
+
+
+
+```
+
+Para generar las simulaciones, es necesario crear una función que realice cada uno de los escenarios. Esta función se bautizó con el nombre de caminatas y utiliza cuatro parámetros para crear las simulaciones. El primer parámetro es el precio inicial $S_{0}$, que para este ejercicio es el último precio registrado de cada acción, el segundo parámetro es $\mu$ que es la media de los rendimientos, el tercero es la volatilidad $\sigma$ que pertenece también a los rendimientos. 
+
+
+El siguiente parámetro corresponde al número de simulaciones que en este caso son 1000, y el último parámetro es el número de períodos que es un vector que va desde cero a veinte haciendo referencia al número de días que se desea pronosticar que son 20.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+S = c(as.numeric(tail(MMM$MMM.Close, n=1)))
+mu = c(mean(mmm))
+sigma = c(sd(mmm))
+
+N = 10000
+```
+
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+periods = 0:20
+MMMC = caminatas(S[1], mu[1], sigma[1], N, periods = periods)
+```
+
+```{r TMB,fig.cap="Pronóstico de Precios",fig.width = 8, fig.height = 8,echo=FALSE, message=FALSE,warning=FALSE,echo=FALSE}
+tiempo=0:20
+
+matplot(tiempo,MMMC[,1:1000], type='l', xlab='días', ylab='Precios',
+        main='Escenarios 3M')
+
+```
+
+
+Una vez que se generan las simulaciones con ayuda de la función caminatas como en la figura, se logra obtener la figura de cada una de las acciones en donde se genera un tornado mostrando todos los posibles escenarios de cada uno de los precios de las acciones.
+
+
+Aunque esto ofrece mayor información que el modelo generado a través del proceso binomial, es mejor obtener el valor esperado y la varianza de cada uno de los períodos y graficarlos para obtener un mejor panorama del comportamiento de los precios de las acciones para el próximo mes.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(dplyr)
+EVMMMC=rowMeans(MMMC)
+VOLMMMC=sqrt(rowMeans(MMMC^{2})-EVMMMC^{2})
+MMMRC=as.data.frame(EVMMMC)
+MMMRC=mutate(MMMRC, VOLMA =EVMMMC+VOLMMMC)
+MMMRC=mutate(MMMRC, VOLMI =EVMMMC-VOLMMMC)
+TMMMC=t(MMMC)
+VAR0.05=rep(0,20)
+for (i in 1:dim(TMMMC)[2]){
+VAR0.05[i]=quantile(TMMMC[,i],0.05)
+}
+MMMRC$VAR0.05=VAR0.05
+VAR0.01=rep(0,20)
+for (i in 1:dim(TMMMC)[2]){
+VAR0.01[i]=quantile(TMMMC[,i],0.01)
+}
+MMMRC$VAR0.01=VAR0.01
+
+
+```
+
+
+```{r VEX,fig.cap="Valor esperado y Varianza",fig.width = 8, fig.height = 8,echo=FALSE, message=FALSE,warning=FALSE,echo=FALSE}
+
+
+matplot(MMMRC[,], type='l', xlab='días', ylab='Precios',
+        main='Escenarios 3M', cex= 10.8 )
+text(10, 178, TeX("$S_{t}=S_{t-1}+ \\mu S_{t-1}dt+ \\sigma S_{t-1} \\sqrt{t} Z$"))
+text(15, 158, TeX("$VaR0.05$"))
+text(15, 150, TeX("$VaR0.01$"))
+
+```
+
+Finalmente, después de obtener el valor esperado de cada período y la desviación estandar de cada uno de los precios de las acciones para los próximos veinte días, se pueden graficar los resultados mostrando que al menos tres acciones tienen una tendencia al alza como se observa en la figura , la desviación estándar se presenta dentro de escenarios normales para cada acción aunque para comparar las acciones es mejor examinar nuevamente el coeficiente de variación de cada una. El VaR por otra parte se obtiene con los percentiles $1\%$ y $5\%$.
+
+```{r , echo=FALSE, warning=FALSE,message=FALSE}
+
+VaRSM0.5=log(MMMRC$VAR0.05[21]/MMMRC$EVMMMC[1])*800000*-1
+
+VaRSM0.5
+
+```
+
+
+
+Obteniendo el VaR al $5\%$ por simulación montecarlo, la máxima perdida esperada es de $\$ 103.412.3$ dólares.
+
+## Resultados Finales
+
+
+```{r, echo=FALSE, warning=FALSE,message=FALSE}
+
+result=matrix(c(VaRP,VaRH,VaRMB,VaRSM0.5),nrow=4,ncol = 1)
+colnames(result)=c("3M")
+rownames(result)=c("VaRP","VaRH","VaRMB","VaRSM0.5")
+
+result=as.data.frame(result)
+
+kable(result, booktabs=TRUE,caption = "Resultados") %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+```
