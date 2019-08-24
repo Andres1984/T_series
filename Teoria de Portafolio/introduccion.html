@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Teoría de Portafolio</title>
+  <meta name="description" content="Teoría de Portafolio">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="Teoría de Portafolio" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Teoría de Portafolio" />
+  
+  
+  
+
+<meta name="author" content="Andrés Martínez">
+
+
+<meta name="date" content="2019-06-19">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+
+<link rel="next" href="procesos-de-incertidumbre.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.8.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.39.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.39.2/plotly-latest.min.js"></script>
+
+
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="introduccion.html"><a href="introduccion.html"><i class="fa fa-check"></i><b>1</b> Introducción</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduccion.html"><a href="introduccion.html#inicio-del-caso."><i class="fa fa-check"></i><b>1.1</b> Inicio del caso.</a></li>
+<li class="chapter" data-level="1.2" data-path="introduccion.html"><a href="introduccion.html#medicion-y-analisis-a-traves-de-procesos-descriptivos."><i class="fa fa-check"></i><b>1.2</b> Medición y análisis a través de procesos descriptivos.</a></li>
+<li class="chapter" data-level="1.3" data-path="introduccion.html"><a href="introduccion.html#diversificacion-de-un-portafolio."><i class="fa fa-check"></i><b>1.3</b> Diversificación de un portafolio.</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="introduccion.html"><a href="introduccion.html#ejemplo-para-dos-activos"><i class="fa fa-check"></i><b>1.3.1</b> Ejemplo para dos activos</a></li>
+<li class="chapter" data-level="1.3.2" data-path="introduccion.html"><a href="introduccion.html#implementando-titulos-de-renta-fija."><i class="fa fa-check"></i><b>1.3.2</b> Implementando títulos de renta fija.</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="procesos-de-incertidumbre.html"><a href="procesos-de-incertidumbre.html"><i class="fa fa-check"></i><b>2</b> Procesos de incertidumbre</a><ul>
+<li class="chapter" data-level="2.1" data-path="procesos-de-incertidumbre.html"><a href="procesos-de-incertidumbre.html#modelo-binomial-para-acciones."><i class="fa fa-check"></i><b>2.1</b> Modelo Binomial para Acciones.</a></li>
+<li class="chapter" data-level="2.2" data-path="procesos-de-incertidumbre.html"><a href="procesos-de-incertidumbre.html#modelo-continuo-para-acciones"><i class="fa fa-check"></i><b>2.2</b> Modelo Continuo para acciones</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="procesos-de-incertidumbre.html"><a href="procesos-de-incertidumbre.html#aproximacion-de-la-distribucion-binomial-a-la-distribucion-normal"><i class="fa fa-check"></i><b>2.2.1</b> Aproximación de la distribución binomial a la distribución normal</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="procesos-de-incertidumbre.html"><a href="procesos-de-incertidumbre.html#aplicacion-general"><i class="fa fa-check"></i><b>2.3</b> Aplicación general</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="procesos-de-incertidumbre.html"><a href="procesos-de-incertidumbre.html#diseno-de-una-estrategia-de-inversion."><i class="fa fa-check"></i><b>2.3.1</b> Diseño de una estrategia de inversión.</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="procesos-de-incertidumbre.html"><a href="procesos-de-incertidumbre.html#conclusion"><i class="fa fa-check"></i><b>2.4</b> Conclusión</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Teoría de Portafolio</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">Teoría de Portafolio</h1>
+<p class="author"><em>Andrés Martínez</em></p>
+<p class="date"><em>2019-06-19</em></p>
+</div>
+<div id="introduccion" class="section level1">
+<h1><span class="header-section-number">1</span> Introducción</h1>
+<p>Para un inversionista que desea armar una cartera, es decir, poseer acciones en diferentes instrumentos financieros, surge el siguiente problema: quiere invertir en los instrumentos financieros dados de tal manera que la cartera dada por esta inversión tenga el mayor rendimiento posible, por un lado, pero por otro lado Tiene el menor riesgo posible de pérdida.</p>
+<p>Teóricamente, puede lograr un rendimiento esperado arbitrariamente alto al realizar una venta corta de un instrumento financiero de bajo rendimiento esperado e invertir el préstamo recibido en un instrumento financiero de alto rendimiento esperado. Sin embargo, con el retorno esperado, el riesgo de pérdida de su estrategia de inversión también aumenta y es teóricamente ilimitado. A la inversa, las carteras particularmente de bajo riesgo generalmente solo prometen un rendimiento esperado relativamente bajo. Por lo tanto, las reclamaciones de minimización de riesgo y maximización de rendimientos no pueden cumplirse simultáneamente.</p>
+<p>En ausencia de una mejor cartera a nivel mundial, el enfoque de Markowitz, también denominado enfoque de varianza de expectativas, ofrece un compromiso entre las afirmaciones de maximizar los retornos y minimizar el riesgo. Se produce esencialmente en dos formas, que son:</p>
+<ol style="list-style-type: decimal">
+<li><p>Para <span class="math inline">\(r \in R\)</span> dada, se determina una cartera que tenga un rendimiento <span class="math inline">\(r\)</span> mínimo esperado y minimice el riesgo entre todas las carteras que también tengan un rendimiento esperado de al menos <span class="math inline">\(r\)</span> (problema de minimización de la varianza), respectivamente.</p></li>
+<li><p>Para un nivel de riesgo dada <span class="math inline">\(\sigma \geq 0\)</span>, se detremina una cartera cuyo riesgo no exceda este límite y cuyo rendimiento esperado sea máximo entre todas las carteras que también cumplan con el límite de riesgo <span class="math inline">\(\sigma\)</span> (problema de maximización del rendimiento).</p></li>
+</ol>
+<p>El homónimo de este enfoque es Harry M. Markowitz, quien sentó las bases de la teoría de la cartera con un artículo correspondiente en 1952 y recibió el Premio Nobel de Economía en 1990.</p>
+<p>Supuestos</p>
+<ul>
+<li>Solo se considera un período de negociación único, que comienza en el momento actual<span class="math inline">\(t= 0\)</span> y finaliza en un tiempo futuro <span class="math inline">\(t=1\)</span>.</li>
+<li>Los inversores pueden tener participaciones tanto positivas como negativas de inversiones de capital. Las acciones negativas se crean mediante ventas en corto: un inversionista vende instrumentos financieros prestados a pesar de que no los posee. Sin embargo, al final del período de negociación, estas acciones deben devolverse al acreedor.</li>
+<li>Tanto el préstamo como la inversión de un instrumento financiero se basan en la misma tasa de interés.</li>
+<li>Al comprar y vender instrumentos financieros, no hay impuestos ni costos de transacción.</li>
+<li>Los precios de las acciones no están influenciados por órdenes individuales de los inversionistas.</li>
+<li>Las mismas acciones tienen los mismos precios. No hay descuentos por volumen.</li>
+</ul>
+
+<div class="definition">
+<p><span id="def:def1" class="definition"><strong>Definition 1.1  </strong></span> Siendo <span class="math inline">\((\Omega, \mathcal{F},P)\)</span> un espacio de probabilidad calculado en un modelo financiero de un período, el precio de un activo financiero <span class="math inline">\((S_{0},S_{1},P)\)</span> depende de :</p>
+<ul>
+<li><p>Un vector <span class="math inline">\(S_{0}\in \mathbb{R}\)</span> con <span class="math inline">\(S_{0}\neq 0\)</span> para $i=1,..,N</p></li>
+<li><p>Un vector aleatorio <span class="math inline">\(S_{1}=(S_{1}^{1},...,S_{1}^{N})\)</span> con variables aletaorias cuadraticas <span class="math inline">\(S_{1}^{i}\in \mathcal{L}^{2}(\Omega, \mathcal{F},P)\)</span>.</p></li>
+<li>Para <span class="math inline">\(i\)</span> <span class="math inline">\(\in \{1,...,N\}\)</span> es <span class="math inline">\(S_{i} := (S_{0}^{i},S_{1}^{i})\)</span> el instrumento financiero <span class="math inline">\(i\)</span> del mercado <span class="math inline">\((S_{0},S_{1},P)\)</span>.
+</div>
+</li>
+<li><p>La variable aleatoria <span class="math inline">\(R_{i}:\Omega \rightarrow \mathbb{R}\)</span></p></li>
+</ul>
+<span class="math display" id="eq:zufall">\[\begin{equation}
+\omega \rightarrow \frac{S_{1}^{i}(\omega)-S_{0}^{i}}{S_{0}^{i}}
+\tag{1.1}
+\end{equation}\]</span>
+<p>Es el rendimiento de un instrumento financiero</p>
+<ul>
+<li><p>El valor esperado del instrumento <span class="math inline">\(i\)</span> es <span class="math inline">\(\mu_{i}=E[R_{i}]\)</span> que es el rendimiento esperado de <span class="math inline">\(S_{i}\)</span>.</p></li>
+<li><p>El riesgo o la volatilidad <span class="math inline">\(\sigma\)</span> es la desviación estandar.</p></li>
+</ul>
+<p>Como cada activo es una variable aleatoria, un portafolio está compuesto por la ponderación de las variables aleatorias, de esta manera la suma de esta ponderación es igual a 1 y muestra cuanto se invierte en cada uno de los activos.</p>
+<p>El rendimiento de un portafolio se obtiene con la suma de la multiplicación del valor ponderado con respecto a la media o el valor esperado de los rendimientos.</p>
+<span class="math display" id="eq:pond">\[\begin{equation}
+R_{p}=\sum_{i=1}^{n}R_{i}w_{i}
+\tag{1.2}
+\end{equation}\]</span>
+<p>Donde <span class="math inline">\(w_{i}\)</span> es la ponderación de acuerdo a cada uno de los activos dentro del portafolio.</p>
+<div id="inicio-del-caso." class="section level2">
+<h2><span class="header-section-number">1.1</span> Inicio del caso.</h2>
+<p>Para este ejemplo se analizan cuatro empresas aleatorias que pertenecen a alguna de las bolsas de valores de los Estados Unidos. Para tener una idea de las empresas que cotizan en este mercado y de los sectores más comunes que se pueden encontrar además del tecnológico, existen tres índices que promedian el comportamiento de los precios de las acciones más importantes estos son el <a href="https://www.nasdaq.com">NASDAQ</a> , el <a href="https://www.dowjones.com">Dow Jones</a> y el <a href="https://espanol.spindices.com/indices/equity/sp-500">S&amp;P500</a>, son el barómetro del mercado de capitales en Estados Unidos e indican la tendencia general del mercado. Es decir si el precio de un conjunto de acciones cae, el índice pierde valor reflejando ese comportamiento conjunto, por el contrario si el precio de la mayoría de las acciones sube, el índice lo reflejará incrementando su valor. Uno de estos índices ellos se llama el S&amp;P500; para saber mejor que contiene, se usa el archivo SPlista.txt en donde se encuentran los nombres, símbolos y sectores de 504 empresas que pertenecen al índice Standard and Poors.</p>
+<table class="table table-striped" style="width: auto !important; ">
+<caption>
+<span id="tab:TFREQ">Table 1.1: </span>Tabla de Frecuencias
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Sector
+</th>
+<th style="text-align:right;">
+Freq
+</th>
+<th style="text-align:right;">
+Freqr
+</th>
+<th style="text-align:right;">
+FreqA
+</th>
+<th style="text-align:right;">
+FreqrA
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Cons D
+</td>
+<td style="text-align:right;">
+85
+</td>
+<td style="text-align:right;">
+0.1687
+</td>
+<td style="text-align:right;">
+85
+</td>
+<td style="text-align:right;">
+0.1687
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cons S
+</td>
+<td style="text-align:right;">
+36
+</td>
+<td style="text-align:right;">
+0.0714
+</td>
+<td style="text-align:right;">
+121
+</td>
+<td style="text-align:right;">
+0.2401
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Energy
+</td>
+<td style="text-align:right;">
+37
+</td>
+<td style="text-align:right;">
+0.0734
+</td>
+<td style="text-align:right;">
+158
+</td>
+<td style="text-align:right;">
+0.3135
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Financials
+</td>
+<td style="text-align:right;">
+92
+</td>
+<td style="text-align:right;">
+0.1825
+</td>
+<td style="text-align:right;">
+250
+</td>
+<td style="text-align:right;">
+0.4960
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Health Care
+</td>
+<td style="text-align:right;">
+56
+</td>
+<td style="text-align:right;">
+0.1111
+</td>
+<td style="text-align:right;">
+306
+</td>
+<td style="text-align:right;">
+0.6071
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Industrials
+</td>
+<td style="text-align:right;">
+71
+</td>
+<td style="text-align:right;">
+0.1409
+</td>
+<td style="text-align:right;">
+377
+</td>
+<td style="text-align:right;">
+0.7480
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+IT
+</td>
+<td style="text-align:right;">
+67
+</td>
+<td style="text-align:right;">
+0.1329
+</td>
+<td style="text-align:right;">
+444
+</td>
+<td style="text-align:right;">
+0.8810
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Materials
+</td>
+<td style="text-align:right;">
+27
+</td>
+<td style="text-align:right;">
+0.0536
+</td>
+<td style="text-align:right;">
+471
+</td>
+<td style="text-align:right;">
+0.9345
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TS
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0.0099
+</td>
+<td style="text-align:right;">
+476
+</td>
+<td style="text-align:right;">
+0.9444
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Utilities
+</td>
+<td style="text-align:right;">
+28
+</td>
+<td style="text-align:right;">
+0.0556
+</td>
+<td style="text-align:right;">
+504
+</td>
+<td style="text-align:right;">
+1.0000
+</td>
+</tr>
+</tbody>
+</table>
+<p>Después de generar la tabla de frecuencias <a href="introduccion.html#tab:TFREQ">1.1</a> , se puede ver que hay 10 sectores dentro del índice S&amp;P 500, además es claro que hay tres que lideran el índice que son Consumer Discretionary(Bienes no esenciales)16%, Financials 18% e Industrials 14%, esto quiere decir que el índice tiene alta representación de empresas en estos tres sectores. Servicios en Telecomunicaciones por el contrario es el sector con menos empresas en el índice ya que solo aporta un 0.9%.</p>
+<div class="figure"><span id="fig:FREQ"></span>
+<img src="TeoriaPortafolio_files/figure-html/FREQ-1.png" alt="Gráfico de Barras" width="672" />
+<p class="caption">
+Figure 1.1: Gráfico de Barras
+</p>
+</div>
+<p>En el gráfico <a href="introduccion.html#fig:FREQ">1.1</a> se puede apreciar mejor la información de la tabla, es importante destacar que este índice es el mas usado para el análisis financiero debido a la gran variedad de empresas de diferentes sectores que contiene, a pesar de que hay sectores que se benefician más dentro del índice, estos se ven mejor representados y reflejan mejor el comportamiento del mercado de capitales en Estados Unidos.</p>
+<p>Ahora que hay un mejor panorama del mercado accionario, se escogerán cuatro empresas, en donde se van a invertir 500.000 USD, estas acciones pertenecen a los sectores de utilities, en donde se negocian activos como gas y energía y de la cual hacer parte AES corp, también hay dos empresas del sector financiero que son American Express AXP y Boston properties BXP. Por último tenemos una empresa del sector industrial que se llama Corning Inc GLW. El intervalo de tiempo va desde el primero de enero de 2017, hasta el tres de marzo de 2019, los datos se descargan directamente de yahoo, y tienen todos los precios listados en bolsa para cada acción como son el precio de apertura, el de cierre, el máximo y el mínimo. También cuenta con el volumen de negociación en número de acciones. La frecuencia de los datos es diaria y el número de observaciones por cada variable es 542 en donde se cuenta solo los días de negociación.</p>
+<p>Primero revisaremos los precios de cierre en el período observado para determinar si existen tendencias o ciclos y que permitan comparar el comportamiento del precio de cada una.</p>
+<div class="figure"><span id="fig:Precios"></span>
+<img src="TeoriaPortafolio_files/figure-html/Precios-1.png" alt=" Precios Acciones" width="768" />
+<p class="caption">
+Figure 1.2:  Precios Acciones
+</p>
+</div>
+<div class="figure"><span id="fig:Precios2"></span>
+<div id="htmlwidget-7f8f46a5c3c0ea40fb34" style="width:672px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7f8f46a5c3c0ea40fb34">{"x":{"visdat":{"7f84606303f":["function () ","plotlyVisDat"]},"cur_data":"7f84606303f","attrs":{"7f84606303f":{"x":["2017-01-03","2017-01-04","2017-01-05","2017-01-06","2017-01-09","2017-01-10","2017-01-11","2017-01-12","2017-01-13","2017-01-17","2017-01-18","2017-01-19","2017-01-20","2017-01-23","2017-01-24","2017-01-25","2017-01-26","2017-01-27","2017-01-30","2017-01-31","2017-02-01","2017-02-02","2017-02-03","2017-02-06","2017-02-07","2017-02-08","2017-02-09","2017-02-10","2017-02-13","2017-02-14","2017-02-15","2017-02-16","2017-02-17","2017-02-21","2017-02-22","2017-02-23","2017-02-24","2017-02-27","2017-02-28","2017-03-01","2017-03-02","2017-03-03","2017-03-06","2017-03-07","2017-03-08","2017-03-09","2017-03-10","2017-03-13","2017-03-14","2017-03-15","2017-03-16","2017-03-17","2017-03-20","2017-03-21","2017-03-22","2017-03-23","2017-03-24","2017-03-27","2017-03-28","2017-03-29","2017-03-30","2017-03-31","2017-04-03","2017-04-04","2017-04-05","2017-04-06","2017-04-07","2017-04-10","2017-04-11","2017-04-12","2017-04-13","2017-04-17","2017-04-18","2017-04-19","2017-04-20","2017-04-21","2017-04-24","2017-04-25","2017-04-26","2017-04-27","2017-04-28","2017-05-01","2017-05-02","2017-05-03","2017-05-04","2017-05-05","2017-05-08","2017-05-09","2017-05-10","2017-05-11","2017-05-12","2017-05-15","2017-05-16","2017-05-17","2017-05-18","2017-05-19","2017-05-22","2017-05-23","2017-05-24","2017-05-25","2017-05-26","2017-05-30","2017-05-31","2017-06-01","2017-06-02","2017-06-05","2017-06-06","2017-06-07","2017-06-08","2017-06-09","2017-06-12","2017-06-13","2017-06-14","2017-06-15","2017-06-16","2017-06-19","2017-06-20","2017-06-21","2017-06-22","2017-06-23","2017-06-26","2017-06-27","2017-06-28","2017-06-29","2017-06-30","2017-07-03","2017-07-05","2017-07-06","2017-07-07","2017-07-10","2017-07-11","2017-07-12","2017-07-13","2017-07-14","2017-07-17","2017-07-18","2017-07-19","2017-07-20","2017-07-21","2017-07-24","2017-07-25","2017-07-26","2017-07-27","2017-07-28","2017-07-31","2017-08-01","2017-08-02","2017-08-03","2017-08-04","2017-08-07","2017-08-08","2017-08-09","2017-08-10","2017-08-11","2017-08-14","2017-08-15","2017-08-16","2017-08-17","2017-08-18","2017-08-21","2017-08-22","2017-08-23","2017-08-24","2017-08-25","2017-08-28","2017-08-29","2017-08-30","2017-08-31","2017-09-01","2017-09-05","2017-09-06","2017-09-07","2017-09-08","2017-09-11","2017-09-12","2017-09-13","2017-09-14","2017-09-15","2017-09-18","2017-09-19","2017-09-20","2017-09-21","2017-09-22","2017-09-25","2017-09-26","2017-09-27","2017-09-28","2017-09-29","2017-10-02","2017-10-03","2017-10-04","2017-10-05","2017-10-06","2017-10-09","2017-10-10","2017-10-11","2017-10-12","2017-10-13","2017-10-16","2017-10-17","2017-10-18","2017-10-19","2017-10-20","2017-10-23","2017-10-24","2017-10-25","2017-10-26","2017-10-27","2017-10-30","2017-10-31","2017-11-01","2017-11-02","2017-11-03","2017-11-06","2017-11-07","2017-11-08","2017-11-09","2017-11-10","2017-11-13","2017-11-14","2017-11-15","2017-11-16","2017-11-17","2017-11-20","2017-11-21","2017-11-22","2017-11-24","2017-11-27","2017-11-28","2017-11-29","2017-11-30","2017-12-01","2017-12-04","2017-12-05","2017-12-06","2017-12-07","2017-12-08","2017-12-11","2017-12-12","2017-12-13","2017-12-14","2017-12-15","2017-12-18","2017-12-19","2017-12-20","2017-12-21","2017-12-22","2017-12-26","2017-12-27","2017-12-28","2017-12-29","2018-01-02","2018-01-03","2018-01-04","2018-01-05","2018-01-08","2018-01-09","2018-01-10","2018-01-11","2018-01-12","2018-01-16","2018-01-17","2018-01-18","2018-01-19","2018-01-22","2018-01-23","2018-01-24","2018-01-25","2018-01-26","2018-01-29","2018-01-30","2018-01-31","2018-02-01","2018-02-02","2018-02-05","2018-02-06","2018-02-07","2018-02-08","2018-02-09","2018-02-12","2018-02-13","2018-02-14","2018-02-15","2018-02-16","2018-02-20","2018-02-21","2018-02-22","2018-02-23","2018-02-26","2018-02-27","2018-02-28","2018-03-01","2018-03-02","2018-03-05","2018-03-06","2018-03-07","2018-03-08","2018-03-09","2018-03-12","2018-03-13","2018-03-14","2018-03-15","2018-03-16","2018-03-19","2018-03-20","2018-03-21","2018-03-22","2018-03-23","2018-03-26","2018-03-27","2018-03-28","2018-03-29","2018-04-02","2018-04-03","2018-04-04","2018-04-05","2018-04-06","2018-04-09","2018-04-10","2018-04-11","2018-04-12","2018-04-13","2018-04-16","2018-04-17","2018-04-18","2018-04-19","2018-04-20","2018-04-23","2018-04-24","2018-04-25","2018-04-26","2018-04-27","2018-04-30","2018-05-01","2018-05-02","2018-05-03","2018-05-04","2018-05-07","2018-05-08","2018-05-09","2018-05-10","2018-05-11","2018-05-14","2018-05-15","2018-05-16","2018-05-17","2018-05-18","2018-05-21","2018-05-22","2018-05-23","2018-05-24","2018-05-25","2018-05-29","2018-05-30","2018-05-31","2018-06-01","2018-06-04","2018-06-05","2018-06-06","2018-06-07","2018-06-08","2018-06-11","2018-06-12","2018-06-13","2018-06-14","2018-06-15","2018-06-18","2018-06-19","2018-06-20","2018-06-21","2018-06-22","2018-06-25","2018-06-26","2018-06-27","2018-06-28","2018-06-29","2018-07-02","2018-07-03","2018-07-05","2018-07-06","2018-07-09","2018-07-10","2018-07-11","2018-07-12","2018-07-13","2018-07-16","2018-07-17","2018-07-18","2018-07-19","2018-07-20","2018-07-23","2018-07-24","2018-07-25","2018-07-26","2018-07-27","2018-07-30","2018-07-31","2018-08-01","2018-08-02","2018-08-03","2018-08-06","2018-08-07","2018-08-08","2018-08-09","2018-08-10","2018-08-13","2018-08-14","2018-08-15","2018-08-16","2018-08-17","2018-08-20","2018-08-21","2018-08-22","2018-08-23","2018-08-24","2018-08-27","2018-08-28","2018-08-29","2018-08-30","2018-08-31","2018-09-04","2018-09-05","2018-09-06","2018-09-07","2018-09-10","2018-09-11","2018-09-12","2018-09-13","2018-09-14","2018-09-17","2018-09-18","2018-09-19","2018-09-20","2018-09-21","2018-09-24","2018-09-25","2018-09-26","2018-09-27","2018-09-28","2018-10-01","2018-10-02","2018-10-03","2018-10-04","2018-10-05","2018-10-08","2018-10-09","2018-10-10","2018-10-11","2018-10-12","2018-10-15","2018-10-16","2018-10-17","2018-10-18","2018-10-19","2018-10-22","2018-10-23","2018-10-24","2018-10-25","2018-10-26","2018-10-29","2018-10-30","2018-10-31","2018-11-01","2018-11-02","2018-11-05","2018-11-06","2018-11-07","2018-11-08","2018-11-09","2018-11-12","2018-11-13","2018-11-14","2018-11-15","2018-11-16","2018-11-19","2018-11-20","2018-11-21","2018-11-23","2018-11-26","2018-11-27","2018-11-28","2018-11-29","2018-11-30","2018-12-03","2018-12-04","2018-12-06","2018-12-07","2018-12-10","2018-12-11","2018-12-12","2018-12-13","2018-12-14","2018-12-17","2018-12-18","2018-12-19","2018-12-20","2018-12-21","2018-12-24","2018-12-26","2018-12-27","2018-12-28","2018-12-31","2019-01-02","2019-01-03","2019-01-04","2019-01-07","2019-01-08","2019-01-09","2019-01-10","2019-01-11","2019-01-14","2019-01-15","2019-01-16","2019-01-17","2019-01-18","2019-01-22","2019-01-23","2019-01-24","2019-01-25","2019-01-28","2019-01-29","2019-01-30","2019-01-31","2019-02-01","2019-02-04","2019-02-05","2019-02-06","2019-02-07","2019-02-08","2019-02-11","2019-02-12","2019-02-13","2019-02-14","2019-02-15","2019-02-19","2019-02-20","2019-02-21","2019-02-22","2019-02-25","2019-02-26","2019-02-27","2019-02-28"],"y":[119.68,123.48,124.07,123.79,122.56,121.2,119.51,121.4,120.92,121.77,122.67,120.88,121.63,122.9,124.41,122.56,123.6,123.04,122.59,123.18,121.65,122.78,123.01,123.58,122.94,123.81,124.2,126.1,126.81,127.78,127.96,128.77,129.1,130.64,130.48,130.96,129.98,131.63,130.83,129.71,127.57,127.49,127.44,127.66,126.18,124.24,122.74,122.79,122.27,125.15,124.65,125.34,125.26,124.8,124.44,125.96,124.67,123.58,123.58,124.12,124.34,125.32,125.89,126.68,126.98,127.35,127.47,128.38,129.5,129.27,128.26,129.54,128.47,127.47,127.43,127.15,125.68,126.79,120.53,119.24,119.82,120.17,120.06,118.11,116.76,117.26,116.93,116.53,116.43,114.75,114.46,114.07,114.41,113.99,113.83,114.53,114.55,115.31,115.34,115.47,114.85,114.35,114.82,115.23,115.81,115.69,114.45,115.21,116.03,118.53,120.3,120.03,119.84,120.46,119.36,119.09,119.21,118.42,118.15,118.84,119,117.12,117.49,117.29,117.14,118.98,117.11,114.24,114.39,112.34,112.07,113.55,114.62,115.88,115.75,113.45,114.61,113.13,113.23,113.32,113.57,114.62,115.42,116.48,115.13,116.05,116.01,117.8,118.28,116.88,117.08,115.86,115.47,114.31,116.65,116.58,116.2,115.27,114.1,115,113.9,115.26,114.16,115.66,114.5,113.79,114.45,114.84,115.5,114.62,115.15,115.13,114.43,114.94,114.46,114.23,116.48,116.55,115.86,113.92,115.01,116.97,115.86,116.77,117.84,116.95,117.62,117.73,116.82,117.23,118.51,119.81,121.6,121.84,121.77,122.9,122.63,122.91,123,122.69,121.36,118.44,117.77,117.73,116.33,116.39,116.19,116.15,115.74,116.1,116.86,117.62,115.62,118.25,118.98,119.51,120.72,120.57,120.65,119.55,118.94,119.93,119.8,119.35,119.95,119.76,119.91,119.98,119.46,119.81,120.12,121.8,122.48,120.23,120.15,118.75,119.43,119.81,120.89,121.07,121.4,123.98,125.47,123.44,122.49,121.62,122,123.1,123.68,124.21,125.35,124.63,124.7,121.93,123.26,122.18,120.89,120.17,119.4,117.93,117.19,118.09,116.82,117.56,119.03,119.68,118.81,118.27,118.55,116.98,115.12,119.26,114.9,115.05,110.61,111.17,111.19,108.06,111.2,111,112.01,111.31,113.18,115.34,115.1,111.68,114.21,116.62,117.06,115.21,114.59,113.76,114.65,116.99,117.71,118.33,117.91,119.17,121.04,120.75,121.07,121.38,122.59,121.74,121.15,119.88,118.17,114.17,115.56,116.52,119.75,119.58,117.87,118.58,119.29,118.66,117.39,116.57,117.86,117.38,115.32,116.36,116.96,118.03,117.27,115.81,115.24,115.06,114.94,114.82,117.01,118.83,117.82,119.05,117.24,118.22,120.38,120.48,119.14,120.58,121.18,120.71,118.82,115.48,113.66,113.78,113.63,114.7,115.72,116.43,115.96,116.06,115.87,118.52,118.17,117.91,119.92,118.51,118.99,118.76,119.03,118.7,118.46,116.26,116.34,116.53,115.36,115.27,117.65,118.75,121.89,121.47,120.89,120.57,122.03,122.5,121.79,121.68,123.14,123.36,123.11,122.92,123.01,124.01,124.36,123.98,122.75,122.26,123.85,122.28,121.33,121.78,121.97,121.62,120.01,119.23,122.61,126.82,125.9,126.1,126.56,126.72,126.64,126.3,125.94,126.48,126.77,127.64,128.57,129.08,128.54,126.78,126.26,125.62,126.04,125.64,127.78,127.59,127.23,127.42,126.13,128,126.87,125.63,125.54,124.95,124.53,124.57,123.03,124.06,123.21,121.36,122.75,123.91,120.68,121.11,118.56,118.84,121.18,119.08,118.92,118.28,117.31,117.01,117.9,118.44,117.21,112.59,112.92,114.18,116.18,115.69,114.67,115.13,113.22,113.45,113.74,115.14,113.12,115.19,115.16,118.88,118.06,117.16,119.08,120.54,121.82,122.5,122.33,122.5,122.87,122.52,122.24,123.62,123.68,123.49,123.68,123.66,123.7,125.12,127.95,127.8,129.16,130.14,128.16,130.42,127.07,125.01,125.1,122.44,123.89,123.78,118.18,118.68,116.18,113.22,111.71,107.39,110.99,110.93,111.13,111.74,108.37,108.82,110.71,111.4,114.7,116.6,118.36,118.29,117.28,118.22,118.97,119.56,120.65,120.34,119.91,120.2,122.59,123.97,125.48,129.52,130.92,130.24,131.51,131.1,130.66,131.66,131.45,132.36,131.74,132.75,132.15,132.66,133.64,132.91,133.59,134.7,133.76,133.05,131.45,131.74],"fill":"tozeroy","fill.1":"toself","fillcolor":"rgba(168, 216, 234, 0.5)","hoveron":"points","marker":{"color":"rgba(168, 216, 234, 0.5)"},"line":{"color":"rgba(168, 216, 234, 0.5)"},"name":"BXP","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"},"7f84606303f.1":{"x":["2017-01-03","2017-01-04","2017-01-05","2017-01-06","2017-01-09","2017-01-10","2017-01-11","2017-01-12","2017-01-13","2017-01-17","2017-01-18","2017-01-19","2017-01-20","2017-01-23","2017-01-24","2017-01-25","2017-01-26","2017-01-27","2017-01-30","2017-01-31","2017-02-01","2017-02-02","2017-02-03","2017-02-06","2017-02-07","2017-02-08","2017-02-09","2017-02-10","2017-02-13","2017-02-14","2017-02-15","2017-02-16","2017-02-17","2017-02-21","2017-02-22","2017-02-23","2017-02-24","2017-02-27","2017-02-28","2017-03-01","2017-03-02","2017-03-03","2017-03-06","2017-03-07","2017-03-08","2017-03-09","2017-03-10","2017-03-13","2017-03-14","2017-03-15","2017-03-16","2017-03-17","2017-03-20","2017-03-21","2017-03-22","2017-03-23","2017-03-24","2017-03-27","2017-03-28","2017-03-29","2017-03-30","2017-03-31","2017-04-03","2017-04-04","2017-04-05","2017-04-06","2017-04-07","2017-04-10","2017-04-11","2017-04-12","2017-04-13","2017-04-17","2017-04-18","2017-04-19","2017-04-20","2017-04-21","2017-04-24","2017-04-25","2017-04-26","2017-04-27","2017-04-28","2017-05-01","2017-05-02","2017-05-03","2017-05-04","2017-05-05","2017-05-08","2017-05-09","2017-05-10","2017-05-11","2017-05-12","2017-05-15","2017-05-16","2017-05-17","2017-05-18","2017-05-19","2017-05-22","2017-05-23","2017-05-24","2017-05-25","2017-05-26","2017-05-30","2017-05-31","2017-06-01","2017-06-02","2017-06-05","2017-06-06","2017-06-07","2017-06-08","2017-06-09","2017-06-12","2017-06-13","2017-06-14","2017-06-15","2017-06-16","2017-06-19","2017-06-20","2017-06-21","2017-06-22","2017-06-23","2017-06-26","2017-06-27","2017-06-28","2017-06-29","2017-06-30","2017-07-03","2017-07-05","2017-07-06","2017-07-07","2017-07-10","2017-07-11","2017-07-12","2017-07-13","2017-07-14","2017-07-17","2017-07-18","2017-07-19","2017-07-20","2017-07-21","2017-07-24","2017-07-25","2017-07-26","2017-07-27","2017-07-28","2017-07-31","2017-08-01","2017-08-02","2017-08-03","2017-08-04","2017-08-07","2017-08-08","2017-08-09","2017-08-10","2017-08-11","2017-08-14","2017-08-15","2017-08-16","2017-08-17","2017-08-18","2017-08-21","2017-08-22","2017-08-23","2017-08-24","2017-08-25","2017-08-28","2017-08-29","2017-08-30","2017-08-31","2017-09-01","2017-09-05","2017-09-06","2017-09-07","2017-09-08","2017-09-11","2017-09-12","2017-09-13","2017-09-14","2017-09-15","2017-09-18","2017-09-19","2017-09-20","2017-09-21","2017-09-22","2017-09-25","2017-09-26","2017-09-27","2017-09-28","2017-09-29","2017-10-02","2017-10-03","2017-10-04","2017-10-05","2017-10-06","2017-10-09","2017-10-10","2017-10-11","2017-10-12","2017-10-13","2017-10-16","2017-10-17","2017-10-18","2017-10-19","2017-10-20","2017-10-23","2017-10-24","2017-10-25","2017-10-26","2017-10-27","2017-10-30","2017-10-31","2017-11-01","2017-11-02","2017-11-03","2017-11-06","2017-11-07","2017-11-08","2017-11-09","2017-11-10","2017-11-13","2017-11-14","2017-11-15","2017-11-16","2017-11-17","2017-11-20","2017-11-21","2017-11-22","2017-11-24","2017-11-27","2017-11-28","2017-11-29","2017-11-30","2017-12-01","2017-12-04","2017-12-05","2017-12-06","2017-12-07","2017-12-08","2017-12-11","2017-12-12","2017-12-13","2017-12-14","2017-12-15","2017-12-18","2017-12-19","2017-12-20","2017-12-21","2017-12-22","2017-12-26","2017-12-27","2017-12-28","2017-12-29","2018-01-02","2018-01-03","2018-01-04","2018-01-05","2018-01-08","2018-01-09","2018-01-10","2018-01-11","2018-01-12","2018-01-16","2018-01-17","2018-01-18","2018-01-19","2018-01-22","2018-01-23","2018-01-24","2018-01-25","2018-01-26","2018-01-29","2018-01-30","2018-01-31","2018-02-01","2018-02-02","2018-02-05","2018-02-06","2018-02-07","2018-02-08","2018-02-09","2018-02-12","2018-02-13","2018-02-14","2018-02-15","2018-02-16","2018-02-20","2018-02-21","2018-02-22","2018-02-23","2018-02-26","2018-02-27","2018-02-28","2018-03-01","2018-03-02","2018-03-05","2018-03-06","2018-03-07","2018-03-08","2018-03-09","2018-03-12","2018-03-13","2018-03-14","2018-03-15","2018-03-16","2018-03-19","2018-03-20","2018-03-21","2018-03-22","2018-03-23","2018-03-26","2018-03-27","2018-03-28","2018-03-29","2018-04-02","2018-04-03","2018-04-04","2018-04-05","2018-04-06","2018-04-09","2018-04-10","2018-04-11","2018-04-12","2018-04-13","2018-04-16","2018-04-17","2018-04-18","2018-04-19","2018-04-20","2018-04-23","2018-04-24","2018-04-25","2018-04-26","2018-04-27","2018-04-30","2018-05-01","2018-05-02","2018-05-03","2018-05-04","2018-05-07","2018-05-08","2018-05-09","2018-05-10","2018-05-11","2018-05-14","2018-05-15","2018-05-16","2018-05-17","2018-05-18","2018-05-21","2018-05-22","2018-05-23","2018-05-24","2018-05-25","2018-05-29","2018-05-30","2018-05-31","2018-06-01","2018-06-04","2018-06-05","2018-06-06","2018-06-07","2018-06-08","2018-06-11","2018-06-12","2018-06-13","2018-06-14","2018-06-15","2018-06-18","2018-06-19","2018-06-20","2018-06-21","2018-06-22","2018-06-25","2018-06-26","2018-06-27","2018-06-28","2018-06-29","2018-07-02","2018-07-03","2018-07-05","2018-07-06","2018-07-09","2018-07-10","2018-07-11","2018-07-12","2018-07-13","2018-07-16","2018-07-17","2018-07-18","2018-07-19","2018-07-20","2018-07-23","2018-07-24","2018-07-25","2018-07-26","2018-07-27","2018-07-30","2018-07-31","2018-08-01","2018-08-02","2018-08-03","2018-08-06","2018-08-07","2018-08-08","2018-08-09","2018-08-10","2018-08-13","2018-08-14","2018-08-15","2018-08-16","2018-08-17","2018-08-20","2018-08-21","2018-08-22","2018-08-23","2018-08-24","2018-08-27","2018-08-28","2018-08-29","2018-08-30","2018-08-31","2018-09-04","2018-09-05","2018-09-06","2018-09-07","2018-09-10","2018-09-11","2018-09-12","2018-09-13","2018-09-14","2018-09-17","2018-09-18","2018-09-19","2018-09-20","2018-09-21","2018-09-24","2018-09-25","2018-09-26","2018-09-27","2018-09-28","2018-10-01","2018-10-02","2018-10-03","2018-10-04","2018-10-05","2018-10-08","2018-10-09","2018-10-10","2018-10-11","2018-10-12","2018-10-15","2018-10-16","2018-10-17","2018-10-18","2018-10-19","2018-10-22","2018-10-23","2018-10-24","2018-10-25","2018-10-26","2018-10-29","2018-10-30","2018-10-31","2018-11-01","2018-11-02","2018-11-05","2018-11-06","2018-11-07","2018-11-08","2018-11-09","2018-11-12","2018-11-13","2018-11-14","2018-11-15","2018-11-16","2018-11-19","2018-11-20","2018-11-21","2018-11-23","2018-11-26","2018-11-27","2018-11-28","2018-11-29","2018-11-30","2018-12-03","2018-12-04","2018-12-06","2018-12-07","2018-12-10","2018-12-11","2018-12-12","2018-12-13","2018-12-14","2018-12-17","2018-12-18","2018-12-19","2018-12-20","2018-12-21","2018-12-24","2018-12-26","2018-12-27","2018-12-28","2018-12-31","2019-01-02","2019-01-03","2019-01-04","2019-01-07","2019-01-08","2019-01-09","2019-01-10","2019-01-11","2019-01-14","2019-01-15","2019-01-16","2019-01-17","2019-01-18","2019-01-22","2019-01-23","2019-01-24","2019-01-25","2019-01-28","2019-01-29","2019-01-30","2019-01-31","2019-02-01","2019-02-04","2019-02-05","2019-02-06","2019-02-07","2019-02-08","2019-02-11","2019-02-12","2019-02-13","2019-02-14","2019-02-15","2019-02-19","2019-02-20","2019-02-21","2019-02-22","2019-02-25","2019-02-26","2019-02-27","2019-02-28"],"y":[72.54,73.73,72.82,72.96,73.34,74.1,74.35,74.33,74.07,74.05,74.92,74.14,73.67,73.45,74.86,74.34,74.37,74.3,74.71,73.84,74.21,73.97,75.45,75.23,75.14,75.21,75.58,75.87,76.29,76.77,76.96,76.87,77.06,77.31,77.21,77.39,77.11,77.51,77.4,79.2,77.44,77.23,76.86,76.94,76.41,76.67,76.74,76.58,77.04,76.6,77.12,76.62,76.23,74.95,75.09,75.25,75.6,75.02,76.03,75.65,76.58,76.48,75.98,75.66,75.48,75.64,75.49,75.22,75,74.44,73.58,74.43,73.57,73.34,77.68,77.26,78.1,78.27,78.16,77.98,76.93,76.91,77.21,76.52,76.04,76.03,75.87,76.15,76.35,75.64,75.22,76.04,75.84,74.14,74.15,74.55,74.73,74.94,74.86,75.17,75.19,74.83,74.69,75.99,76.19,76.66,76.54,77.47,77.61,77.96,77.82,78.23,78.47,78.34,79.07,79.48,80.1,79.8,79.84,79.81,80.53,80.65,81.51,81.18,81.78,82.61,82.72,81.6,82.17,82.14,82.01,82.65,83.19,83.1,83.04,83.33,83.73,83.17,83.4,82.82,83.22,83.12,81.7,82.63,83.05,83.06,83.12,83.35,83.77,83.65,83.74,83.5,82.4,82.13,83.28,84.57,85.15,83.89,83.19,83.12,83.12,83.1,83.18,83.28,83.22,83.23,83.5,83.9,83.94,83.13,83.05,82.25,82.09,83.5,84.33,84.42,83.98,84.76,85.62,86.72,86.17,86.16,86.14,85.95,86.42,87.2,87.83,88.14,88.22,89.09,88.68,89.17,89.55,89.69,89.88,89.95,89.61,90.83,89.95,89.69,90.07,89.89,90.08,90.36,91.81,91.49,93.6,93.7,92.99,93.43,93.7,93.88,94.32,94.19,93.29,93.05,91.7,91.48,91.85,91.71,91.22,91.52,91.64,91.9,92.35,91.77,91.44,91.43,93.2,94.49,95.58,95.72,96.44,96.55,96.07,96.43,96.4,96.84,97.2,95.65,95.03,96.37,97.5,96.99,96.36,96.35,96.58,96.42,96.97,97.52,97.14,96.78,97.38,99,99.22,98.31,98.67,99.36,98.88,99.11,98.5,98.91,98.02,96.23,96.51,96.18,97.47,97.86,97.8,97.58,96.9,97.57,98.16,94.9,90.32,92.45,91.89,86.72,90.03,92.96,92.82,94.46,94.79,95.01,95.4,95.71,95.56,96.98,99.77,97.75,95.72,93.39,93.84,94.88,94.3,93.88,94.81,97.23,95.87,93.62,92.79,92.66,93.85,93.1,93.2,93,89.73,88.79,90.92,89.74,90.52,91.57,89.33,91.04,91.86,92.82,90.56,90.79,91.63,90.25,91.98,91.66,92.22,92.48,93.75,100.87,99.31,99.13,98.96,97.33,98.76,98.15,97.3,97.13,96.2,95.71,96.9,97.13,98.27,99.02,99.89,99.93,99.8,99.26,99.11,99.73,99.51,100.54,101.19,100.43,100.51,99.61,96.28,97.54,96.86,96.81,97.99,97.85,99.49,99.99,99.52,99.71,99.25,98.55,98.29,97.07,97.02,95.71,95,95.21,95.8,97.09,96.77,95.54,95.54,96.56,97.55,96.4,97.43,97.42,98.8,98.8,99.18,100.02,99.38,99.57,100.02,101.83,99.05,99.03,100.09,100.58,101.48,101.36,102.69,99.72,98.41,98.34,98.62,99.67,99.79,100.83,101.63,101.84,100.45,100.67,101.04,100.38,101.5,101.88,102.67,103.64,104.65,104.19,104.58,105.86,106.08,105.52,105.04,104.8,105.82,104.5,104.22,104.9,106.09,107.1,106.68,107.45,108.34,107.98,108.42,108.87,109.87,109.66,108.62,108.64,106.8,106.65,105.3,106.7,107.18,107.24,106.92,106.42,106.18,105.85,102.78,100.81,102.22,101.84,103.48,103.55,102.06,105.92,103.72,103.59,101.07,102.81,100.48,100.42,101.31,101.95,103.25,102.92,104.41,104.18,106.5,107.68,107.46,105.68,107.04,106.95,108.77,108.63,107.43,105.28,105.69,104.94,108.85,109.27,112.03,110.47,111.42,111.51,106.82,107.43,105.87,104.99,104.6,106.66,105.89,104.9,100.41,100.25,98.02,95.04,90.64,88.82,93.13,93.96,93.7,94.6,94.95,93.1,97.3,97.82,98.3,98.48,97.91,98.2,98.09,97.64,99.06,99.14,100.13,99.48,99.36,99.37,100.41,100.03,100.6,102.31,102.34,102.7,103.06,103.53,104.59,104.02,104.15,105.04,106.62,107.18,106.24,107,106.12,106.4,106.23,107.06,106.55,106.56,107.04,107.36],"fill":"tozeroy","fill.1":"toself","fillcolor":"rgba(255, 212, 96, 0.5)","hoveron":"points","marker":{"color":"rgba(255, 212, 96, 0.5)"},"line":{"color":"rgba(255, 212, 96, 0.5)"},"name":"AXP","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter","inherit":true},"7f84606303f.2":{"x":["2017-01-03","2017-01-04","2017-01-05","2017-01-06","2017-01-09","2017-01-10","2017-01-11","2017-01-12","2017-01-13","2017-01-17","2017-01-18","2017-01-19","2017-01-20","2017-01-23","2017-01-24","2017-01-25","2017-01-26","2017-01-27","2017-01-30","2017-01-31","2017-02-01","2017-02-02","2017-02-03","2017-02-06","2017-02-07","2017-02-08","2017-02-09","2017-02-10","2017-02-13","2017-02-14","2017-02-15","2017-02-16","2017-02-17","2017-02-21","2017-02-22","2017-02-23","2017-02-24","2017-02-27","2017-02-28","2017-03-01","2017-03-02","2017-03-03","2017-03-06","2017-03-07","2017-03-08","2017-03-09","2017-03-10","2017-03-13","2017-03-14","2017-03-15","2017-03-16","2017-03-17","2017-03-20","2017-03-21","2017-03-22","2017-03-23","2017-03-24","2017-03-27","2017-03-28","2017-03-29","2017-03-30","2017-03-31","2017-04-03","2017-04-04","2017-04-05","2017-04-06","2017-04-07","2017-04-10","2017-04-11","2017-04-12","2017-04-13","2017-04-17","2017-04-18","2017-04-19","2017-04-20","2017-04-21","2017-04-24","2017-04-25","2017-04-26","2017-04-27","2017-04-28","2017-05-01","2017-05-02","2017-05-03","2017-05-04","2017-05-05","2017-05-08","2017-05-09","2017-05-10","2017-05-11","2017-05-12","2017-05-15","2017-05-16","2017-05-17","2017-05-18","2017-05-19","2017-05-22","2017-05-23","2017-05-24","2017-05-25","2017-05-26","2017-05-30","2017-05-31","2017-06-01","2017-06-02","2017-06-05","2017-06-06","2017-06-07","2017-06-08","2017-06-09","2017-06-12","2017-06-13","2017-06-14","2017-06-15","2017-06-16","2017-06-19","2017-06-20","2017-06-21","2017-06-22","2017-06-23","2017-06-26","2017-06-27","2017-06-28","2017-06-29","2017-06-30","2017-07-03","2017-07-05","2017-07-06","2017-07-07","2017-07-10","2017-07-11","2017-07-12","2017-07-13","2017-07-14","2017-07-17","2017-07-18","2017-07-19","2017-07-20","2017-07-21","2017-07-24","2017-07-25","2017-07-26","2017-07-27","2017-07-28","2017-07-31","2017-08-01","2017-08-02","2017-08-03","2017-08-04","2017-08-07","2017-08-08","2017-08-09","2017-08-10","2017-08-11","2017-08-14","2017-08-15","2017-08-16","2017-08-17","2017-08-18","2017-08-21","2017-08-22","2017-08-23","2017-08-24","2017-08-25","2017-08-28","2017-08-29","2017-08-30","2017-08-31","2017-09-01","2017-09-05","2017-09-06","2017-09-07","2017-09-08","2017-09-11","2017-09-12","2017-09-13","2017-09-14","2017-09-15","2017-09-18","2017-09-19","2017-09-20","2017-09-21","2017-09-22","2017-09-25","2017-09-26","2017-09-27","2017-09-28","2017-09-29","2017-10-02","2017-10-03","2017-10-04","2017-10-05","2017-10-06","2017-10-09","2017-10-10","2017-10-11","2017-10-12","2017-10-13","2017-10-16","2017-10-17","2017-10-18","2017-10-19","2017-10-20","2017-10-23","2017-10-24","2017-10-25","2017-10-26","2017-10-27","2017-10-30","2017-10-31","2017-11-01","2017-11-02","2017-11-03","2017-11-06","2017-11-07","2017-11-08","2017-11-09","2017-11-10","2017-11-13","2017-11-14","2017-11-15","2017-11-16","2017-11-17","2017-11-20","2017-11-21","2017-11-22","2017-11-24","2017-11-27","2017-11-28","2017-11-29","2017-11-30","2017-12-01","2017-12-04","2017-12-05","2017-12-06","2017-12-07","2017-12-08","2017-12-11","2017-12-12","2017-12-13","2017-12-14","2017-12-15","2017-12-18","2017-12-19","2017-12-20","2017-12-21","2017-12-22","2017-12-26","2017-12-27","2017-12-28","2017-12-29","2018-01-02","2018-01-03","2018-01-04","2018-01-05","2018-01-08","2018-01-09","2018-01-10","2018-01-11","2018-01-12","2018-01-16","2018-01-17","2018-01-18","2018-01-19","2018-01-22","2018-01-23","2018-01-24","2018-01-25","2018-01-26","2018-01-29","2018-01-30","2018-01-31","2018-02-01","2018-02-02","2018-02-05","2018-02-06","2018-02-07","2018-02-08","2018-02-09","2018-02-12","2018-02-13","2018-02-14","2018-02-15","2018-02-16","2018-02-20","2018-02-21","2018-02-22","2018-02-23","2018-02-26","2018-02-27","2018-02-28","2018-03-01","2018-03-02","2018-03-05","2018-03-06","2018-03-07","2018-03-08","2018-03-09","2018-03-12","2018-03-13","2018-03-14","2018-03-15","2018-03-16","2018-03-19","2018-03-20","2018-03-21","2018-03-22","2018-03-23","2018-03-26","2018-03-27","2018-03-28","2018-03-29","2018-04-02","2018-04-03","2018-04-04","2018-04-05","2018-04-06","2018-04-09","2018-04-10","2018-04-11","2018-04-12","2018-04-13","2018-04-16","2018-04-17","2018-04-18","2018-04-19","2018-04-20","2018-04-23","2018-04-24","2018-04-25","2018-04-26","2018-04-27","2018-04-30","2018-05-01","2018-05-02","2018-05-03","2018-05-04","2018-05-07","2018-05-08","2018-05-09","2018-05-10","2018-05-11","2018-05-14","2018-05-15","2018-05-16","2018-05-17","2018-05-18","2018-05-21","2018-05-22","2018-05-23","2018-05-24","2018-05-25","2018-05-29","2018-05-30","2018-05-31","2018-06-01","2018-06-04","2018-06-05","2018-06-06","2018-06-07","2018-06-08","2018-06-11","2018-06-12","2018-06-13","2018-06-14","2018-06-15","2018-06-18","2018-06-19","2018-06-20","2018-06-21","2018-06-22","2018-06-25","2018-06-26","2018-06-27","2018-06-28","2018-06-29","2018-07-02","2018-07-03","2018-07-05","2018-07-06","2018-07-09","2018-07-10","2018-07-11","2018-07-12","2018-07-13","2018-07-16","2018-07-17","2018-07-18","2018-07-19","2018-07-20","2018-07-23","2018-07-24","2018-07-25","2018-07-26","2018-07-27","2018-07-30","2018-07-31","2018-08-01","2018-08-02","2018-08-03","2018-08-06","2018-08-07","2018-08-08","2018-08-09","2018-08-10","2018-08-13","2018-08-14","2018-08-15","2018-08-16","2018-08-17","2018-08-20","2018-08-21","2018-08-22","2018-08-23","2018-08-24","2018-08-27","2018-08-28","2018-08-29","2018-08-30","2018-08-31","2018-09-04","2018-09-05","2018-09-06","2018-09-07","2018-09-10","2018-09-11","2018-09-12","2018-09-13","2018-09-14","2018-09-17","2018-09-18","2018-09-19","2018-09-20","2018-09-21","2018-09-24","2018-09-25","2018-09-26","2018-09-27","2018-09-28","2018-10-01","2018-10-02","2018-10-03","2018-10-04","2018-10-05","2018-10-08","2018-10-09","2018-10-10","2018-10-11","2018-10-12","2018-10-15","2018-10-16","2018-10-17","2018-10-18","2018-10-19","2018-10-22","2018-10-23","2018-10-24","2018-10-25","2018-10-26","2018-10-29","2018-10-30","2018-10-31","2018-11-01","2018-11-02","2018-11-05","2018-11-06","2018-11-07","2018-11-08","2018-11-09","2018-11-12","2018-11-13","2018-11-14","2018-11-15","2018-11-16","2018-11-19","2018-11-20","2018-11-21","2018-11-23","2018-11-26","2018-11-27","2018-11-28","2018-11-29","2018-11-30","2018-12-03","2018-12-04","2018-12-06","2018-12-07","2018-12-10","2018-12-11","2018-12-12","2018-12-13","2018-12-14","2018-12-17","2018-12-18","2018-12-19","2018-12-20","2018-12-21","2018-12-24","2018-12-26","2018-12-27","2018-12-28","2018-12-31","2019-01-02","2019-01-03","2019-01-04","2019-01-07","2019-01-08","2019-01-09","2019-01-10","2019-01-11","2019-01-14","2019-01-15","2019-01-16","2019-01-17","2019-01-18","2019-01-22","2019-01-23","2019-01-24","2019-01-25","2019-01-28","2019-01-29","2019-01-30","2019-01-31","2019-02-01","2019-02-04","2019-02-05","2019-02-06","2019-02-07","2019-02-08","2019-02-11","2019-02-12","2019-02-13","2019-02-14","2019-02-15","2019-02-19","2019-02-20","2019-02-21","2019-02-22","2019-02-25","2019-02-26","2019-02-27","2019-02-28"],"y":[10.43,10.34,10.21,10.58,10.32,10.14,10.53,10.36,10.49,10.66,10.67,10.49,10.21,10.04,10.17,10.17,10.04,10.2,10.14,10.34,10.16,10.24,10.28,10.21,10.34,10.48,10.37,10.5,10.56,10.39,10.45,10.53,10.36,10.65,10.49,10.62,10.79,10.07,10.42,10.26,10.52,10.44,10.42,10.24,10.01,10,10.08,9.96,9.95,10.23,10.22,10.36,10.13,10.22,10.08,10.11,10.15,10.06,10.23,10.17,10.02,10.11,10.12,10.19,10.09,10.09,9.98,10.08,10.23,10.28,10.27,10.34,10.32,10.28,10.33,10.29,10.48,10.51,10.35,10.32,10.34,10.34,10.33,10.23,10.13,10.34,10.34,10.36,10.57,10.48,10.35,10.42,10.34,10.35,10.22,10.23,10.38,10.39,10.74,10.76,10.77,10.69,10.67,10.92,10.88,10.7,10.88,10.57,10.56,10.71,10.74,10.9,10.88,10.89,10.89,10.88,10.87,10.66,10.57,10.56,10.67,10.51,10.35,10.2,10.15,10.06,9.93,9.76,9.83,10,9.99,10.14,10.07,10.08,10.16,10.27,10.34,10.39,10.44,10.34,10.27,10.2,10.14,10.03,10.22,10.35,10.21,10.27,10.23,10.25,10.51,10.39,10.51,10.25,10.26,10.25,10.33,10.17,10.23,10.37,10.48,10.48,10.53,10.56,10.34,10.32,10.22,10.2,10.27,10.24,10.26,10.3,10.35,10.52,10.38,10.37,10.4,10.48,10.41,10.47,10.42,10.28,10.26,10.35,10.31,10.28,10.23,10.18,10.24,10.34,10.42,10.43,10.34,10.35,10.39,10.41,10.36,10.39,10.41,10.34,10.28,10.43,10.28,10.28,10.15,10.07,10.03,9.96,9.92,9.93,9.99,10.19,9.91,9.78,9.93,9.93,9.73,9.67,10.22,10.24,10.27,10.18,10.02,10.02,10.04,10.09,10.1,10.15,9.99,10.02,10,10.08,10.18,10.13,10.23,10.11,10.17,10.26,10.13,10.06,10.04,10.2,10.35,10.06,10,10.03,10.12,10.05,10.08,10.17,10.23,10.28,10.27,10.23,10.27,10.27,10.17,10.19,10.36,10.43,10.09,10.13,10.89,11.1,10.75,10.79,10.54,10.86,11.07,11.16,10.97,11.05,11,10.63,10.13,10.11,10.01,9.61,9.75,9.81,9.86,9.81,10.05,9.99,9.94,9.77,9.84,10.02,9.99,10.72,10.39,10.47,10.38,10.49,10.44,10.32,10.36,10.37,10.26,10.2,10.22,10.21,10.36,10.29,10.23,10.32,10.34,10.24,10.36,10.46,10.73,10.86,10.86,10.99,10.88,10.99,10.91,10.88,10.92,10.91,10.79,10.84,11.06,11.22,11.23,11.23,11.1,11.33,11.47,11.49,11.63,11.76,11.82,11.79,11.77,11.88,11.91,11.95,11.33,11.66,11.89,11.87,11.93,11.88,11.86,11.64,11.52,11.65,11.78,11.77,11.97,11.98,11.98,12.24,12.31,12.35,12.49,12.49,12.08,12.28,12.33,12.39,12.59,12.68,12.73,12.62,12.62,12.63,12.49,12.45,12.42,12.43,12.76,12.79,13.05,12.95,12.69,12.56,12.53,12.55,12.2,12.4,12.58,12.65,12.73,12.68,12.41,12.29,12.58,12.58,12.62,12.66,12.94,12.94,12.91,12.84,12.9,13.01,13.21,13.35,13.48,13.29,13.6,13.4,13.22,13.05,13.16,13.15,13.53,13.59,13.61,13.62,13.64,13.66,13.66,13.61,13.56,13.66,13.55,13.13,12.82,13.08,12.95,12.78,12.89,12.75,12.9,13.12,13.21,13.3,13.41,13.25,13.47,13.61,13.42,13.36,13.27,13.36,13.65,13.7,14.07,14.17,14.15,14.3,14.4,14.45,14.41,14.08,14.29,14.47,14.98,14.7,14.43,14.61,14.64,14.35,14.31,14.34,14.19,14.16,14.45,14.34,14.5,14.36,14.83,15.75,15.35,15.42,15.27,15.27,15.16,14.99,15.17,15.26,15.13,14.66,14.83,14.76,15.15,14.97,15.26,15.19,15.24,15.35,15.21,15.2,15.28,15.51,15.48,15.63,15.52,15.69,14.64,14.74,14.5,14.45,14.22,13.6,14.05,14.06,14.04,14.23,13.95,13.94,14.4,14.47,14.81,14.78,15.09,15.14,14.8,15.19,15.26,15.24,15.3,15.36,15.61,15.64,15.62,15.61,15.77,16.03,16.26,16.55,16.7,16.82,16.85,16.97,17.08,17.02,17.04,16.9,16.92,16.79,17.04,17.01,17.18,17.39,17.19,17.15,17.02,17.09],"fill":"tozeroy","fill.1":"toself","fillcolor":"rgba(200, 100, 200, 0.5)","hoveron":"points+fills","marker":{"color":"rgba(200, 100, 200, 0.5)"},"line":{"color":"rgba(200, 100, 200, 0.5)"},"name":"AES","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter","inherit":true},"7f84606303f.3":{"x":["2017-01-03","2017-01-04","2017-01-05","2017-01-06","2017-01-09","2017-01-10","2017-01-11","2017-01-12","2017-01-13","2017-01-17","2017-01-18","2017-01-19","2017-01-20","2017-01-23","2017-01-24","2017-01-25","2017-01-26","2017-01-27","2017-01-30","2017-01-31","2017-02-01","2017-02-02","2017-02-03","2017-02-06","2017-02-07","2017-02-08","2017-02-09","2017-02-10","2017-02-13","2017-02-14","2017-02-15","2017-02-16","2017-02-17","2017-02-21","2017-02-22","2017-02-23","2017-02-24","2017-02-27","2017-02-28","2017-03-01","2017-03-02","2017-03-03","2017-03-06","2017-03-07","2017-03-08","2017-03-09","2017-03-10","2017-03-13","2017-03-14","2017-03-15","2017-03-16","2017-03-17","2017-03-20","2017-03-21","2017-03-22","2017-03-23","2017-03-24","2017-03-27","2017-03-28","2017-03-29","2017-03-30","2017-03-31","2017-04-03","2017-04-04","2017-04-05","2017-04-06","2017-04-07","2017-04-10","2017-04-11","2017-04-12","2017-04-13","2017-04-17","2017-04-18","2017-04-19","2017-04-20","2017-04-21","2017-04-24","2017-04-25","2017-04-26","2017-04-27","2017-04-28","2017-05-01","2017-05-02","2017-05-03","2017-05-04","2017-05-05","2017-05-08","2017-05-09","2017-05-10","2017-05-11","2017-05-12","2017-05-15","2017-05-16","2017-05-17","2017-05-18","2017-05-19","2017-05-22","2017-05-23","2017-05-24","2017-05-25","2017-05-26","2017-05-30","2017-05-31","2017-06-01","2017-06-02","2017-06-05","2017-06-06","2017-06-07","2017-06-08","2017-06-09","2017-06-12","2017-06-13","2017-06-14","2017-06-15","2017-06-16","2017-06-19","2017-06-20","2017-06-21","2017-06-22","2017-06-23","2017-06-26","2017-06-27","2017-06-28","2017-06-29","2017-06-30","2017-07-03","2017-07-05","2017-07-06","2017-07-07","2017-07-10","2017-07-11","2017-07-12","2017-07-13","2017-07-14","2017-07-17","2017-07-18","2017-07-19","2017-07-20","2017-07-21","2017-07-24","2017-07-25","2017-07-26","2017-07-27","2017-07-28","2017-07-31","2017-08-01","2017-08-02","2017-08-03","2017-08-04","2017-08-07","2017-08-08","2017-08-09","2017-08-10","2017-08-11","2017-08-14","2017-08-15","2017-08-16","2017-08-17","2017-08-18","2017-08-21","2017-08-22","2017-08-23","2017-08-24","2017-08-25","2017-08-28","2017-08-29","2017-08-30","2017-08-31","2017-09-01","2017-09-05","2017-09-06","2017-09-07","2017-09-08","2017-09-11","2017-09-12","2017-09-13","2017-09-14","2017-09-15","2017-09-18","2017-09-19","2017-09-20","2017-09-21","2017-09-22","2017-09-25","2017-09-26","2017-09-27","2017-09-28","2017-09-29","2017-10-02","2017-10-03","2017-10-04","2017-10-05","2017-10-06","2017-10-09","2017-10-10","2017-10-11","2017-10-12","2017-10-13","2017-10-16","2017-10-17","2017-10-18","2017-10-19","2017-10-20","2017-10-23","2017-10-24","2017-10-25","2017-10-26","2017-10-27","2017-10-30","2017-10-31","2017-11-01","2017-11-02","2017-11-03","2017-11-06","2017-11-07","2017-11-08","2017-11-09","2017-11-10","2017-11-13","2017-11-14","2017-11-15","2017-11-16","2017-11-17","2017-11-20","2017-11-21","2017-11-22","2017-11-24","2017-11-27","2017-11-28","2017-11-29","2017-11-30","2017-12-01","2017-12-04","2017-12-05","2017-12-06","2017-12-07","2017-12-08","2017-12-11","2017-12-12","2017-12-13","2017-12-14","2017-12-15","2017-12-18","2017-12-19","2017-12-20","2017-12-21","2017-12-22","2017-12-26","2017-12-27","2017-12-28","2017-12-29","2018-01-02","2018-01-03","2018-01-04","2018-01-05","2018-01-08","2018-01-09","2018-01-10","2018-01-11","2018-01-12","2018-01-16","2018-01-17","2018-01-18","2018-01-19","2018-01-22","2018-01-23","2018-01-24","2018-01-25","2018-01-26","2018-01-29","2018-01-30","2018-01-31","2018-02-01","2018-02-02","2018-02-05","2018-02-06","2018-02-07","2018-02-08","2018-02-09","2018-02-12","2018-02-13","2018-02-14","2018-02-15","2018-02-16","2018-02-20","2018-02-21","2018-02-22","2018-02-23","2018-02-26","2018-02-27","2018-02-28","2018-03-01","2018-03-02","2018-03-05","2018-03-06","2018-03-07","2018-03-08","2018-03-09","2018-03-12","2018-03-13","2018-03-14","2018-03-15","2018-03-16","2018-03-19","2018-03-20","2018-03-21","2018-03-22","2018-03-23","2018-03-26","2018-03-27","2018-03-28","2018-03-29","2018-04-02","2018-04-03","2018-04-04","2018-04-05","2018-04-06","2018-04-09","2018-04-10","2018-04-11","2018-04-12","2018-04-13","2018-04-16","2018-04-17","2018-04-18","2018-04-19","2018-04-20","2018-04-23","2018-04-24","2018-04-25","2018-04-26","2018-04-27","2018-04-30","2018-05-01","2018-05-02","2018-05-03","2018-05-04","2018-05-07","2018-05-08","2018-05-09","2018-05-10","2018-05-11","2018-05-14","2018-05-15","2018-05-16","2018-05-17","2018-05-18","2018-05-21","2018-05-22","2018-05-23","2018-05-24","2018-05-25","2018-05-29","2018-05-30","2018-05-31","2018-06-01","2018-06-04","2018-06-05","2018-06-06","2018-06-07","2018-06-08","2018-06-11","2018-06-12","2018-06-13","2018-06-14","2018-06-15","2018-06-18","2018-06-19","2018-06-20","2018-06-21","2018-06-22","2018-06-25","2018-06-26","2018-06-27","2018-06-28","2018-06-29","2018-07-02","2018-07-03","2018-07-05","2018-07-06","2018-07-09","2018-07-10","2018-07-11","2018-07-12","2018-07-13","2018-07-16","2018-07-17","2018-07-18","2018-07-19","2018-07-20","2018-07-23","2018-07-24","2018-07-25","2018-07-26","2018-07-27","2018-07-30","2018-07-31","2018-08-01","2018-08-02","2018-08-03","2018-08-06","2018-08-07","2018-08-08","2018-08-09","2018-08-10","2018-08-13","2018-08-14","2018-08-15","2018-08-16","2018-08-17","2018-08-20","2018-08-21","2018-08-22","2018-08-23","2018-08-24","2018-08-27","2018-08-28","2018-08-29","2018-08-30","2018-08-31","2018-09-04","2018-09-05","2018-09-06","2018-09-07","2018-09-10","2018-09-11","2018-09-12","2018-09-13","2018-09-14","2018-09-17","2018-09-18","2018-09-19","2018-09-20","2018-09-21","2018-09-24","2018-09-25","2018-09-26","2018-09-27","2018-09-28","2018-10-01","2018-10-02","2018-10-03","2018-10-04","2018-10-05","2018-10-08","2018-10-09","2018-10-10","2018-10-11","2018-10-12","2018-10-15","2018-10-16","2018-10-17","2018-10-18","2018-10-19","2018-10-22","2018-10-23","2018-10-24","2018-10-25","2018-10-26","2018-10-29","2018-10-30","2018-10-31","2018-11-01","2018-11-02","2018-11-05","2018-11-06","2018-11-07","2018-11-08","2018-11-09","2018-11-12","2018-11-13","2018-11-14","2018-11-15","2018-11-16","2018-11-19","2018-11-20","2018-11-21","2018-11-23","2018-11-26","2018-11-27","2018-11-28","2018-11-29","2018-11-30","2018-12-03","2018-12-04","2018-12-06","2018-12-07","2018-12-10","2018-12-11","2018-12-12","2018-12-13","2018-12-14","2018-12-17","2018-12-18","2018-12-19","2018-12-20","2018-12-21","2018-12-24","2018-12-26","2018-12-27","2018-12-28","2018-12-31","2019-01-02","2019-01-03","2019-01-04","2019-01-07","2019-01-08","2019-01-09","2019-01-10","2019-01-11","2019-01-14","2019-01-15","2019-01-16","2019-01-17","2019-01-18","2019-01-22","2019-01-23","2019-01-24","2019-01-25","2019-01-28","2019-01-29","2019-01-30","2019-01-31","2019-02-01","2019-02-04","2019-02-05","2019-02-06","2019-02-07","2019-02-08","2019-02-11","2019-02-12","2019-02-13","2019-02-14","2019-02-15","2019-02-19","2019-02-20","2019-02-21","2019-02-22","2019-02-25","2019-02-26","2019-02-27","2019-02-28"],"y":[22.94,23.09,22.95,23.15,23.1,23.12,23.29,23.16,23.45,22.83,23.18,23.05,23.4,23.38,24.71,25.18,25.06,25.18,25.16,25.01,24.74,24.9,25.23,25.21,25.1,25,25.3,25.2,25.23,25.71,25.83,26.16,26.1,26.18,26.19,26.02,26.32,26.25,26.21,26.77,26.47,26.47,26.31,26.31,26.22,26.17,26.16,26.3,25.49,25.85,25.9,25.86,25.92,25.51,25.96,25.95,26.02,26.02,26.15,26.09,26.16,25.63,25.48,25.43,25.35,25.42,25.45,25.43,25.49,25.14,24.99,25.19,25.53,25.5,25.74,25.65,26.12,27.09,26.95,27.55,27.39,27.63,27.55,27.3,27.38,27.44,27.64,27.61,27.63,27.34,27.59,27.84,28.1,27.19,27.31,27.58,27.82,27.7,27.69,28.07,27.96,27.98,27.77,28.31,28.33,28.19,28.22,28.14,27.96,27.63,27.73,28.06,27.91,28.05,28.07,28.51,28.31,28.4,28.35,28.62,28.85,28.62,29.11,28.98,28.68,28.75,29.1,28.45,28.9,29.14,28.94,29.44,29.41,29.65,29.89,29.97,30.28,30.26,30.39,30.39,30.66,29.03,28.14,27.91,27.81,28.17,28.41,27.94,27.91,27.9,27.96,28.02,27.26,27.66,28.07,27.19,27.15,26.6,26.61,26.9,27.2,27.18,27.25,27.35,27.45,27.41,27.48,27.59,27.74,27.46,27.42,27.57,27.38,27.75,27.97,28.02,28.06,28.16,28.34,28.7,28.81,28.88,28.83,28.79,28.6,28.82,28.74,28.71,28.94,29.08,29.23,29.22,28.87,28.9,28.81,28.68,28.73,28.53,28.68,28.47,28.71,28.84,28.84,28.79,30.65,30.26,30.41,30.23,29.99,30.04,30.35,30.3,30.39,30.55,30.94,30.91,30.5,30.44,30.38,30.41,30.2,30.52,30.5,30.59,30.79,30.66,30.71,30.9,31.28,31.32,31.23,30.71,31.06,31.09,30.54,30.59,31.19,31.4,31.47,31.13,30.67,30.9,31.16,31.1,31.26,31.14,31.22,31.22,31.19,31.14,30.84,31.45,32.22,32.55,32.43,32.56,32.44,32.14,32.55,33.42,33.18,33.58,33.6,33.42,33.47,33.32,32.9,32.6,33.15,33.02,31.17,30.1,30.55,30.16,28.71,28.73,28.75,27.43,27.74,28.4,28.19,28.46,28.48,28.41,28.59,28.21,28.16,28.25,28.76,28.45,28.21,27.55,27.94,28.01,28.32,28.46,28.45,29.03,28.95,28.95,28.65,28.65,28.62,28.02,28.38,28.49,27.7,26.95,27.46,26.91,26.53,27.04,26.22,26.54,26.57,26.64,25.75,25.91,26.52,26.59,26.74,26.6,26.67,26.92,27.03,26.79,26.72,26.68,25.93,26.25,26.09,26.41,26.21,26.02,25.9,25.77,26.27,26.15,26,26.27,26.54,27.16,27.23,26.89,27.28,27,26.86,26.93,26.81,26.94,26.51,26.25,25.94,25.73,26.53,27.3,27.46,27.9,28.23,28.14,28.08,28.17,27.93,27.93,28.21,28.41,28.19,27.72,27.73,27.63,27.82,27.08,27.05,26.86,26.36,26.87,27.06,26.71,27.31,27.47,28.32,28.27,27.6,28,28.13,27.93,28.51,28.76,28.65,28.44,28.67,29.13,32.43,32.84,32.76,32.17,32.4,32.13,32.02,32.07,32.17,32.29,32.51,32.32,31.97,31.75,31.94,31.61,31.95,32.25,32.22,32.11,32.12,32.05,32.23,32.83,32.88,33.02,32.86,32.9,32.81,32.71,32.92,32.97,33.35,32.94,33.39,34.42,34.63,34.54,34.63,34.61,35.47,35.27,35.04,34.86,34.76,34.75,34.66,34.64,34.83,35.09,35.05,34.1,33.84,33.63,31.73,30.77,31.55,31.21,32.05,31.8,30.6,30.22,30.27,30.84,29.75,30.88,30.13,30.03,30.66,31.37,32.5,32.31,32.46,32.77,33.39,33.48,32.95,31.13,31.45,31.02,31.65,31.63,30.77,30.46,30.32,30.78,31.14,31.18,31.85,31.46,31.82,32.97,31.75,31.87,31.04,31.36,31.19,31.58,31.57,31.04,30.51,30.27,29.68,29.18,28.42,27.62,28.81,29.33,29.38,29.83,29.51,27.68,28.84,28.83,29.11,29.31,29.97,29.67,29.48,29.72,29.69,29.89,30.25,29.05,28.94,29.49,29.98,29.98,33.3,33.1,32.84,32.68,33.13,33.13,33.35,32.79,32.97,32.94,33.59,33.61,33.31,34.08,33.77,34.23,34.07,34.41,34.64,34.47,34.45,34.57],"fill":"tozeroy","fill.1":"toself","fillcolor":"rgba(50, 100, 234, 0.5)","hoveron":"points","marker":{"color":"rgba(50, 100, 234, 0.5)"},"line":{"color":"rgba(50, 100, 234, 0.5)"},"name":"GLW","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter","inherit":true}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"title":"Precios de Acciones","xaxis":{"domain":[0,1],"automargin":true,"title":"Tiempo"},"yaxis":{"domain":[0,1],"automargin":true,"title":"Precios"},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":[{"name":"Collaborate","icon":{"width":1000,"ascent":500,"descent":-50,"path":"M487 375c7-10 9-23 5-36l-79-259c-3-12-11-23-22-31-11-8-22-12-35-12l-263 0c-15 0-29 5-43 15-13 10-23 23-28 37-5 13-5 25-1 37 0 0 0 3 1 7 1 5 1 8 1 11 0 2 0 4-1 6 0 3-1 5-1 6 1 2 2 4 3 6 1 2 2 4 4 6 2 3 4 5 5 7 5 7 9 16 13 26 4 10 7 19 9 26 0 2 0 5 0 9-1 4-1 6 0 8 0 2 2 5 4 8 3 3 5 5 5 7 4 6 8 15 12 26 4 11 7 19 7 26 1 1 0 4 0 9-1 4-1 7 0 8 1 2 3 5 6 8 4 4 6 6 6 7 4 5 8 13 13 24 4 11 7 20 7 28 1 1 0 4 0 7-1 3-1 6-1 7 0 2 1 4 3 6 1 1 3 4 5 6 2 3 3 5 5 6 1 2 3 5 4 9 2 3 3 7 5 10 1 3 2 6 4 10 2 4 4 7 6 9 2 3 4 5 7 7 3 2 7 3 11 3 3 0 8 0 13-1l0-1c7 2 12 2 14 2l218 0c14 0 25-5 32-16 8-10 10-23 6-37l-79-259c-7-22-13-37-20-43-7-7-19-10-37-10l-248 0c-5 0-9-2-11-5-2-3-2-7 0-12 4-13 18-20 41-20l264 0c5 0 10 2 16 5 5 3 8 6 10 11l85 282c2 5 2 10 2 17 7-3 13-7 17-13z m-304 0c-1-3-1-5 0-7 1-1 3-2 6-2l174 0c2 0 4 1 7 2 2 2 4 4 5 7l6 18c0 3 0 5-1 7-1 1-3 2-6 2l-173 0c-3 0-5-1-8-2-2-2-4-4-4-7z m-24-73c-1-3-1-5 0-7 2-2 3-2 6-2l174 0c2 0 5 0 7 2 3 2 4 4 5 7l6 18c1 2 0 5-1 6-1 2-3 3-5 3l-174 0c-3 0-5-1-7-3-3-1-4-4-5-6z"},"click":"function(gd) { \n        // is this being viewed in RStudio?\n        if (location.search == '?viewer_pane=1') {\n          alert('To learn about plotly for collaboration, visit:\\n https://cpsievert.github.io/plotly_book/plot-ly-for-collaboration.html');\n        } else {\n          window.open('https://cpsievert.github.io/plotly_book/plot-ly-for-collaboration.html', '_blank');\n        }\n      }"}],"cloud":false},"data":[{"fillcolor":"rgba(168, 216, 234, 0.5)","x":["2017-01-03","2017-01-04","2017-01-05","2017-01-06","2017-01-09","2017-01-10","2017-01-11","2017-01-12","2017-01-13","2017-01-17","2017-01-18","2017-01-19","2017-01-20","2017-01-23","2017-01-24","2017-01-25","2017-01-26","2017-01-27","2017-01-30","2017-01-31","2017-02-01","2017-02-02","2017-02-03","2017-02-06","2017-02-07","2017-02-08","2017-02-09","2017-02-10","2017-02-13","2017-02-14","2017-02-15","2017-02-16","2017-02-17","2017-02-21","2017-02-22","2017-02-23","2017-02-24","2017-02-27","2017-02-28","2017-03-01","2017-03-02","2017-03-03","2017-03-06","2017-03-07","2017-03-08","2017-03-09","2017-03-10","2017-03-13","2017-03-14","2017-03-15","2017-03-16","2017-03-17","2017-03-20","2017-03-21","2017-03-22","2017-03-23","2017-03-24","2017-03-27","2017-03-28","2017-03-29","2017-03-30","2017-03-31","2017-04-03","2017-04-04","2017-04-05","2017-04-06","2017-04-07","2017-04-10","2017-04-11","2017-04-12","2017-04-13","2017-04-17","2017-04-18","2017-04-19","2017-04-20","2017-04-21","2017-04-24","2017-04-25","2017-04-26","2017-04-27","2017-04-28","2017-05-01","2017-05-02","2017-05-03","2017-05-04","2017-05-05","2017-05-08","2017-05-09","2017-05-10","2017-05-11","2017-05-12","2017-05-15","2017-05-16","2017-05-17","2017-05-18","2017-05-19","2017-05-22","2017-05-23","2017-05-24","2017-05-25","2017-05-26","2017-05-30","2017-05-31","2017-06-01","2017-06-02","2017-06-05","2017-06-06","2017-06-07","2017-06-08","2017-06-09","2017-06-12","2017-06-13","2017-06-14","2017-06-15","2017-06-16","2017-06-19","2017-06-20","2017-06-21","2017-06-22","2017-06-23","2017-06-26","2017-06-27","2017-06-28","2017-06-29","2017-06-30","2017-07-03","2017-07-05","2017-07-06","2017-07-07","2017-07-10","2017-07-11","2017-07-12","2017-07-13","2017-07-14","2017-07-17","2017-07-18","2017-07-19","2017-07-20","2017-07-21","2017-07-24","2017-07-25","2017-07-26","2017-07-27","2017-07-28","2017-07-31","2017-08-01","2017-08-02","2017-08-03","2017-08-04","2017-08-07","2017-08-08","2017-08-09","2017-08-10","2017-08-11","2017-08-14","2017-08-15","2017-08-16","2017-08-17","2017-08-18","2017-08-21","2017-08-22","2017-08-23","2017-08-24","2017-08-25","2017-08-28","2017-08-29","2017-08-30","2017-08-31","2017-09-01","2017-09-05","2017-09-06","2017-09-07","2017-09-08","2017-09-11","2017-09-12","2017-09-13","2017-09-14","2017-09-15","2017-09-18","2017-09-19","2017-09-20","2017-09-21","2017-09-22","2017-09-25","2017-09-26","2017-09-27","2017-09-28","2017-09-29","2017-10-02","2017-10-03","2017-10-04","2017-10-05","2017-10-06","2017-10-09","2017-10-10","2017-10-11","2017-10-12","2017-10-13","2017-10-16","2017-10-17","2017-10-18","2017-10-19","2017-10-20","2017-10-23","2017-10-24","2017-10-25","2017-10-26","2017-10-27","2017-10-30","2017-10-31","2017-11-01","2017-11-02","2017-11-03","2017-11-06","2017-11-07","2017-11-08","2017-11-09","2017-11-10","2017-11-13","2017-11-14","2017-11-15","2017-11-16","2017-11-17","2017-11-20","2017-11-21","2017-11-22","2017-11-24","2017-11-27","2017-11-28","2017-11-29","2017-11-30","2017-12-01","2017-12-04","2017-12-05","2017-12-06","2017-12-07","2017-12-08","2017-12-11","2017-12-12","2017-12-13","2017-12-14","2017-12-15","2017-12-18","2017-12-19","2017-12-20","2017-12-21","2017-12-22","2017-12-26","2017-12-27","2017-12-28","2017-12-29","2018-01-02","2018-01-03","2018-01-04","2018-01-05","2018-01-08","2018-01-09","2018-01-10","2018-01-11","2018-01-12","2018-01-16","2018-01-17","2018-01-18","2018-01-19","2018-01-22","2018-01-23","2018-01-24","2018-01-25","2018-01-26","2018-01-29","2018-01-30","2018-01-31","2018-02-01","2018-02-02","2018-02-05","2018-02-06","2018-02-07","2018-02-08","2018-02-09","2018-02-12","2018-02-13","2018-02-14","2018-02-15","2018-02-16","2018-02-20","2018-02-21","2018-02-22","2018-02-23","2018-02-26","2018-02-27","2018-02-28","2018-03-01","2018-03-02","2018-03-05","2018-03-06","2018-03-07","2018-03-08","2018-03-09","2018-03-12","2018-03-13","2018-03-14","2018-03-15","2018-03-16","2018-03-19","2018-03-20","2018-03-21","2018-03-22","2018-03-23","2018-03-26","2018-03-27","2018-03-28","2018-03-29","2018-04-02","2018-04-03","2018-04-04","2018-04-05","2018-04-06","2018-04-09","2018-04-10","2018-04-11","2018-04-12","2018-04-13","2018-04-16","2018-04-17","2018-04-18","2018-04-19","2018-04-20","2018-04-23","2018-04-24","2018-04-25","2018-04-26","2018-04-27","2018-04-30","2018-05-01","2018-05-02","2018-05-03","2018-05-04","2018-05-07","2018-05-08","2018-05-09","2018-05-10","2018-05-11","2018-05-14","2018-05-15","2018-05-16","2018-05-17","2018-05-18","2018-05-21","2018-05-22","2018-05-23","2018-05-24","2018-05-25","2018-05-29","2018-05-30","2018-05-31","2018-06-01","2018-06-04","2018-06-05","2018-06-06","2018-06-07","2018-06-08","2018-06-11","2018-06-12","2018-06-13","2018-06-14","2018-06-15","2018-06-18","2018-06-19","2018-06-20","2018-06-21","2018-06-22","2018-06-25","2018-06-26","2018-06-27","2018-06-28","2018-06-29","2018-07-02","2018-07-03","2018-07-05","2018-07-06","2018-07-09","2018-07-10","2018-07-11","2018-07-12","2018-07-13","2018-07-16","2018-07-17","2018-07-18","2018-07-19","2018-07-20","2018-07-23","2018-07-24","2018-07-25","2018-07-26","2018-07-27","2018-07-30","2018-07-31","2018-08-01","2018-08-02","2018-08-03","2018-08-06","2018-08-07","2018-08-08","2018-08-09","2018-08-10","2018-08-13","2018-08-14","2018-08-15","2018-08-16","2018-08-17","2018-08-20","2018-08-21","2018-08-22","2018-08-23","2018-08-24","2018-08-27","2018-08-28","2018-08-29","2018-08-30","2018-08-31","2018-09-04","2018-09-05","2018-09-06","2018-09-07","2018-09-10","2018-09-11","2018-09-12","2018-09-13","2018-09-14","2018-09-17","2018-09-18","2018-09-19","2018-09-20","2018-09-21","2018-09-24","2018-09-25","2018-09-26","2018-09-27","2018-09-28","2018-10-01","2018-10-02","2018-10-03","2018-10-04","2018-10-05","2018-10-08","2018-10-09","2018-10-10","2018-10-11","2018-10-12","2018-10-15","2018-10-16","2018-10-17","2018-10-18","2018-10-19","2018-10-22","2018-10-23","2018-10-24","2018-10-25","2018-10-26","2018-10-29","2018-10-30","2018-10-31","2018-11-01","2018-11-02","2018-11-05","2018-11-06","2018-11-07","2018-11-08","2018-11-09","2018-11-12","2018-11-13","2018-11-14","2018-11-15","2018-11-16","2018-11-19","2018-11-20","2018-11-21","2018-11-23","2018-11-26","2018-11-27","2018-11-28","2018-11-29","2018-11-30","2018-12-03","2018-12-04","2018-12-06","2018-12-07","2018-12-10","2018-12-11","2018-12-12","2018-12-13","2018-12-14","2018-12-17","2018-12-18","2018-12-19","2018-12-20","2018-12-21","2018-12-24","2018-12-26","2018-12-27","2018-12-28","2018-12-31","2019-01-02","2019-01-03","2019-01-04","2019-01-07","2019-01-08","2019-01-09","2019-01-10","2019-01-11","2019-01-14","2019-01-15","2019-01-16","2019-01-17","2019-01-18","2019-01-22","2019-01-23","2019-01-24","2019-01-25","2019-01-28","2019-01-29","2019-01-30","2019-01-31","2019-02-01","2019-02-04","2019-02-05","2019-02-06","2019-02-07","2019-02-08","2019-02-11","2019-02-12","2019-02-13","2019-02-14","2019-02-15","2019-02-19","2019-02-20","2019-02-21","2019-02-22","2019-02-25","2019-02-26","2019-02-27","2019-02-28"],"y":[119.68,123.48,124.07,123.79,122.56,121.2,119.51,121.4,120.92,121.77,122.67,120.88,121.63,122.9,124.41,122.56,123.6,123.04,122.59,123.18,121.65,122.78,123.01,123.58,122.94,123.81,124.2,126.1,126.81,127.78,127.96,128.77,129.1,130.64,130.48,130.96,129.98,131.63,130.83,129.71,127.57,127.49,127.44,127.66,126.18,124.24,122.74,122.79,122.27,125.15,124.65,125.34,125.26,124.8,124.44,125.96,124.67,123.58,123.58,124.12,124.34,125.32,125.89,126.68,126.98,127.35,127.47,128.38,129.5,129.27,128.26,129.54,128.47,127.47,127.43,127.15,125.68,126.79,120.53,119.24,119.82,120.17,120.06,118.11,116.76,117.26,116.93,116.53,116.43,114.75,114.46,114.07,114.41,113.99,113.83,114.53,114.55,115.31,115.34,115.47,114.85,114.35,114.82,115.23,115.81,115.69,114.45,115.21,116.03,118.53,120.3,120.03,119.84,120.46,119.36,119.09,119.21,118.42,118.15,118.84,119,117.12,117.49,117.29,117.14,118.98,117.11,114.24,114.39,112.34,112.07,113.55,114.62,115.88,115.75,113.45,114.61,113.13,113.23,113.32,113.57,114.62,115.42,116.48,115.13,116.05,116.01,117.8,118.28,116.88,117.08,115.86,115.47,114.31,116.65,116.58,116.2,115.27,114.1,115,113.9,115.26,114.16,115.66,114.5,113.79,114.45,114.84,115.5,114.62,115.15,115.13,114.43,114.94,114.46,114.23,116.48,116.55,115.86,113.92,115.01,116.97,115.86,116.77,117.84,116.95,117.62,117.73,116.82,117.23,118.51,119.81,121.6,121.84,121.77,122.9,122.63,122.91,123,122.69,121.36,118.44,117.77,117.73,116.33,116.39,116.19,116.15,115.74,116.1,116.86,117.62,115.62,118.25,118.98,119.51,120.72,120.57,120.65,119.55,118.94,119.93,119.8,119.35,119.95,119.76,119.91,119.98,119.46,119.81,120.12,121.8,122.48,120.23,120.15,118.75,119.43,119.81,120.89,121.07,121.4,123.98,125.47,123.44,122.49,121.62,122,123.1,123.68,124.21,125.35,124.63,124.7,121.93,123.26,122.18,120.89,120.17,119.4,117.93,117.19,118.09,116.82,117.56,119.03,119.68,118.81,118.27,118.55,116.98,115.12,119.26,114.9,115.05,110.61,111.17,111.19,108.06,111.2,111,112.01,111.31,113.18,115.34,115.1,111.68,114.21,116.62,117.06,115.21,114.59,113.76,114.65,116.99,117.71,118.33,117.91,119.17,121.04,120.75,121.07,121.38,122.59,121.74,121.15,119.88,118.17,114.17,115.56,116.52,119.75,119.58,117.87,118.58,119.29,118.66,117.39,116.57,117.86,117.38,115.32,116.36,116.96,118.03,117.27,115.81,115.24,115.06,114.94,114.82,117.01,118.83,117.82,119.05,117.24,118.22,120.38,120.48,119.14,120.58,121.18,120.71,118.82,115.48,113.66,113.78,113.63,114.7,115.72,116.43,115.96,116.06,115.87,118.52,118.17,117.91,119.92,118.51,118.99,118.76,119.03,118.7,118.46,116.26,116.34,116.53,115.36,115.27,117.65,118.75,121.89,121.47,120.89,120.57,122.03,122.5,121.79,121.68,123.14,123.36,123.11,122.92,123.01,124.01,124.36,123.98,122.75,122.26,123.85,122.28,121.33,121.78,121.97,121.62,120.01,119.23,122.61,126.82,125.9,126.1,126.56,126.72,126.64,126.3,125.94,126.48,126.77,127.64,128.57,129.08,128.54,126.78,126.26,125.62,126.04,125.64,127.78,127.59,127.23,127.42,126.13,128,126.87,125.63,125.54,124.95,124.53,124.57,123.03,124.06,123.21,121.36,122.75,123.91,120.68,121.11,118.56,118.84,121.18,119.08,118.92,118.28,117.31,117.01,117.9,118.44,117.21,112.59,112.92,114.18,116.18,115.69,114.67,115.13,113.22,113.45,113.74,115.14,113.12,115.19,115.16,118.88,118.06,117.16,119.08,120.54,121.82,122.5,122.33,122.5,122.87,122.52,122.24,123.62,123.68,123.49,123.68,123.66,123.7,125.12,127.95,127.8,129.16,130.14,128.16,130.42,127.07,125.01,125.1,122.44,123.89,123.78,118.18,118.68,116.18,113.22,111.71,107.39,110.99,110.93,111.13,111.74,108.37,108.82,110.71,111.4,114.7,116.6,118.36,118.29,117.28,118.22,118.97,119.56,120.65,120.34,119.91,120.2,122.59,123.97,125.48,129.52,130.92,130.24,131.51,131.1,130.66,131.66,131.45,132.36,131.74,132.75,132.15,132.66,133.64,132.91,133.59,134.7,133.76,133.05,131.45,131.74],"fill":"tozeroy","hoveron":"points","marker":{"color":"rgba(168, 216, 234, 0.5)","line":{"color":"rgba(31,119,180,1)"}},"line":{"color":"rgba(168, 216, 234, 0.5)"},"name":"BXP","type":"scatter","mode":"markers+lines","error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null},{"fillcolor":"rgba(255, 212, 96, 0.5)","x":["2017-01-03","2017-01-04","2017-01-05","2017-01-06","2017-01-09","2017-01-10","2017-01-11","2017-01-12","2017-01-13","2017-01-17","2017-01-18","2017-01-19","2017-01-20","2017-01-23","2017-01-24","2017-01-25","2017-01-26","2017-01-27","2017-01-30","2017-01-31","2017-02-01","2017-02-02","2017-02-03","2017-02-06","2017-02-07","2017-02-08","2017-02-09","2017-02-10","2017-02-13","2017-02-14","2017-02-15","2017-02-16","2017-02-17","2017-02-21","2017-02-22","2017-02-23","2017-02-24","2017-02-27","2017-02-28","2017-03-01","2017-03-02","2017-03-03","2017-03-06","2017-03-07","2017-03-08","2017-03-09","2017-03-10","2017-03-13","2017-03-14","2017-03-15","2017-03-16","2017-03-17","2017-03-20","2017-03-21","2017-03-22","2017-03-23","2017-03-24","2017-03-27","2017-03-28","2017-03-29","2017-03-30","2017-03-31","2017-04-03","2017-04-04","2017-04-05","2017-04-06","2017-04-07","2017-04-10","2017-04-11","2017-04-12","2017-04-13","2017-04-17","2017-04-18","2017-04-19","2017-04-20","2017-04-21","2017-04-24","2017-04-25","2017-04-26","2017-04-27","2017-04-28","2017-05-01","2017-05-02","2017-05-03","2017-05-04","2017-05-05","2017-05-08","2017-05-09","2017-05-10","2017-05-11","2017-05-12","2017-05-15","2017-05-16","2017-05-17","2017-05-18","2017-05-19","2017-05-22","2017-05-23","2017-05-24","2017-05-25","2017-05-26","2017-05-30","2017-05-31","2017-06-01","2017-06-02","2017-06-05","2017-06-06","2017-06-07","2017-06-08","2017-06-09","2017-06-12","2017-06-13","2017-06-14","2017-06-15","2017-06-16","2017-06-19","2017-06-20","2017-06-21","2017-06-22","2017-06-23","2017-06-26","2017-06-27","2017-06-28","2017-06-29","2017-06-30","2017-07-03","2017-07-05","2017-07-06","2017-07-07","2017-07-10","2017-07-11","2017-07-12","2017-07-13","2017-07-14","2017-07-17","2017-07-18","2017-07-19","2017-07-20","2017-07-21","2017-07-24","2017-07-25","2017-07-26","2017-07-27","2017-07-28","2017-07-31","2017-08-01","2017-08-02","2017-08-03","2017-08-04","2017-08-07","2017-08-08","2017-08-09","2017-08-10","2017-08-11","2017-08-14","2017-08-15","2017-08-16","2017-08-17","2017-08-18","2017-08-21","2017-08-22","2017-08-23","2017-08-24","2017-08-25","2017-08-28","2017-08-29","2017-08-30","2017-08-31","2017-09-01","2017-09-05","2017-09-06","2017-09-07","2017-09-08","2017-09-11","2017-09-12","2017-09-13","2017-09-14","2017-09-15","2017-09-18","2017-09-19","2017-09-20","2017-09-21","2017-09-22","2017-09-25","2017-09-26","2017-09-27","2017-09-28","2017-09-29","2017-10-02","2017-10-03","2017-10-04","2017-10-05","2017-10-06","2017-10-09","2017-10-10","2017-10-11","2017-10-12","2017-10-13","2017-10-16","2017-10-17","2017-10-18","2017-10-19","2017-10-20","2017-10-23","2017-10-24","2017-10-25","2017-10-26","2017-10-27","2017-10-30","2017-10-31","2017-11-01","2017-11-02","2017-11-03","2017-11-06","2017-11-07","2017-11-08","2017-11-09","2017-11-10","2017-11-13","2017-11-14","2017-11-15","2017-11-16","2017-11-17","2017-11-20","2017-11-21","2017-11-22","2017-11-24","2017-11-27","2017-11-28","2017-11-29","2017-11-30","2017-12-01","2017-12-04","2017-12-05","2017-12-06","2017-12-07","2017-12-08","2017-12-11","2017-12-12","2017-12-13","2017-12-14","2017-12-15","2017-12-18","2017-12-19","2017-12-20","2017-12-21","2017-12-22","2017-12-26","2017-12-27","2017-12-28","2017-12-29","2018-01-02","2018-01-03","2018-01-04","2018-01-05","2018-01-08","2018-01-09","2018-01-10","2018-01-11","2018-01-12","2018-01-16","2018-01-17","2018-01-18","2018-01-19","2018-01-22","2018-01-23","2018-01-24","2018-01-25","2018-01-26","2018-01-29","2018-01-30","2018-01-31","2018-02-01","2018-02-02","2018-02-05","2018-02-06","2018-02-07","2018-02-08","2018-02-09","2018-02-12","2018-02-13","2018-02-14","2018-02-15","2018-02-16","2018-02-20","2018-02-21","2018-02-22","2018-02-23","2018-02-26","2018-02-27","2018-02-28","2018-03-01","2018-03-02","2018-03-05","2018-03-06","2018-03-07","2018-03-08","2018-03-09","2018-03-12","2018-03-13","2018-03-14","2018-03-15","2018-03-16","2018-03-19","2018-03-20","2018-03-21","2018-03-22","2018-03-23","2018-03-26","2018-03-27","2018-03-28","2018-03-29","2018-04-02","2018-04-03","2018-04-04","2018-04-05","2018-04-06","2018-04-09","2018-04-10","2018-04-11","2018-04-12","2018-04-13","2018-04-16","2018-04-17","2018-04-18","2018-04-19","2018-04-20","2018-04-23","2018-04-24","2018-04-25","2018-04-26","2018-04-27","2018-04-30","2018-05-01","2018-05-02","2018-05-03","2018-05-04","2018-05-07","2018-05-08","2018-05-09","2018-05-10","2018-05-11","2018-05-14","2018-05-15","2018-05-16","2018-05-17","2018-05-18","2018-05-21","2018-05-22","2018-05-23","2018-05-24","2018-05-25","2018-05-29","2018-05-30","2018-05-31","2018-06-01","2018-06-04","2018-06-05","2018-06-06","2018-06-07","2018-06-08","2018-06-11","2018-06-12","2018-06-13","2018-06-14","2018-06-15","2018-06-18","2018-06-19","2018-06-20","2018-06-21","2018-06-22","2018-06-25","2018-06-26","2018-06-27","2018-06-28","2018-06-29","2018-07-02","2018-07-03","2018-07-05","2018-07-06","2018-07-09","2018-07-10","2018-07-11","2018-07-12","2018-07-13","2018-07-16","2018-07-17","2018-07-18","2018-07-19","2018-07-20","2018-07-23","2018-07-24","2018-07-25","2018-07-26","2018-07-27","2018-07-30","2018-07-31","2018-08-01","2018-08-02","2018-08-03","2018-08-06","2018-08-07","2018-08-08","2018-08-09","2018-08-10","2018-08-13","2018-08-14","2018-08-15","2018-08-16","2018-08-17","2018-08-20","2018-08-21","2018-08-22","2018-08-23","2018-08-24","2018-08-27","2018-08-28","2018-08-29","2018-08-30","2018-08-31","2018-09-04","2018-09-05","2018-09-06","2018-09-07","2018-09-10","2018-09-11","2018-09-12","2018-09-13","2018-09-14","2018-09-17","2018-09-18","2018-09-19","2018-09-20","2018-09-21","2018-09-24","2018-09-25","2018-09-26","2018-09-27","2018-09-28","2018-10-01","2018-10-02","2018-10-03","2018-10-04","2018-10-05","2018-10-08","2018-10-09","2018-10-10","2018-10-11","2018-10-12","2018-10-15","2018-10-16","2018-10-17","2018-10-18","2018-10-19","2018-10-22","2018-10-23","2018-10-24","2018-10-25","2018-10-26","2018-10-29","2018-10-30","2018-10-31","2018-11-01","2018-11-02","2018-11-05","2018-11-06","2018-11-07","2018-11-08","2018-11-09","2018-11-12","2018-11-13","2018-11-14","2018-11-15","2018-11-16","2018-11-19","2018-11-20","2018-11-21","2018-11-23","2018-11-26","2018-11-27","2018-11-28","2018-11-29","2018-11-30","2018-12-03","2018-12-04","2018-12-06","2018-12-07","2018-12-10","2018-12-11","2018-12-12","2018-12-13","2018-12-14","2018-12-17","2018-12-18","2018-12-19","2018-12-20","2018-12-21","2018-12-24","2018-12-26","2018-12-27","2018-12-28","2018-12-31","2019-01-02","2019-01-03","2019-01-04","2019-01-07","2019-01-08","2019-01-09","2019-01-10","2019-01-11","2019-01-14","2019-01-15","2019-01-16","2019-01-17","2019-01-18","2019-01-22","2019-01-23","2019-01-24","2019-01-25","2019-01-28","2019-01-29","2019-01-30","2019-01-31","2019-02-01","2019-02-04","2019-02-05","2019-02-06","2019-02-07","2019-02-08","2019-02-11","2019-02-12","2019-02-13","2019-02-14","2019-02-15","2019-02-19","2019-02-20","2019-02-21","2019-02-22","2019-02-25","2019-02-26","2019-02-27","2019-02-28"],"y":[72.54,73.73,72.82,72.96,73.34,74.1,74.35,74.33,74.07,74.05,74.92,74.14,73.67,73.45,74.86,74.34,74.37,74.3,74.71,73.84,74.21,73.97,75.45,75.23,75.14,75.21,75.58,75.87,76.29,76.77,76.96,76.87,77.06,77.31,77.21,77.39,77.11,77.51,77.4,79.2,77.44,77.23,76.86,76.94,76.41,76.67,76.74,76.58,77.04,76.6,77.12,76.62,76.23,74.95,75.09,75.25,75.6,75.02,76.03,75.65,76.58,76.48,75.98,75.66,75.48,75.64,75.49,75.22,75,74.44,73.58,74.43,73.57,73.34,77.68,77.26,78.1,78.27,78.16,77.98,76.93,76.91,77.21,76.52,76.04,76.03,75.87,76.15,76.35,75.64,75.22,76.04,75.84,74.14,74.15,74.55,74.73,74.94,74.86,75.17,75.19,74.83,74.69,75.99,76.19,76.66,76.54,77.47,77.61,77.96,77.82,78.23,78.47,78.34,79.07,79.48,80.1,79.8,79.84,79.81,80.53,80.65,81.51,81.18,81.78,82.61,82.72,81.6,82.17,82.14,82.01,82.65,83.19,83.1,83.04,83.33,83.73,83.17,83.4,82.82,83.22,83.12,81.7,82.63,83.05,83.06,83.12,83.35,83.77,83.65,83.74,83.5,82.4,82.13,83.28,84.57,85.15,83.89,83.19,83.12,83.12,83.1,83.18,83.28,83.22,83.23,83.5,83.9,83.94,83.13,83.05,82.25,82.09,83.5,84.33,84.42,83.98,84.76,85.62,86.72,86.17,86.16,86.14,85.95,86.42,87.2,87.83,88.14,88.22,89.09,88.68,89.17,89.55,89.69,89.88,89.95,89.61,90.83,89.95,89.69,90.07,89.89,90.08,90.36,91.81,91.49,93.6,93.7,92.99,93.43,93.7,93.88,94.32,94.19,93.29,93.05,91.7,91.48,91.85,91.71,91.22,91.52,91.64,91.9,92.35,91.77,91.44,91.43,93.2,94.49,95.58,95.72,96.44,96.55,96.07,96.43,96.4,96.84,97.2,95.65,95.03,96.37,97.5,96.99,96.36,96.35,96.58,96.42,96.97,97.52,97.14,96.78,97.38,99,99.22,98.31,98.67,99.36,98.88,99.11,98.5,98.91,98.02,96.23,96.51,96.18,97.47,97.86,97.8,97.58,96.9,97.57,98.16,94.9,90.32,92.45,91.89,86.72,90.03,92.96,92.82,94.46,94.79,95.01,95.4,95.71,95.56,96.98,99.77,97.75,95.72,93.39,93.84,94.88,94.3,93.88,94.81,97.23,95.87,93.62,92.79,92.66,93.85,93.1,93.2,93,89.73,88.79,90.92,89.74,90.52,91.57,89.33,91.04,91.86,92.82,90.56,90.79,91.63,90.25,91.98,91.66,92.22,92.48,93.75,100.87,99.31,99.13,98.96,97.33,98.76,98.15,97.3,97.13,96.2,95.71,96.9,97.13,98.27,99.02,99.89,99.93,99.8,99.26,99.11,99.73,99.51,100.54,101.19,100.43,100.51,99.61,96.28,97.54,96.86,96.81,97.99,97.85,99.49,99.99,99.52,99.71,99.25,98.55,98.29,97.07,97.02,95.71,95,95.21,95.8,97.09,96.77,95.54,95.54,96.56,97.55,96.4,97.43,97.42,98.8,98.8,99.18,100.02,99.38,99.57,100.02,101.83,99.05,99.03,100.09,100.58,101.48,101.36,102.69,99.72,98.41,98.34,98.62,99.67,99.79,100.83,101.63,101.84,100.45,100.67,101.04,100.38,101.5,101.88,102.67,103.64,104.65,104.19,104.58,105.86,106.08,105.52,105.04,104.8,105.82,104.5,104.22,104.9,106.09,107.1,106.68,107.45,108.34,107.98,108.42,108.87,109.87,109.66,108.62,108.64,106.8,106.65,105.3,106.7,107.18,107.24,106.92,106.42,106.18,105.85,102.78,100.81,102.22,101.84,103.48,103.55,102.06,105.92,103.72,103.59,101.07,102.81,100.48,100.42,101.31,101.95,103.25,102.92,104.41,104.18,106.5,107.68,107.46,105.68,107.04,106.95,108.77,108.63,107.43,105.28,105.69,104.94,108.85,109.27,112.03,110.47,111.42,111.51,106.82,107.43,105.87,104.99,104.6,106.66,105.89,104.9,100.41,100.25,98.02,95.04,90.64,88.82,93.13,93.96,93.7,94.6,94.95,93.1,97.3,97.82,98.3,98.48,97.91,98.2,98.09,97.64,99.06,99.14,100.13,99.48,99.36,99.37,100.41,100.03,100.6,102.31,102.34,102.7,103.06,103.53,104.59,104.02,104.15,105.04,106.62,107.18,106.24,107,106.12,106.4,106.23,107.06,106.55,106.56,107.04,107.36],"fill":"tozeroy","hoveron":"points","marker":{"color":"rgba(255, 212, 96, 0.5)","line":{"color":"rgba(255,127,14,1)"}},"line":{"color":"rgba(255, 212, 96, 0.5)"},"name":"AXP","type":"scatter","mode":"markers+lines","error_y":{"color":"rgba(255,127,14,1)"},"error_x":{"color":"rgba(255,127,14,1)"},"xaxis":"x","yaxis":"y","frame":null},{"fillcolor":"rgba(200, 100, 200, 0.5)","x":["2017-01-03","2017-01-04","2017-01-05","2017-01-06","2017-01-09","2017-01-10","2017-01-11","2017-01-12","2017-01-13","2017-01-17","2017-01-18","2017-01-19","2017-01-20","2017-01-23","2017-01-24","2017-01-25","2017-01-26","2017-01-27","2017-01-30","2017-01-31","2017-02-01","2017-02-02","2017-02-03","2017-02-06","2017-02-07","2017-02-08","2017-02-09","2017-02-10","2017-02-13","2017-02-14","2017-02-15","2017-02-16","2017-02-17","2017-02-21","2017-02-22","2017-02-23","2017-02-24","2017-02-27","2017-02-28","2017-03-01","2017-03-02","2017-03-03","2017-03-06","2017-03-07","2017-03-08","2017-03-09","2017-03-10","2017-03-13","2017-03-14","2017-03-15","2017-03-16","2017-03-17","2017-03-20","2017-03-21","2017-03-22","2017-03-23","2017-03-24","2017-03-27","2017-03-28","2017-03-29","2017-03-30","2017-03-31","2017-04-03","2017-04-04","2017-04-05","2017-04-06","2017-04-07","2017-04-10","2017-04-11","2017-04-12","2017-04-13","2017-04-17","2017-04-18","2017-04-19","2017-04-20","2017-04-21","2017-04-24","2017-04-25","2017-04-26","2017-04-27","2017-04-28","2017-05-01","2017-05-02","2017-05-03","2017-05-04","2017-05-05","2017-05-08","2017-05-09","2017-05-10","2017-05-11","2017-05-12","2017-05-15","2017-05-16","2017-05-17","2017-05-18","2017-05-19","2017-05-22","2017-05-23","2017-05-24","2017-05-25","2017-05-26","2017-05-30","2017-05-31","2017-06-01","2017-06-02","2017-06-05","2017-06-06","2017-06-07","2017-06-08","2017-06-09","2017-06-12","2017-06-13","2017-06-14","2017-06-15","2017-06-16","2017-06-19","2017-06-20","2017-06-21","2017-06-22","2017-06-23","2017-06-26","2017-06-27","2017-06-28","2017-06-29","2017-06-30","2017-07-03","2017-07-05","2017-07-06","2017-07-07","2017-07-10","2017-07-11","2017-07-12","2017-07-13","2017-07-14","2017-07-17","2017-07-18","2017-07-19","2017-07-20","2017-07-21","2017-07-24","2017-07-25","2017-07-26","2017-07-27","2017-07-28","2017-07-31","2017-08-01","2017-08-02","2017-08-03","2017-08-04","2017-08-07","2017-08-08","2017-08-09","2017-08-10","2017-08-11","2017-08-14","2017-08-15","2017-08-16","2017-08-17","2017-08-18","2017-08-21","2017-08-22","2017-08-23","2017-08-24","2017-08-25","2017-08-28","2017-08-29","2017-08-30","2017-08-31","2017-09-01","2017-09-05","2017-09-06","2017-09-07","2017-09-08","2017-09-11","2017-09-12","2017-09-13","2017-09-14","2017-09-15","2017-09-18","2017-09-19","2017-09-20","2017-09-21","2017-09-22","2017-09-25","2017-09-26","2017-09-27","2017-09-28","2017-09-29","2017-10-02","2017-10-03","2017-10-04","2017-10-05","2017-10-06","2017-10-09","2017-10-10","2017-10-11","2017-10-12","2017-10-13","2017-10-16","2017-10-17","2017-10-18","2017-10-19","2017-10-20","2017-10-23","2017-10-24","2017-10-25","2017-10-26","2017-10-27","2017-10-30","2017-10-31","2017-11-01","2017-11-02","2017-11-03","2017-11-06","2017-11-07","2017-11-08","2017-11-09","2017-11-10","2017-11-13","2017-11-14","2017-11-15","2017-11-16","2017-11-17","2017-11-20","2017-11-21","2017-11-22","2017-11-24","2017-11-27","2017-11-28","2017-11-29","2017-11-30","2017-12-01","2017-12-04","2017-12-05","2017-12-06","2017-12-07","2017-12-08","2017-12-11","2017-12-12","2017-12-13","2017-12-14","2017-12-15","2017-12-18","2017-12-19","2017-12-20","2017-12-21","2017-12-22","2017-12-26","2017-12-27","2017-12-28","2017-12-29","2018-01-02","2018-01-03","2018-01-04","2018-01-05","2018-01-08","2018-01-09","2018-01-10","2018-01-11","2018-01-12","2018-01-16","2018-01-17","2018-01-18","2018-01-19","2018-01-22","2018-01-23","2018-01-24","2018-01-25","2018-01-26","2018-01-29","2018-01-30","2018-01-31","2018-02-01","2018-02-02","2018-02-05","2018-02-06","2018-02-07","2018-02-08","2018-02-09","2018-02-12","2018-02-13","2018-02-14","2018-02-15","2018-02-16","2018-02-20","2018-02-21","2018-02-22","2018-02-23","2018-02-26","2018-02-27","2018-02-28","2018-03-01","2018-03-02","2018-03-05","2018-03-06","2018-03-07","2018-03-08","2018-03-09","2018-03-12","2018-03-13","2018-03-14","2018-03-15","2018-03-16","2018-03-19","2018-03-20","2018-03-21","2018-03-22","2018-03-23","2018-03-26","2018-03-27","2018-03-28","2018-03-29","2018-04-02","2018-04-03","2018-04-04","2018-04-05","2018-04-06","2018-04-09","2018-04-10","2018-04-11","2018-04-12","2018-04-13","2018-04-16","2018-04-17","2018-04-18","2018-04-19","2018-04-20","2018-04-23","2018-04-24","2018-04-25","2018-04-26","2018-04-27","2018-04-30","2018-05-01","2018-05-02","2018-05-03","2018-05-04","2018-05-07","2018-05-08","2018-05-09","2018-05-10","2018-05-11","2018-05-14","2018-05-15","2018-05-16","2018-05-17","2018-05-18","2018-05-21","2018-05-22","2018-05-23","2018-05-24","2018-05-25","2018-05-29","2018-05-30","2018-05-31","2018-06-01","2018-06-04","2018-06-05","2018-06-06","2018-06-07","2018-06-08","2018-06-11","2018-06-12","2018-06-13","2018-06-14","2018-06-15","2018-06-18","2018-06-19","2018-06-20","2018-06-21","2018-06-22","2018-06-25","2018-06-26","2018-06-27","2018-06-28","2018-06-29","2018-07-02","2018-07-03","2018-07-05","2018-07-06","2018-07-09","2018-07-10","2018-07-11","2018-07-12","2018-07-13","2018-07-16","2018-07-17","2018-07-18","2018-07-19","2018-07-20","2018-07-23","2018-07-24","2018-07-25","2018-07-26","2018-07-27","2018-07-30","2018-07-31","2018-08-01","2018-08-02","2018-08-03","2018-08-06","2018-08-07","2018-08-08","2018-08-09","2018-08-10","2018-08-13","2018-08-14","2018-08-15","2018-08-16","2018-08-17","2018-08-20","2018-08-21","2018-08-22","2018-08-23","2018-08-24","2018-08-27","2018-08-28","2018-08-29","2018-08-30","2018-08-31","2018-09-04","2018-09-05","2018-09-06","2018-09-07","2018-09-10","2018-09-11","2018-09-12","2018-09-13","2018-09-14","2018-09-17","2018-09-18","2018-09-19","2018-09-20","2018-09-21","2018-09-24","2018-09-25","2018-09-26","2018-09-27","2018-09-28","2018-10-01","2018-10-02","2018-10-03","2018-10-04","2018-10-05","2018-10-08","2018-10-09","2018-10-10","2018-10-11","2018-10-12","2018-10-15","2018-10-16","2018-10-17","2018-10-18","2018-10-19","2018-10-22","2018-10-23","2018-10-24","2018-10-25","2018-10-26","2018-10-29","2018-10-30","2018-10-31","2018-11-01","2018-11-02","2018-11-05","2018-11-06","2018-11-07","2018-11-08","2018-11-09","2018-11-12","2018-11-13","2018-11-14","2018-11-15","2018-11-16","2018-11-19","2018-11-20","2018-11-21","2018-11-23","2018-11-26","2018-11-27","2018-11-28","2018-11-29","2018-11-30","2018-12-03","2018-12-04","2018-12-06","2018-12-07","2018-12-10","2018-12-11","2018-12-12","2018-12-13","2018-12-14","2018-12-17","2018-12-18","2018-12-19","2018-12-20","2018-12-21","2018-12-24","2018-12-26","2018-12-27","2018-12-28","2018-12-31","2019-01-02","2019-01-03","2019-01-04","2019-01-07","2019-01-08","2019-01-09","2019-01-10","2019-01-11","2019-01-14","2019-01-15","2019-01-16","2019-01-17","2019-01-18","2019-01-22","2019-01-23","2019-01-24","2019-01-25","2019-01-28","2019-01-29","2019-01-30","2019-01-31","2019-02-01","2019-02-04","2019-02-05","2019-02-06","2019-02-07","2019-02-08","2019-02-11","2019-02-12","2019-02-13","2019-02-14","2019-02-15","2019-02-19","2019-02-20","2019-02-21","2019-02-22","2019-02-25","2019-02-26","2019-02-27","2019-02-28"],"y":[10.43,10.34,10.21,10.58,10.32,10.14,10.53,10.36,10.49,10.66,10.67,10.49,10.21,10.04,10.17,10.17,10.04,10.2,10.14,10.34,10.16,10.24,10.28,10.21,10.34,10.48,10.37,10.5,10.56,10.39,10.45,10.53,10.36,10.65,10.49,10.62,10.79,10.07,10.42,10.26,10.52,10.44,10.42,10.24,10.01,10,10.08,9.96,9.95,10.23,10.22,10.36,10.13,10.22,10.08,10.11,10.15,10.06,10.23,10.17,10.02,10.11,10.12,10.19,10.09,10.09,9.98,10.08,10.23,10.28,10.27,10.34,10.32,10.28,10.33,10.29,10.48,10.51,10.35,10.32,10.34,10.34,10.33,10.23,10.13,10.34,10.34,10.36,10.57,10.48,10.35,10.42,10.34,10.35,10.22,10.23,10.38,10.39,10.74,10.76,10.77,10.69,10.67,10.92,10.88,10.7,10.88,10.57,10.56,10.71,10.74,10.9,10.88,10.89,10.89,10.88,10.87,10.66,10.57,10.56,10.67,10.51,10.35,10.2,10.15,10.06,9.93,9.76,9.83,10,9.99,10.14,10.07,10.08,10.16,10.27,10.34,10.39,10.44,10.34,10.27,10.2,10.14,10.03,10.22,10.35,10.21,10.27,10.23,10.25,10.51,10.39,10.51,10.25,10.26,10.25,10.33,10.17,10.23,10.37,10.48,10.48,10.53,10.56,10.34,10.32,10.22,10.2,10.27,10.24,10.26,10.3,10.35,10.52,10.38,10.37,10.4,10.48,10.41,10.47,10.42,10.28,10.26,10.35,10.31,10.28,10.23,10.18,10.24,10.34,10.42,10.43,10.34,10.35,10.39,10.41,10.36,10.39,10.41,10.34,10.28,10.43,10.28,10.28,10.15,10.07,10.03,9.96,9.92,9.93,9.99,10.19,9.91,9.78,9.93,9.93,9.73,9.67,10.22,10.24,10.27,10.18,10.02,10.02,10.04,10.09,10.1,10.15,9.99,10.02,10,10.08,10.18,10.13,10.23,10.11,10.17,10.26,10.13,10.06,10.04,10.2,10.35,10.06,10,10.03,10.12,10.05,10.08,10.17,10.23,10.28,10.27,10.23,10.27,10.27,10.17,10.19,10.36,10.43,10.09,10.13,10.89,11.1,10.75,10.79,10.54,10.86,11.07,11.16,10.97,11.05,11,10.63,10.13,10.11,10.01,9.61,9.75,9.81,9.86,9.81,10.05,9.99,9.94,9.77,9.84,10.02,9.99,10.72,10.39,10.47,10.38,10.49,10.44,10.32,10.36,10.37,10.26,10.2,10.22,10.21,10.36,10.29,10.23,10.32,10.34,10.24,10.36,10.46,10.73,10.86,10.86,10.99,10.88,10.99,10.91,10.88,10.92,10.91,10.79,10.84,11.06,11.22,11.23,11.23,11.1,11.33,11.47,11.49,11.63,11.76,11.82,11.79,11.77,11.88,11.91,11.95,11.33,11.66,11.89,11.87,11.93,11.88,11.86,11.64,11.52,11.65,11.78,11.77,11.97,11.98,11.98,12.24,12.31,12.35,12.49,12.49,12.08,12.28,12.33,12.39,12.59,12.68,12.73,12.62,12.62,12.63,12.49,12.45,12.42,12.43,12.76,12.79,13.05,12.95,12.69,12.56,12.53,12.55,12.2,12.4,12.58,12.65,12.73,12.68,12.41,12.29,12.58,12.58,12.62,12.66,12.94,12.94,12.91,12.84,12.9,13.01,13.21,13.35,13.48,13.29,13.6,13.4,13.22,13.05,13.16,13.15,13.53,13.59,13.61,13.62,13.64,13.66,13.66,13.61,13.56,13.66,13.55,13.13,12.82,13.08,12.95,12.78,12.89,12.75,12.9,13.12,13.21,13.3,13.41,13.25,13.47,13.61,13.42,13.36,13.27,13.36,13.65,13.7,14.07,14.17,14.15,14.3,14.4,14.45,14.41,14.08,14.29,14.47,14.98,14.7,14.43,14.61,14.64,14.35,14.31,14.34,14.19,14.16,14.45,14.34,14.5,14.36,14.83,15.75,15.35,15.42,15.27,15.27,15.16,14.99,15.17,15.26,15.13,14.66,14.83,14.76,15.15,14.97,15.26,15.19,15.24,15.35,15.21,15.2,15.28,15.51,15.48,15.63,15.52,15.69,14.64,14.74,14.5,14.45,14.22,13.6,14.05,14.06,14.04,14.23,13.95,13.94,14.4,14.47,14.81,14.78,15.09,15.14,14.8,15.19,15.26,15.24,15.3,15.36,15.61,15.64,15.62,15.61,15.77,16.03,16.26,16.55,16.7,16.82,16.85,16.97,17.08,17.02,17.04,16.9,16.92,16.79,17.04,17.01,17.18,17.39,17.19,17.15,17.02,17.09],"fill":"tozeroy","hoveron":"points+fills","marker":{"color":"rgba(200, 100, 200, 0.5)","line":{"color":"rgba(44,160,44,1)"}},"line":{"color":"rgba(200, 100, 200, 0.5)"},"name":"AES","type":"scatter","mode":"markers+lines","error_y":{"color":"rgba(44,160,44,1)"},"error_x":{"color":"rgba(44,160,44,1)"},"xaxis":"x","yaxis":"y","frame":null,"text":""},{"fillcolor":"rgba(50, 100, 234, 0.5)","x":["2017-01-03","2017-01-04","2017-01-05","2017-01-06","2017-01-09","2017-01-10","2017-01-11","2017-01-12","2017-01-13","2017-01-17","2017-01-18","2017-01-19","2017-01-20","2017-01-23","2017-01-24","2017-01-25","2017-01-26","2017-01-27","2017-01-30","2017-01-31","2017-02-01","2017-02-02","2017-02-03","2017-02-06","2017-02-07","2017-02-08","2017-02-09","2017-02-10","2017-02-13","2017-02-14","2017-02-15","2017-02-16","2017-02-17","2017-02-21","2017-02-22","2017-02-23","2017-02-24","2017-02-27","2017-02-28","2017-03-01","2017-03-02","2017-03-03","2017-03-06","2017-03-07","2017-03-08","2017-03-09","2017-03-10","2017-03-13","2017-03-14","2017-03-15","2017-03-16","2017-03-17","2017-03-20","2017-03-21","2017-03-22","2017-03-23","2017-03-24","2017-03-27","2017-03-28","2017-03-29","2017-03-30","2017-03-31","2017-04-03","2017-04-04","2017-04-05","2017-04-06","2017-04-07","2017-04-10","2017-04-11","2017-04-12","2017-04-13","2017-04-17","2017-04-18","2017-04-19","2017-04-20","2017-04-21","2017-04-24","2017-04-25","2017-04-26","2017-04-27","2017-04-28","2017-05-01","2017-05-02","2017-05-03","2017-05-04","2017-05-05","2017-05-08","2017-05-09","2017-05-10","2017-05-11","2017-05-12","2017-05-15","2017-05-16","2017-05-17","2017-05-18","2017-05-19","2017-05-22","2017-05-23","2017-05-24","2017-05-25","2017-05-26","2017-05-30","2017-05-31","2017-06-01","2017-06-02","2017-06-05","2017-06-06","2017-06-07","2017-06-08","2017-06-09","2017-06-12","2017-06-13","2017-06-14","2017-06-15","2017-06-16","2017-06-19","2017-06-20","2017-06-21","2017-06-22","2017-06-23","2017-06-26","2017-06-27","2017-06-28","2017-06-29","2017-06-30","2017-07-03","2017-07-05","2017-07-06","2017-07-07","2017-07-10","2017-07-11","2017-07-12","2017-07-13","2017-07-14","2017-07-17","2017-07-18","2017-07-19","2017-07-20","2017-07-21","2017-07-24","2017-07-25","2017-07-26","2017-07-27","2017-07-28","2017-07-31","2017-08-01","2017-08-02","2017-08-03","2017-08-04","2017-08-07","2017-08-08","2017-08-09","2017-08-10","2017-08-11","2017-08-14","2017-08-15","2017-08-16","2017-08-17","2017-08-18","2017-08-21","2017-08-22","2017-08-23","2017-08-24","2017-08-25","2017-08-28","2017-08-29","2017-08-30","2017-08-31","2017-09-01","2017-09-05","2017-09-06","2017-09-07","2017-09-08","2017-09-11","2017-09-12","2017-09-13","2017-09-14","2017-09-15","2017-09-18","2017-09-19","2017-09-20","2017-09-21","2017-09-22","2017-09-25","2017-09-26","2017-09-27","2017-09-28","2017-09-29","2017-10-02","2017-10-03","2017-10-04","2017-10-05","2017-10-06","2017-10-09","2017-10-10","2017-10-11","2017-10-12","2017-10-13","2017-10-16","2017-10-17","2017-10-18","2017-10-19","2017-10-20","2017-10-23","2017-10-24","2017-10-25","2017-10-26","2017-10-27","2017-10-30","2017-10-31","2017-11-01","2017-11-02","2017-11-03","2017-11-06","2017-11-07","2017-11-08","2017-11-09","2017-11-10","2017-11-13","2017-11-14","2017-11-15","2017-11-16","2017-11-17","2017-11-20","2017-11-21","2017-11-22","2017-11-24","2017-11-27","2017-11-28","2017-11-29","2017-11-30","2017-12-01","2017-12-04","2017-12-05","2017-12-06","2017-12-07","2017-12-08","2017-12-11","2017-12-12","2017-12-13","2017-12-14","2017-12-15","2017-12-18","2017-12-19","2017-12-20","2017-12-21","2017-12-22","2017-12-26","2017-12-27","2017-12-28","2017-12-29","2018-01-02","2018-01-03","2018-01-04","2018-01-05","2018-01-08","2018-01-09","2018-01-10","2018-01-11","2018-01-12","2018-01-16","2018-01-17","2018-01-18","2018-01-19","2018-01-22","2018-01-23","2018-01-24","2018-01-25","2018-01-26","2018-01-29","2018-01-30","2018-01-31","2018-02-01","2018-02-02","2018-02-05","2018-02-06","2018-02-07","2018-02-08","2018-02-09","2018-02-12","2018-02-13","2018-02-14","2018-02-15","2018-02-16","2018-02-20","2018-02-21","2018-02-22","2018-02-23","2018-02-26","2018-02-27","2018-02-28","2018-03-01","2018-03-02","2018-03-05","2018-03-06","2018-03-07","2018-03-08","2018-03-09","2018-03-12","2018-03-13","2018-03-14","2018-03-15","2018-03-16","2018-03-19","2018-03-20","2018-03-21","2018-03-22","2018-03-23","2018-03-26","2018-03-27","2018-03-28","2018-03-29","2018-04-02","2018-04-03","2018-04-04","2018-04-05","2018-04-06","2018-04-09","2018-04-10","2018-04-11","2018-04-12","2018-04-13","2018-04-16","2018-04-17","2018-04-18","2018-04-19","2018-04-20","2018-04-23","2018-04-24","2018-04-25","2018-04-26","2018-04-27","2018-04-30","2018-05-01","2018-05-02","2018-05-03","2018-05-04","2018-05-07","2018-05-08","2018-05-09","2018-05-10","2018-05-11","2018-05-14","2018-05-15","2018-05-16","2018-05-17","2018-05-18","2018-05-21","2018-05-22","2018-05-23","2018-05-24","2018-05-25","2018-05-29","2018-05-30","2018-05-31","2018-06-01","2018-06-04","2018-06-05","2018-06-06","2018-06-07","2018-06-08","2018-06-11","2018-06-12","2018-06-13","2018-06-14","2018-06-15","2018-06-18","2018-06-19","2018-06-20","2018-06-21","2018-06-22","2018-06-25","2018-06-26","2018-06-27","2018-06-28","2018-06-29","2018-07-02","2018-07-03","2018-07-05","2018-07-06","2018-07-09","2018-07-10","2018-07-11","2018-07-12","2018-07-13","2018-07-16","2018-07-17","2018-07-18","2018-07-19","2018-07-20","2018-07-23","2018-07-24","2018-07-25","2018-07-26","2018-07-27","2018-07-30","2018-07-31","2018-08-01","2018-08-02","2018-08-03","2018-08-06","2018-08-07","2018-08-08","2018-08-09","2018-08-10","2018-08-13","2018-08-14","2018-08-15","2018-08-16","2018-08-17","2018-08-20","2018-08-21","2018-08-22","2018-08-23","2018-08-24","2018-08-27","2018-08-28","2018-08-29","2018-08-30","2018-08-31","2018-09-04","2018-09-05","2018-09-06","2018-09-07","2018-09-10","2018-09-11","2018-09-12","2018-09-13","2018-09-14","2018-09-17","2018-09-18","2018-09-19","2018-09-20","2018-09-21","2018-09-24","2018-09-25","2018-09-26","2018-09-27","2018-09-28","2018-10-01","2018-10-02","2018-10-03","2018-10-04","2018-10-05","2018-10-08","2018-10-09","2018-10-10","2018-10-11","2018-10-12","2018-10-15","2018-10-16","2018-10-17","2018-10-18","2018-10-19","2018-10-22","2018-10-23","2018-10-24","2018-10-25","2018-10-26","2018-10-29","2018-10-30","2018-10-31","2018-11-01","2018-11-02","2018-11-05","2018-11-06","2018-11-07","2018-11-08","2018-11-09","2018-11-12","2018-11-13","2018-11-14","2018-11-15","2018-11-16","2018-11-19","2018-11-20","2018-11-21","2018-11-23","2018-11-26","2018-11-27","2018-11-28","2018-11-29","2018-11-30","2018-12-03","2018-12-04","2018-12-06","2018-12-07","2018-12-10","2018-12-11","2018-12-12","2018-12-13","2018-12-14","2018-12-17","2018-12-18","2018-12-19","2018-12-20","2018-12-21","2018-12-24","2018-12-26","2018-12-27","2018-12-28","2018-12-31","2019-01-02","2019-01-03","2019-01-04","2019-01-07","2019-01-08","2019-01-09","2019-01-10","2019-01-11","2019-01-14","2019-01-15","2019-01-16","2019-01-17","2019-01-18","2019-01-22","2019-01-23","2019-01-24","2019-01-25","2019-01-28","2019-01-29","2019-01-30","2019-01-31","2019-02-01","2019-02-04","2019-02-05","2019-02-06","2019-02-07","2019-02-08","2019-02-11","2019-02-12","2019-02-13","2019-02-14","2019-02-15","2019-02-19","2019-02-20","2019-02-21","2019-02-22","2019-02-25","2019-02-26","2019-02-27","2019-02-28"],"y":[22.94,23.09,22.95,23.15,23.1,23.12,23.29,23.16,23.45,22.83,23.18,23.05,23.4,23.38,24.71,25.18,25.06,25.18,25.16,25.01,24.74,24.9,25.23,25.21,25.1,25,25.3,25.2,25.23,25.71,25.83,26.16,26.1,26.18,26.19,26.02,26.32,26.25,26.21,26.77,26.47,26.47,26.31,26.31,26.22,26.17,26.16,26.3,25.49,25.85,25.9,25.86,25.92,25.51,25.96,25.95,26.02,26.02,26.15,26.09,26.16,25.63,25.48,25.43,25.35,25.42,25.45,25.43,25.49,25.14,24.99,25.19,25.53,25.5,25.74,25.65,26.12,27.09,26.95,27.55,27.39,27.63,27.55,27.3,27.38,27.44,27.64,27.61,27.63,27.34,27.59,27.84,28.1,27.19,27.31,27.58,27.82,27.7,27.69,28.07,27.96,27.98,27.77,28.31,28.33,28.19,28.22,28.14,27.96,27.63,27.73,28.06,27.91,28.05,28.07,28.51,28.31,28.4,28.35,28.62,28.85,28.62,29.11,28.98,28.68,28.75,29.1,28.45,28.9,29.14,28.94,29.44,29.41,29.65,29.89,29.97,30.28,30.26,30.39,30.39,30.66,29.03,28.14,27.91,27.81,28.17,28.41,27.94,27.91,27.9,27.96,28.02,27.26,27.66,28.07,27.19,27.15,26.6,26.61,26.9,27.2,27.18,27.25,27.35,27.45,27.41,27.48,27.59,27.74,27.46,27.42,27.57,27.38,27.75,27.97,28.02,28.06,28.16,28.34,28.7,28.81,28.88,28.83,28.79,28.6,28.82,28.74,28.71,28.94,29.08,29.23,29.22,28.87,28.9,28.81,28.68,28.73,28.53,28.68,28.47,28.71,28.84,28.84,28.79,30.65,30.26,30.41,30.23,29.99,30.04,30.35,30.3,30.39,30.55,30.94,30.91,30.5,30.44,30.38,30.41,30.2,30.52,30.5,30.59,30.79,30.66,30.71,30.9,31.28,31.32,31.23,30.71,31.06,31.09,30.54,30.59,31.19,31.4,31.47,31.13,30.67,30.9,31.16,31.1,31.26,31.14,31.22,31.22,31.19,31.14,30.84,31.45,32.22,32.55,32.43,32.56,32.44,32.14,32.55,33.42,33.18,33.58,33.6,33.42,33.47,33.32,32.9,32.6,33.15,33.02,31.17,30.1,30.55,30.16,28.71,28.73,28.75,27.43,27.74,28.4,28.19,28.46,28.48,28.41,28.59,28.21,28.16,28.25,28.76,28.45,28.21,27.55,27.94,28.01,28.32,28.46,28.45,29.03,28.95,28.95,28.65,28.65,28.62,28.02,28.38,28.49,27.7,26.95,27.46,26.91,26.53,27.04,26.22,26.54,26.57,26.64,25.75,25.91,26.52,26.59,26.74,26.6,26.67,26.92,27.03,26.79,26.72,26.68,25.93,26.25,26.09,26.41,26.21,26.02,25.9,25.77,26.27,26.15,26,26.27,26.54,27.16,27.23,26.89,27.28,27,26.86,26.93,26.81,26.94,26.51,26.25,25.94,25.73,26.53,27.3,27.46,27.9,28.23,28.14,28.08,28.17,27.93,27.93,28.21,28.41,28.19,27.72,27.73,27.63,27.82,27.08,27.05,26.86,26.36,26.87,27.06,26.71,27.31,27.47,28.32,28.27,27.6,28,28.13,27.93,28.51,28.76,28.65,28.44,28.67,29.13,32.43,32.84,32.76,32.17,32.4,32.13,32.02,32.07,32.17,32.29,32.51,32.32,31.97,31.75,31.94,31.61,31.95,32.25,32.22,32.11,32.12,32.05,32.23,32.83,32.88,33.02,32.86,32.9,32.81,32.71,32.92,32.97,33.35,32.94,33.39,34.42,34.63,34.54,34.63,34.61,35.47,35.27,35.04,34.86,34.76,34.75,34.66,34.64,34.83,35.09,35.05,34.1,33.84,33.63,31.73,30.77,31.55,31.21,32.05,31.8,30.6,30.22,30.27,30.84,29.75,30.88,30.13,30.03,30.66,31.37,32.5,32.31,32.46,32.77,33.39,33.48,32.95,31.13,31.45,31.02,31.65,31.63,30.77,30.46,30.32,30.78,31.14,31.18,31.85,31.46,31.82,32.97,31.75,31.87,31.04,31.36,31.19,31.58,31.57,31.04,30.51,30.27,29.68,29.18,28.42,27.62,28.81,29.33,29.38,29.83,29.51,27.68,28.84,28.83,29.11,29.31,29.97,29.67,29.48,29.72,29.69,29.89,30.25,29.05,28.94,29.49,29.98,29.98,33.3,33.1,32.84,32.68,33.13,33.13,33.35,32.79,32.97,32.94,33.59,33.61,33.31,34.08,33.77,34.23,34.07,34.41,34.64,34.47,34.45,34.57],"fill":"tozeroy","hoveron":"points","marker":{"color":"rgba(50, 100, 234, 0.5)","line":{"color":"rgba(214,39,40,1)"}},"line":{"color":"rgba(50, 100, 234, 0.5)"},"name":"GLW","type":"scatter","mode":"markers+lines","error_y":{"color":"rgba(214,39,40,1)"},"error_x":{"color":"rgba(214,39,40,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"base_url":"https://plot.ly"},"evals":["config.modeBarButtonsToAdd.0.click"],"jsHooks":[]}</script>
+<p class="caption">
+Figure 1.3:  Comparación Precios Acciones
+</p>
+</div>
+<p>Se puede observar en la figura <a href="introduccion.html#fig:Precios">1.2</a> y <a href="introduccion.html#fig:Precios2">1.3</a> que hay dos acciones BXP y AXP cuyos precios superan los cien dolares para el 2019 presentando grandes cambios en términos monetarios, lo que sugiere que el sector financiero de este portafolio es el más costoso y podría ser el mayor riesgo. Mientras que la empresa del sector utilities AES tiene precios accionarios muy bajos pero que se han incrementado de forma constante a partir de finales de 2017. Finalmente se puede observar que GLW podría tener un comportamiento estable en precios con una variación entre 26 y 36 dolares durante el período observado, sin embargo, esto solo se puede corroborar con ayuda de las mediciones descriptivas.</p>
+<div class="figure"><span id="fig:vol"></span>
+<img src="TeoriaPortafolio_files/figure-html/vol-1.png" alt="Rendimientos" width="672" />
+<p class="caption">
+Figure 1.4: Rendimientos
+</p>
+</div>
+<p>Usando el eje <span class="math inline">\(y\)</span> de la figura <a href="introduccion.html#fig:vol">1.4</a> como parámetro de medición, se puede ver que solo la acción de BXP podría presentar rendimientos pequeños, donde los picos de volatilidad de la serie no superan los valores de -4 que son los que se encuentran dentro del rango de una distribución simétrica de campana estándar. Con respecto a las demás series se puede ver que la acción del sector industrial GLW, presenta la mayor volatilidad del mercado alcanzado valores entre -5 y 10. Tanto AES como AXP presentan variaciones constantes entre sus intervalos, sin embargo son mayores a lo que se espera dando muestras de un posible caso de curtosis baja.</p>
+</div>
+<div id="medicion-y-analisis-a-traves-de-procesos-descriptivos." class="section level2">
+<h2><span class="header-section-number">1.2</span> Medición y análisis a través de procesos descriptivos.</h2>
+<table class="table table-striped" style="width: auto !important; ">
+<caption>
+<span id="tab:TED">Table 1.2: </span>Estadísticas Descriptivas
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+mean
+</th>
+<th style="text-align:right;">
+sd
+</th>
+<th style="text-align:right;">
+median
+</th>
+<th style="text-align:right;">
+trimmed
+</th>
+<th style="text-align:right;">
+mad
+</th>
+<th style="text-align:right;">
+min
+</th>
+<th style="text-align:right;">
+max
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+aes
+</td>
+<td style="text-align:right;">
+0.0832
+</td>
+<td style="text-align:right;">
+1.487
+</td>
+<td style="text-align:right;">
+0.0887
+</td>
+<td style="text-align:right;">
+0.0793
+</td>
+<td style="text-align:right;">
+1.1839
+</td>
+<td style="text-align:right;">
+-6.708
+</td>
+<td style="text-align:right;">
+7.556
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+axp
+</td>
+<td style="text-align:right;">
+0.0734
+</td>
+<td style="text-align:right;">
+1.210
+</td>
+<td style="text-align:right;">
+0.0802
+</td>
+<td style="text-align:right;">
+0.0975
+</td>
+<td style="text-align:right;">
+0.7999
+</td>
+<td style="text-align:right;">
+-5.630
+</td>
+<td style="text-align:right;">
+7.588
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+bxp
+</td>
+<td style="text-align:right;">
+0.0144
+</td>
+<td style="text-align:right;">
+1.143
+</td>
+<td style="text-align:right;">
+0.0173
+</td>
+<td style="text-align:right;">
+0.0304
+</td>
+<td style="text-align:right;">
+0.9345
+</td>
+<td style="text-align:right;">
+-4.941
+</td>
+<td style="text-align:right;">
+3.592
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+glw
+</td>
+<td style="text-align:right;">
+0.0789
+</td>
+<td style="text-align:right;">
+1.587
+</td>
+<td style="text-align:right;">
+0.0588
+</td>
+<td style="text-align:right;">
+0.0979
+</td>
+<td style="text-align:right;">
+1.0414
+</td>
+<td style="text-align:right;">
+-6.191
+</td>
+<td style="text-align:right;">
+11.331
+</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped" style="width: auto !important; ">
+<caption>
+<span id="tab:TED1">Table 1.3: </span>Estadísticas Descriptivas
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+range
+</th>
+<th style="text-align:right;">
+skew
+</th>
+<th style="text-align:right;">
+kurtosis
+</th>
+<th style="text-align:right;">
+se
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+aes
+</td>
+<td style="text-align:right;">
+14.264
+</td>
+<td style="text-align:right;">
+0.1478
+</td>
+<td style="text-align:right;">
+4.118
+</td>
+<td style="text-align:right;">
+0.0639
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+axp
+</td>
+<td style="text-align:right;">
+13.218
+</td>
+<td style="text-align:right;">
+0.1758
+</td>
+<td style="text-align:right;">
+6.216
+</td>
+<td style="text-align:right;">
+0.0520
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+bxp
+</td>
+<td style="text-align:right;">
+8.534
+</td>
+<td style="text-align:right;">
+-0.3357
+</td>
+<td style="text-align:right;">
+1.883
+</td>
+<td style="text-align:right;">
+0.0491
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+glw
+</td>
+<td style="text-align:right;">
+17.522
+</td>
+<td style="text-align:right;">
+0.8764
+</td>
+<td style="text-align:right;">
+10.162
+</td>
+<td style="text-align:right;">
+0.0682
+</td>
+</tr>
+</tbody>
+</table>
+<p>Obteniendo las medidas descriptivas más representativas a partir de los rendimientos en términos de porcentaje, en la tabla <a href="introduccion.html#tab:TED">1.2</a> se puede observar que la acción con más rendimiento es la que pertenece a AES con un 0.08% diario, mientras que la acción de BXP presenta un rendimiento promedio de 0.0143% diario, por otra parte la volatilidad medida a través de la desviación estándar, muestra que la acción de GLW presenta una mayor dispersión con respecto a la media con un valor de 1.58% confirmando la gráfica del punto a en donde los rendimientos de GLW parecían ser lo más volátiles no obstante es bueno tener en cuenta la curtosis, ya que pareciera tener más datos agrupados alrededor de la media. Usando el rango como referencia se puede observar que la acción de BXP presenta la menor dispersión entre su valor máximo y mínimo mientras que el sesgo negativo nos dice que tiene valores extremos hacia la izquierda.</p>
+<div class="figure"><span id="fig:HIST"></span>
+<img src="TeoriaPortafolio_files/figure-html/HIST-1.png" alt="Histogramas" width="672" />
+<p class="caption">
+Figure 1.5: Histogramas
+</p>
+</div>
+<p>Los histogramas de la figura <a href="introduccion.html#fig:HIST">1.5</a> concuerdan con las medidas descriptivas de la tabla <a href="introduccion.html#tab:TED">1.2</a>, incluyendo el comportamiento leptocurtico de GLW. Con una curtosis igual a 10.76% los rendimientos de GLW se centran alrededor de la media y la mediana, sin embargo, la gráfica no expone un comportamiento volátil como lo demuestra en algún punto el rango y la desviación estándar y esto puede ser porque existen escenarios extremos que incrementaron la desviación estándar pero no fueron constantes y por lo tanto se puede pensar que la acción es realmente volátil, si no que por el contrario solo tuvo algunos días de fuertes variaciones.</p>
+<p>La acción de BXP que hasta el momento se presenta como el activo más estable del portafolio, reflejando una simetría en su distribución, usando la regla empírica, se observa que los datos reflejan completamente una distribución de campana acomodándose entre los intervalos 4 y -4, con un rendimiento promedio muy cercano a cero (0,01%) y una desviación estándar cerca al 1%, se confirma la estabilidad de la acción en comparación con la demás.</p>
+<p>Dejando de lado la curtosis como parámetro de medición, pues para este análisis se convierte en un instrumento ambiguo que no permite clasificar de forma eficaz las variables, se observa que la probabilidad de tener rendimientos alejados de la media es mayor en la acción que pertenece a la empresa AES, siendo esta la más volátil de las cuatro y reordenando el portafolio con un nuevo activo riesgo y uno menos riesgo.</p>
+<p>Por lo tanto después de revisar los histogramas y comparándolos con el punto b, el orden de las acciones de mayor a menor riesgo cambia siendo la más riesgosa AES, después AXP, seguida de BXP y por último GLW.</p>
+<p>Después de realizar un ejercicio descriptivo en el anterior punto para ver que acciones tuvieron mayores variaciones en el período observado, es momento de revisar la relación que existe entre las variables con el propósito de entender mejor que puede pasar con el precio de las acciones cuando hay cambios en los procesos económicos.</p>
+<p>La diversificación hacer parte de la disminución del riesgo dentro de un portafolio, por lo tanto ver la relación entre los rendimientos de las acciones es importante para saber que dirección puede tomar el precio de una acción cuando otra dentro del portafolio sube o baja. La correlación de pearson que se mide de forma lineal, nos puede ofrecer un panorama básico para saber que hay relación hay entre las acciones.</p>
+<table class="table table-striped" style="width: auto !important; ">
+<caption>
+<span id="tab:TCORR">Table 1.4: </span>Correlación
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+aes
+</th>
+<th style="text-align:right;">
+axp
+</th>
+<th style="text-align:right;">
+bxp
+</th>
+<th style="text-align:right;">
+glw
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+aes
+</td>
+<td style="text-align:right;">
+1.0000
+</td>
+<td style="text-align:right;">
+0.1997
+</td>
+<td style="text-align:right;">
+0.2825
+</td>
+<td style="text-align:right;">
+0.1915
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+axp
+</td>
+<td style="text-align:right;">
+0.1997
+</td>
+<td style="text-align:right;">
+1.0000
+</td>
+<td style="text-align:right;">
+0.3010
+</td>
+<td style="text-align:right;">
+0.4807
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+bxp
+</td>
+<td style="text-align:right;">
+0.2825
+</td>
+<td style="text-align:right;">
+0.3010
+</td>
+<td style="text-align:right;">
+1.0000
+</td>
+<td style="text-align:right;">
+0.2188
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+glw
+</td>
+<td style="text-align:right;">
+0.1915
+</td>
+<td style="text-align:right;">
+0.4807
+</td>
+<td style="text-align:right;">
+0.2188
+</td>
+<td style="text-align:right;">
+1.0000
+</td>
+</tr>
+</tbody>
+</table>
+<div class="figure"><span id="fig:CORR"></span>
+<img src="TeoriaPortafolio_files/figure-html/CORR-1.png" alt="Correlación" width="672" />
+<p class="caption">
+Figure 1.6: Correlación
+</p>
+</div>
+<p>La tabla <a href="introduccion.html#tab:TCORR">1.4</a> y la figura <a href="introduccion.html#fig:CORR">1.6</a> muestran que aunque no hay correlaciones mayores a 0,5 indicado una baja correlación positiva entre las variables, existe una relación lineal positiva entre todas la variables, destacando la correlación de 0.30 entre AXP y BXP y la correlación de 0.48 entre GLW y AXP. Las demás relaciones lineales si bien son diferentes de cero, no muestran grandes dependencias entre las variables.</p>
+</div>
+<div id="diversificacion-de-un-portafolio." class="section level2">
+<h2><span class="header-section-number">1.3</span> Diversificación de un portafolio.</h2>
+<p>Un portafolio se puede diversificar de acuerdo a los criterios establecidos por el inversionista al momento de repartir el capital entre los activos que desea usar para generar rentabilidad. El objetivo principal de diversificar un portafolio es obtener una mejor rentabilidad con un menor riesgo, de esta forma se obtiene lo que se conoce como portafolio eficiente y la asignación de los recursos se hace de acuerdo al perfil de riesgo que tiene cada uno de los inversionistas.</p>
+<p>Un portafolio es eficiente cuando la rentabilidad <span class="math inline">\(\mu_{p} \geq R_{p}\)</span> que es el promedio de rentabilidad de portafolio de la ecuación <a href="introduccion.html#eq:pond">(1.2)</a> es mayor a la rentabilidad esperada por algún otro portafolio que no logre disminuir el riesgo <span class="math inline">\(\sigma\)</span> en el mismo punto.</p>
+<span class="math display">\[\begin{equation}
+\sigma_{p}=min\{\sigma_{p}|\quad p \quad es \quad  un \quad  portafolio \quad  con \quad \mu_{p} \geq R_{p} \}
+\end{equation}\]</span>
+<p>Dado que existen diferentes perfiles de riesgo, también existen diferentes portafolio para cada perfil de riesgo formando lo que se conoce como la frontera de curva eficiente.</p>
+<div id="ejemplo-para-dos-activos" class="section level3">
+<h3><span class="header-section-number">1.3.1</span> Ejemplo para dos activos</h3>
+<p>Usando un secuencia para un activo <span class="math inline">\(A\)</span> y un activo <span class="math inline">\(B\)</span> se crean los rendimientos de cada una de las acciones <span class="math inline">\(\mu_{A}=0.175\)</span> y <span class="math inline">\(\mu_{B}=0.055\)</span> con sus respectivas desviaciones estandar <span class="math inline">\(\sigma_{A}=0.258\)</span> y <span class="math inline">\(\sigma_{B}=0.115\)</span>, también se crea la correlación <span class="math inline">\(\rho = -0.164\)</span> mostrando una relación inversa entre los activos</p>
+<p>Se generan los cáculos para un portafolio de dos activos mostrando como resultado el valor mínimo de la varianza y su respectiva rentabilidad.</p>
+<table class="table table-striped" style="width: auto !important; ">
+<caption>
+<span id="tab:unnamed-chunk-4">Table 1.5: </span>Portafolio mínima varianza
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+Rentabilidad
+</th>
+<th style="text-align:right;">
+Volatilidad
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0.0793
+</td>
+<td style="text-align:right;">
+0.0978
+</td>
+</tr>
+</tbody>
+</table>
+<div class="figure"><span id="fig:PEF"></span>
+<img src="TeoriaPortafolio_files/figure-html/PEF-1.png" alt="Curva Eficiente" width="672" />
+<p class="caption">
+Figure 1.7: Curva Eficiente
+</p>
+</div>
+<p>Como se mencionó en el anterior apartado, un solo resultado no es factible para un inversionista dados los diferentes perfiles de riesgo. La figura <a href="introduccion.html#fig:PEF">1.7</a> muestra con color verde los portafolios que se ubican en la frontera eficiente y que por lo tanto diversifican mejor el riesgo, los que están en rojo son portafolios que no son eficiente dado que a ese mismi riesgo se obtiene una mejor rentabilidad.</p>
+<p>Un portafolio diversificado es aquel en donde sus activos tienen una realción casi nula, ya que esto permite que el portafolio se ajuste de acuerdo a las variaciones de cada uno de los precios de los activos del portafolio, para poder ver esta relación se puede obtener el coeficiente de correlación.</p>
+<div class="figure"><span id="fig:PCORR"></span>
+<img src="TeoriaPortafolio_files/figure-html/PCORR-1.png" alt="Diferentes Correlaciones" width="672" />
+<p class="caption">
+Figure 1.8: Diferentes Correlaciones
+</p>
+</div>
+<p>La gráfica <a href="introduccion.html#fig:PCORR">1.8</a> compara diferentes correlaciones desde <span class="math inline">\(\rho=-0.9\)</span> hasta <span class="math inline">\(\rho= 0.9\)</span> la linea negar con puntos muestra que los activos pueden ir en dos direcciones cuando su relación es inversa, mientras que la gráfica amarilla se vuelve lentamente lineal a medida que los activos presentan una mayor relación positiva entre si. Una diversificación perfecta se presenta cuando los activos tienen una correlación de cero, ya que al no haber relación el portafolio presentar mayor probabilidad de corregir las perdidas generadas por un instrumento financiero específico.</p>
+<div class="figure"><span id="fig:CORREX"></span>
+<img src="TeoriaPortafolio_files/figure-html/CORREX-1.png" alt="Diferentes Correlaciones" width="672" />
+<p class="caption">
+Figure 1.9: Diferentes Correlaciones
+</p>
+</div>
+<p>En la figura <a href="introduccion.html#fig:CORREX">1.9</a> se presenta dos escenarios en donde la correlación entre las variables tiene los máximos valores.</p>
+<div class="figure"><span id="fig:EFP"></span>
+<img src="TeoriaPortafolio_files/figure-html/EFP-1.png" alt="Portafolios eficientes" width="672" />
+<p class="caption">
+Figure 1.10: Portafolios eficientes
+</p>
+</div>
+<p>Usando un portafolio diversificado con grado de correlación <span class="math inline">\(\rho=0\)</span> se puede observar en la figura <a href="introduccion.html#fig:EFP">1.10</a> las diferentes opciones de ponderación de acuerdo al perfil de riesgo que puede tener un inversionista, en donde cada uno de los puntos representa un portafolio diferente. Los puntos en verde muestran las opciones eficientes, mientras que los puntos rojos reflejan las decisiones menos óptimas debido a que a esos niveles de riesgo la rentabilidad en menor en comparación a la que se puede obtener en los portafolios con puntos verdes.</p>
+</div>
+<div id="implementando-titulos-de-renta-fija." class="section level3">
+<h3><span class="header-section-number">1.3.2</span> Implementando títulos de renta fija.</h3>
+<p>La idea de implementar un título de renta fija es minimizar el riesgo con el objetivo de conseguir un portafolio más seguro pero que oferece una menor rentabilidad debido a que hay una poricón de la inversión en un título de menor riesgo y rentabilidad. Usando ahora un título de renta fija, se comparan dos portafolios, uno usando la acción <span class="math inline">\(A\)</span> y un título de renta fija con una tasa libre de riesgo <span class="math inline">\(r=0,03\)</span> y otro usando la acción <span class="math inline">\(B\)</span> con el mismo título de renta fija.</p>
+<table class="table table-striped" style="width: auto !important; ">
+<caption>
+<span id="tab:TSHARP">Table 1.6: </span>Indice Sharp
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+Sharpe A
+</th>
+<th style="text-align:right;">
+Sharpe B
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+Inf
+</td>
+<td style="text-align:right;">
+Inf
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5.6202
+</td>
+<td style="text-align:right;">
+2.1739
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2.8101
+</td>
+<td style="text-align:right;">
+1.0870
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1.8734
+</td>
+<td style="text-align:right;">
+0.7246
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1.4050
+</td>
+<td style="text-align:right;">
+0.5435
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1.1240
+</td>
+<td style="text-align:right;">
+0.4348
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.9367
+</td>
+<td style="text-align:right;">
+0.3623
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.8029
+</td>
+<td style="text-align:right;">
+0.3106
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.7025
+</td>
+<td style="text-align:right;">
+0.2717
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.6245
+</td>
+<td style="text-align:right;">
+0.2415
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.5620
+</td>
+<td style="text-align:right;">
+0.2174
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.5109
+</td>
+<td style="text-align:right;">
+0.1976
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.4683
+</td>
+<td style="text-align:right;">
+0.1812
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.4323
+</td>
+<td style="text-align:right;">
+0.1672
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.4014
+</td>
+<td style="text-align:right;">
+0.1553
+</td>
+</tr>
+</tbody>
+</table>
+<p>Para comparar estos dos portafolios, se usa el índice de sharp que mide la rentabilidad real en razón del nivel de riesgo de cada uno de los activos.</p>
+<span class="math display" id="eq:IS">\[\begin{equation}
+IS=(\mu-rf)/\sigma
+\tag{1.3}
+\end{equation}\]</span>
+<p>La ecuación <a href="introduccion.html#eq:IS">(1.3)</a> hace referencia al índice de sharp, en donde <span class="math inline">\(\mu\)</span> es la rentabilidad del portafolio, <span class="math inline">\(rf\)</span> la tasa libre de riesgo y <span class="math inline">\(\sigma\)</span> el nivel de riesgo de ese portafolio.</p>
+<div class="figure"><span id="fig:TBILL"></span>
+<img src="TeoriaPortafolio_files/figure-html/TBILL-1.png" alt="Portafolios eficientes de SHARP" width="672" />
+<p class="caption">
+Figure 1.11: Portafolios eficientes de SHARP
+</p>
+</div>
+<p>Comparando los resultados de la gráfica de sharp <a href="introduccion.html#fig:TBILL">1.11</a> con la tabla <a href="introduccion.html#tab:TSHARP">1.6</a> en donde el valor para el portafolio <span class="math inline">\(A=0.56\)</span>, se confirma que combinando un título de renta fija con la acción <span class="math inline">\(A\)</span> la rentabilidad es mucho mayor que haciendo el mismo proceso con la acción <span class="math inline">\(B\)</span>.</p>
+<table class="table table-striped" style="width: auto !important; ">
+<caption>
+<span id="tab:2RAT">Table 1.7: </span>Indice Sharp
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+Resultados
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+tan A
+</td>
+<td style="text-align:right;">
+0.4625
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+tan B
+</td>
+<td style="text-align:right;">
+0.5375
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mu.p
+</td>
+<td style="text-align:right;">
+0.1105
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sig.p
+</td>
+<td style="text-align:right;">
+0.1251
+</td>
+</tr>
+</tbody>
+</table>
+<p>La tabla <a href="introduccion.html#tab:2RAT">1.7</a> muestra cuanto se debe invertir en A y en B sin incluir el título de renta fija para un portafolio óptimo de acuerdo al índice de sharp, adicional muestra cuanto sería el riesgo y la rentabilidad de acuerdo a la ponderación de este portafolio.</p>
+<div class="figure"><span id="fig:WOTBILL"></span>
+<img src="TeoriaPortafolio_files/figure-html/WOTBILL-1.png" alt="Portafolios eficientes sin Renta Fija" width="672" />
+<p class="caption">
+Figure 1.12: Portafolios eficientes sin Renta Fija
+</p>
+</div>
+<p>La figura <a href="introduccion.html#fig:WOTBILL">1.12</a> combina los resultados las gráficas <a href="introduccion.html#fig:TBILL">1.11</a> y <a href="introduccion.html#fig:EFP">1.10</a> siendo la linea roja con puntos las opciones en <span class="math inline">\(A\)</span>, la linea azul las opciones en <span class="math inline">\(B\)</span> y la curva negra las opciones en ambos activos.</p>
+<div class="figure"><span id="fig:WTBILL"></span>
+<img src="TeoriaPortafolio_files/figure-html/WTBILL-1.png" alt="Portafolios eficientes con Renta Fija" width="672" />
+<p class="caption">
+Figure 1.13: Portafolios eficientes con Renta Fija
+</p>
+</div>
+<p>Finalmente se tiene la figura <a href="introduccion.html#fig:WTBILL">1.13</a> que inlcuye la recta tangente que atravieza la curva eficiente de portafolio. En el punto en el cual se encuentran ambos puntos está el portfolio óptimo en donde la razón rentabilidad y volatilidad es la más alta.</p>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="procesos-de-incertidumbre.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+},
+"search": false
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

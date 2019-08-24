@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>2 Procesos de incertidumbre | Teoría de Portafolio</title>
+  <meta name="description" content="2 Procesos de incertidumbre | Teoría de Portafolio">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="2 Procesos de incertidumbre | Teoría de Portafolio" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 Procesos de incertidumbre | Teoría de Portafolio" />
+  
+  
+  
+
+<meta name="author" content="Andrés Martínez">
+
+
+<meta name="date" content="2019-06-19">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="introduccion.html">
+<link rel="next" href="referencias.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.8.0/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.39.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.39.2/plotly-latest.min.js"></script>
+
+
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="introduccion.html"><a href="introduccion.html"><i class="fa fa-check"></i><b>1</b> Introducción</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduccion.html"><a href="introduccion.html#inicio-del-caso."><i class="fa fa-check"></i><b>1.1</b> Inicio del caso.</a></li>
+<li class="chapter" data-level="1.2" data-path="introduccion.html"><a href="introduccion.html#medicion-y-analisis-a-traves-de-procesos-descriptivos."><i class="fa fa-check"></i><b>1.2</b> Medición y análisis a través de procesos descriptivos.</a></li>
+<li class="chapter" data-level="1.3" data-path="introduccion.html"><a href="introduccion.html#diversificacion-de-un-portafolio."><i class="fa fa-check"></i><b>1.3</b> Diversificación de un portafolio.</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="introduccion.html"><a href="introduccion.html#ejemplo-para-dos-activos"><i class="fa fa-check"></i><b>1.3.1</b> Ejemplo para dos activos</a></li>
+<li class="chapter" data-level="1.3.2" data-path="introduccion.html"><a href="introduccion.html#implementando-titulos-de-renta-fija."><i class="fa fa-check"></i><b>1.3.2</b> Implementando títulos de renta fija.</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="procesos-de-incertidumbre.html"><a href="procesos-de-incertidumbre.html"><i class="fa fa-check"></i><b>2</b> Procesos de incertidumbre</a><ul>
+<li class="chapter" data-level="2.1" data-path="procesos-de-incertidumbre.html"><a href="procesos-de-incertidumbre.html#modelo-binomial-para-acciones."><i class="fa fa-check"></i><b>2.1</b> Modelo Binomial para Acciones.</a></li>
+<li class="chapter" data-level="2.2" data-path="procesos-de-incertidumbre.html"><a href="procesos-de-incertidumbre.html#modelo-continuo-para-acciones"><i class="fa fa-check"></i><b>2.2</b> Modelo Continuo para acciones</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="procesos-de-incertidumbre.html"><a href="procesos-de-incertidumbre.html#aproximacion-de-la-distribucion-binomial-a-la-distribucion-normal"><i class="fa fa-check"></i><b>2.2.1</b> Aproximación de la distribución binomial a la distribución normal</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="procesos-de-incertidumbre.html"><a href="procesos-de-incertidumbre.html#aplicacion-general"><i class="fa fa-check"></i><b>2.3</b> Aplicación general</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="procesos-de-incertidumbre.html"><a href="procesos-de-incertidumbre.html#diseno-de-una-estrategia-de-inversion."><i class="fa fa-check"></i><b>2.3.1</b> Diseño de una estrategia de inversión.</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="procesos-de-incertidumbre.html"><a href="procesos-de-incertidumbre.html#conclusion"><i class="fa fa-check"></i><b>2.4</b> Conclusión</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Teoría de Portafolio</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="procesos-de-incertidumbre" class="section level1">
+<h1><span class="header-section-number">2</span> Procesos de incertidumbre</h1>
+<p>Usando los elementos de la teoría de probabilidad, con ayuda de las funciones distribución discretas y continuas, se crearán los escenarios para determinar cuales pueden ser los posibles cambios que pueden llegar a sufrir los precios de las acciones. En este punto se aprovecha que los estudiantes ya han avanzado en la asignatura de matemática financiera y tienen una muy buena comprensión de lo que es el valor del dinero en el tiempo y como se debe valorar a través de procesos como el interés simple, el compuesto y el continuo.</p>
+<p>Aprovechando la definición de variables aleatorias, se trabajará con los precios y los rendimientos de las acciones asumiendo primero que son una variable discreta para trabajar con un proceso binomial, y luego asumiendo son variables continuas para trabajar con un proceso continuo.</p>
+<p>Como son dos modelos financieros que tienen sus raíces en la teoría de probabilidad, primero se va a hacer una introducción a cada uno de estos modelos antes de utilizarlos.</p>
+<div id="modelo-binomial-para-acciones." class="section level2">
+<h2><span class="header-section-number">2.1</span> Modelo Binomial para Acciones.</h2>
+<p>Diversos autores han buscado representar los movimientos de los instrumentos financieros que están sujetos bajo incertidumbre. Muchos de ellos han optado por usar un modelo binomial, pues brinda las herramientas básicas a través de tasa de interés y volatilidad para mostrar los posibles cambios del precio de una acción, en un horizonte de tiempo determinado. En este espacio se usa el que plantearon <span class="citation">Cox, Ross, and Rubinstein (<a href="#ref-cox1979option">1979</a>)</span> en donde se establece una probabilidad, de acuerdo a unos supuestos como la ausencia de arbitraje que es necesaria para mantener el escenario de incertidumbre y que los rendimientos tienen una distribución normal <span class="math inline">\(ln\Big(\frac{S_{t}}{S_{t-1}}\Big)\sim N(\mu t, \sigma^{2}t)\)</span> donde <span class="math inline">\(ln\Big(\frac{S_{t}}{S_{t-1}}\Big)\)</span> son los rendimientos del precio de un instrumento financiero al momento <span class="math inline">\(S_{t}\)</span>. Se puede ver también que tanto <span class="math inline">\(\mu\)</span> como <span class="math inline">\(\sigma^{2}\)</span> se multiplican por <span class="math inline">\(t\)</span> dado que estamos hablando de variables que miden el valor del dinero en el tiempo.</p>
+<p>Antes de resolver como se genera la probabilidad, primero se define el crecimiento y el decrecimiento del precio <span class="math inline">\(S\)</span> de un activo de acuerdo a unas condiciones dadas. De esta manera se representan las subidas <span class="math inline">\(U\)</span> y bajadas <span class="math inline">\(D\)</span> de los precios con el ejemplo de la moneda en donde si lanza la moneda y cae cara <span class="math inline">\(H\)</span> entonces sus ingresos suben, pero si se lanza la moneda y cae sello <span class="math inline">\(T\)</span>, entonces sus ingresos disminuyen. A mayor lanzamiento de monedas, mayor probabilidad de aumentar o disminuir las ganancias.</p>
+<p>El número del lanzamiento de cada moneda se da por el literal <span class="math inline">\(i\)</span>, de esta forma si se quiere conocer el valor del precio de una acción después de lanzar la moneda <span class="math inline">\(i\)</span> veces, se está buscando el valor <span class="math inline">\(S_{i}\)</span></p>
+<p>Antes de empezar se describe el conjunto <span class="math inline">\(\Omega\)</span> de todos los posibles resultados para el lanzamiento de una moneda.</p>
+<span class="math display">\[\begin{align}
+\Omega=\{U,D\}^{n}=\{(\omega_{1},\omega_{2},...,\omega_{n}\}; \omega_{i}=U \quad o \quad \omega_{i}=D
+\label{eq:omea}
+\end{align}\]</span>
+<p>En donde los resultados que se generan en <span class="math inline">\(\Omega\)</span> se ven reflejados en el espacio de los números reales <span class="math inline">\(\mathbb{R}\)</span>.</p>
+<span class="math display">\[\begin{align}
+X_{i}=\Omega \rightarrow \mathbb{R} \quad \omega \rightarrow \omega_{i}
+\end{align}\]</span>
+<p>Por un lado se tienen los resultados cuando la moneda cae en cara</p>
+<span class="math display">\[\begin{align}
+H_{i}: \Omega \rightarrow \mathbb{R} \quad \omega \rightarrow \# \{j \leq i :\omega_{j}=U\}
+\end{align}\]</span>
+<p>Y por otro lado se tienen los resultados cuando la moneda cae sello.</p>
+<span class="math display">\[\begin{align}
+T_{i}: \Omega \rightarrow \mathbb{R} \quad \omega \rightarrow \# \{j \leq i :\omega_{j}=D\}
+\end{align}\]</span>
+<p>El precio de una acción al momento <span class="math inline">\(S_{i}\)</span> se da entonces por la multiplicación de los resultados de la variable aleatoria <span class="math inline">\(X_{j}\)</span> que son los resultados de la moneda por <span class="math inline">\(S_{0}\)</span>.</p>
+<span class="math display" id="eq:PSMB">\[\begin{equation}
+S_{i}=S_{0}\Pi_{j=1}^{i}X_{j}=S_{0}U^{H_{i}}D^{T_{i}}
+\tag{2.1}
+\end{equation}\]</span>
+<p>El valor esperado del precio se calcula con ayuda de la función de distribución binomial:</p>
+<span class="math display" id="eq:binom">\[\begin{equation}
+P(X=x)=\binom{t}{x}  p^{x}q^{t-x}
+\tag{2.2}
+\end{equation}\]</span>
+<p>Donde <span class="math inline">\(p\)</span> y <span class="math inline">\(q\)</span> son probabilidades <span class="math inline">\(n\)</span> el número de escenarios y <span class="math inline">\(x\)</span> el valor que se desea obtener. Combinando <a href="procesos-de-incertidumbre.html#eq:binom">(2.2)</a> con <a href="procesos-de-incertidumbre.html#eq:PSMB">(2.1)</a> de acuerdo a los resultados de cara y sello se puede crear el valor esperado del precio de una acción usando la función de distribución binomial.</p>
+<span class="math display" id="eq:CRR1">\[\begin{equation}
+E [S_{t}]=\sum_{x=0}^{t}\binom{t}{x}  p^{x}(1-p )^{t-x}S_{0}U^{x}D^{t-x}
+\tag{2.3}
+\end{equation}\]</span>
+<p>Se puede ver que el proceso para obtener el valor esperado con ayuda de <a href="procesos-de-incertidumbre.html#eq:CRR1">(2.3)</a> es el mismo que se usa para hallar el valor esperado de una función de distribución binomial, donde la variable aleatoria es el precio y la probabilidad es la función de distribución binomial, el resultado del precio se obtiene después de <span class="math inline">\(n\)</span> ensayos.</p>
+<p>La varianza se calcula aplicando la propiedad <span class="math inline">\(Var[x]=E[S_{t}^{2}]-E[S_{t}]^{2}\)</span> junto con la ecuación <a href="procesos-de-incertidumbre.html#eq:CRR1">(2.3)</a> .</p>
+<p>Si bien la probabilidad que se ha abordado hasta este momento está relacionada con el cálculo de las frecuencias absolutas y relativas, se puede usar también los conceptos de matemática financiera para encontrar la probabilidad de un proceso usando conceptos como los que se abordan en matemática financiera. Como se mencionó anteriormente es importante que no exista arbitraje en este modelo, ya que la no ausencia de arbitraje genera que la incertidumbre se pierda y el resultado sea seguro produciendo un resultado determinista.</p>
+<p>Para garantizar que el modelo se puede desarrollar se establece la siguiente desigualdad:</p>
+<span class="math display" id="eq:ARB">\[\begin{equation}
+D&lt;(1+r)&lt;U
+\tag{2.4}
+\end{equation}\]</span>
+<p>Donde <span class="math inline">\(D\)</span> es la constante cuando el precio cae y <span class="math inline">\(U\)</span> es la constate cuando el precio sube, por otra parte <span class="math inline">\(r\)</span> es la tasa libre de riesgo. Como se puede ver en la desigualdad <a href="procesos-de-incertidumbre.html#eq:ARB">(2.4)</a> la tasa libre de riesgo debe encontrarse en la mitad de las posibilidades cuando el precio de un instrumento financiero sube o baja.</p>
+<p>El cálculo de <span class="math inline">\(U\)</span> se obtiene con ayuda de la desviación estándar que en finanzas es la volatilidad, multiplicada por la raíz del tiempo, la raíz del tiempo se da porque como se mencionó desde el inicio del documento los rendimientos tienen una distribución normal y como ellos nos dan el valor del dinero en el tiempo, siempre se deben multiplicar por <span class="math inline">\(t\)</span> para obtener la equivalencia deseada en términos de tiempo. Dado que los parámetros de una distribución normal son media y varianza, cada una debe ser multiplicada por <span class="math inline">\(t\)</span> entonces al obtener la raíz cuadrada de la varianza, se obtiene la desviación estándar multiplicada por la raíz de <span class="math inline">\(t\)</span>.</p>
+<p>Estos procesos se calculan a través de procesos continuos por lo tanto el valor al que sube un precio se obtiene con <span class="math inline">\(U=e^{\sigma\sqrt{t}}\)</span> mientras que el valor del precio cuando baja se obtiene con <span class="math inline">\(D=e^{-\sigma\sqrt{t}}\)</span>.</p>
+<p>Por último se puede mostrar el cálculo de la probabilidad de este modelo, si bien hasta ahora se han visto dos formas de obtener la probabilidad (Frecuencias y Subjetivas) modelos como el que se va a utilizar, deben ofrecer la forma en que se obtiene la probabilidad usando los conceptos financieros.</p>
+<span class="math display" id="eq:pq">\[\begin{equation}
+p = \frac{(1+r)-D}{U-D}
+\tag{2.5}
+\end{equation}\]</span>
+<p>Se puede ver en <a href="procesos-de-incertidumbre.html#eq:ARB">(2.4)</a> <span class="math inline">\(p\)</span> es el resultado de la combinación entre la tasa libre de riesgo y la posibilidad de que el precio suba o baje. Usando la propiedad de la probabilidad en donde <span class="math inline">\(P(A^{c})=1-P(A)\)</span> se puede obtener <span class="math inline">\(q=1-p\)</span>.</p>
+<p>Con todas las variables del modelo, se puede proceder a generar un escenario para las cuatro acciones que se han trabajado hasta este momento.</p>
+<p>Primero se van a crear cuatro árboles binomiales que muestren el comportamiento de las acciones usando los parámetros del modelo binomial.</p>
+<div class="figure"><span id="fig:AB"></span>
+<img src="TeoriaPortafolio_files/figure-html/AB-1.png" alt="Árbol Binomial" width="768" />
+<p class="caption">
+Figure 2.1: Árbol Binomial
+</p>
+</div>
+<p>Usando el modelo binomial se realiza un pronóstico de los precios de cada acción para un mes dividido en cuatro semanas como se observa en la figura <a href="procesos-de-incertidumbre.html#fig:AB">2.1</a> , se puede ver en cada una de las gráficas, que la varianza genera que el precio aumente y se aleje de la media a medida que avanzan las semanas. A mayor horizonte de tiempo, mayor sera el grado de dispersión con respecto al valor esperado. Entre las cuatro gráficas, la que pertenece a AXP presenta un mayor grado de dispersión mostrando que puede llegar a alcanzar variaciones hasta de 20 USD, mientras que AES parece no mostrar grandes cambios en un mes dado que su máxima variación podría ser de 2 USD.</p>
+<p>Usando las ecuaciones que construyen el modelo binomial, se procede a calcular el valor esperado y la varianza de cada una de las acciones.</p>
+<table class="table table-striped" style="width: auto !important; ">
+<caption>
+<span id="tab:unnamed-chunk-9">Table 2.1: </span>Resultados
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+BXP
+</th>
+<th style="text-align:right;">
+AXP
+</th>
+<th style="text-align:right;">
+AES
+</th>
+<th style="text-align:right;">
+GLW
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+EV
+</td>
+<td style="text-align:right;">
+132.9233
+</td>
+<td style="text-align:right;">
+107.9294
+</td>
+<td style="text-align:right;">
+17.2603
+</td>
+<td style="text-align:right;">
+34.871
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VOL
+</td>
+<td style="text-align:right;">
+6.7951
+</td>
+<td style="text-align:right;">
+5.8416
+</td>
+<td style="text-align:right;">
+1.1485
+</td>
+<td style="text-align:right;">
+2.476
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CV
+</td>
+<td style="text-align:right;">
+0.0511
+</td>
+<td style="text-align:right;">
+0.0541
+</td>
+<td style="text-align:right;">
+0.0665
+</td>
+<td style="text-align:right;">
+0.071
+</td>
+</tr>
+</tbody>
+</table>
+<p>Los resultados muestran que en un mes los precios pueden estar variando hasta un 7% GLW y una variación mínima del 5.11% de acuerdo al modelo binomial. Viendo los resultados de la tabla se ve que las acciones generan un buen dinamismo de mercado dándole al inversionista la posibilidad de aumentar su capital,Estas variaciones aproximadas en términos porcentuales como lo muestra el coeficiente de variación, muestran que estas empresas se caracterizan porque están consolidadas y así lo demuestran los resultados en cuanto al pronóstico de sus movimientos. Una persona que quiere generar ganancias por encima de la tasa libre de riesgo, podría invertir en una de estas acciones.</p>
+<p>Aunque se pueden obtener resultados completos con el modelo binomial, también es importante aclarar que se debe tener cuidado con el manejo de las estrategias, puesto que al tratarse de temas discretos, se están obviando un más de un centenar de posibilidades de variación del precio. Esto se puede resolver con ayuda de la implementación de modelos continuos que generar una mayor cantidad de escenarios y proponen otras alternativas que no se pueden ver en un escenario discreto dada su limitada capacidad de generación de escenarios.</p>
+</div>
+<div id="modelo-continuo-para-acciones" class="section level2">
+<h2><span class="header-section-number">2.2</span> Modelo Continuo para acciones</h2>
+<p>El papel de las funciones de distribución binomial y normal, es generar esos procesos aleatorios sobre las variables que no se pueden hacer en otro escenario, así como en el anterior modelo la función de distribución binomial buscaba a través de la probabilidad generar el efecto aleatorio en el precio, en la distribución normal se busca generar el efecto sobre la volatilidad del rendimiento activo creando las caminatas aleatorias que permitirán representar el precio de un instrumento financiero que está sujeto a incertidumbre.</p>
+<p>Para realizar el modelo de forma continua, es necesario entender porque se puede transformar un proceso discreto en uno continuo.</p>
+<p>En este caso usamos el teorema del límite central que propone la representación de ciertas distribuciones discretas en forma continua, como ocurriría en este caso con la relación que se espera obtener entre la función de distribución binomial y la función de distribución normal.</p>
+<p>Como se sabe, la distribución normal es aquella que trabaja con variables continuas y que tiene parámetros de media <span class="math inline">\(\mu\)</span> y varianza <span class="math inline">\(\sigma^{2}\)</span>, por lo tanto, se dice que una variable aleatoria continua se distribuye <span class="math inline">\(X\sim(\mu,\sigma^{2})\)</span>, como en este caso las variables dependen del tiempo entonces <span class="math inline">\(X_{t}\sim(\mu t, \sigma^{2}t)\)</span> donde <span class="math inline">\(t\)</span> hace referencia al tiempo en el cuál se está valorando la variable.</p>
+<p>La función de densidad de la distribución normal se define así:</p>
+<span class="math display">\[\begin{equation}
+f(x_{t})=\frac{1}{\sqrt{2\pi\sigma^{2}}}e^{-(x-\mu)^{2}t/2\sigma^{2}t}
+\end{equation}\]</span>
+<p>Donde <span class="math inline">\(\mu\)</span> es la media y <span class="math inline">\(\sigma^{2}\)</span> la varianza <span class="math inline">\(t\)</span> como se mencionó hace referencia al tiempo.</p>
+<p>Por otra parte la función de distribución binomial que se usó para obtener el modelo binomial se implementar para obtener una aproximación binomial a la distribución normal.</p>
+<div id="aproximacion-de-la-distribucion-binomial-a-la-distribucion-normal" class="section level3">
+<h3><span class="header-section-number">2.2.1</span> Aproximación de la distribución binomial a la distribución normal</h3>
+<p>Sea <span class="math inline">\(X\)</span> cualquier variable aleatoria que tiene distribución binomial con parámetros <span class="math inline">\(n\)</span> y <span class="math inline">\(p\)</span>.</p>
+<p>\begin{itemize}</p>
+
+<p>Si <span class="math inline">\(n\geq 30\)</span>, entonces la distribución binomial se puede aproximar a la distribución normal con <span class="math inline">\(\mu=np\)</span> y <span class="math inline">\(\sigma^{2}=npq\)</span> Si <span class="math inline">\(np\geq 5\)</span> y <span class="math inline">\(n(1-p)\geq 5\)</span>, entonces también la distribución binomial se puede aproximar a la distribución normal con <span class="math inline">\(\mu =np\)</span>, y <span class="math inline">\(\sigma^{2}=npq\)</span>.</p>
+<p>En cualquiera de los casos se cumple que</p>
+<span class="math display">\[\begin{equation}
+P(X\leq k)=B(k;n;p)=N\Big(\frac{k+0.5-np}{\sqrt{npq}}\Big)
+\end{equation}\]</span>
+<p>La aproximación que se acaba de nombrar, establece que a mayor cantidad de ensayos, es más probable que estos se puedan leer a través de los parámetros de la distribución normal, es por esta razón que los resultados convergen en un proceso continuo y se puede implementar la media y la varianza del las medidas descriptivas para obtener los parámetros del modelo. Nuevamente se aclara que en este ejercicio se trabaja con la media y la varianza de los rendimientos, pues son estos los que presentan un comportamiento de una distribución normal ya que los precios presentan por lo general otro tipo de distribución.</p>
+</div>
+</div>
+<div id="aplicacion-general" class="section level2">
+<h2><span class="header-section-number">2.3</span> Aplicación general</h2>
+<p>La representación de los precios se hace con ayuda de los conceptos básicos de matemática financiera, en donde el valor futuro de un activo se calcula con ayuda del valor actual y un promedio geométrico en el tiempo que determina a que velocidad está creciendo el dinero.</p>
+<p>Sin embargo, la tasa a la que crecen los instrumentos financieros sujetos a incertidumbre contiene además de la tasa libre de riesgo la volatilidad asociada a los rendimientos, pues es claro que si busco una mayor rentabilidad haciendo una inversión en una acción, esta debe ser mayor a la tasa libre de riesgo.</p>
+<p>Siendo <span class="math inline">\(r\)</span> la tasa libre de riesgo, el rendimiento promedio de un activo debería ser igual a <span class="math inline">\(\mu=r+\frac{1}{2}\sigma^{2}\)</span> donde <span class="math inline">\(\sigma\)</span> es la desviación estándar de los rendimientos, también conocida como la volatilidad. Usando los conceptos de estadística descriptiva, estos son la media y la desviación estándar.</p>
+<p>El concepto de valor del dinero en el tiempo en términos continuos se da por la ecuación</p>
+<span class="math display">\[\begin{equation}
+VF=VAe^{rt}
+\end{equation}\]</span>
+<p>Donde <span class="math inline">\(VF\)</span> es el valor futuro, <span class="math inline">\(VA\)</span> el valor actual, <span class="math inline">\(r\)</span> la tasa libre de riesgo y <span class="math inline">\(t\)</span> el tiempo. Esta ecuación es perfecta para un proceso determinista o un activo libre de riesgo que solo crece a una tasa <span class="math inline">\(r\)</span>.</p>
+<p>Una acción por otra parte debería valorarse de la siguiente forma:</p>
+<span class="math display">\[\begin{align}
+S_{t}=S_{0}e^{\mu t}
+\end{align}\]</span>
+<p>Donde <span class="math inline">\(S_{t}\)</span> es el precio futuro de la acción, <span class="math inline">\(S_{0}\)</span> el valor presente, <span class="math inline">\(\mu\)</span> la media de los rendimientos y <span class="math inline">\(t\)</span> el tiempo.</p>
+<p>Aunque a simple vista parece razonable, si se gráfica esta ecuación se podrá ver que el resultado no refleja realmente el comportamiento de una acción. Por lo tanto, es necesario agregarle el proceso generador de la incertidumbre que está ligado a la volatilidad de los rendimientos.</p>
+<span class="math display">\[\begin{equation}
+S_{t}=S_{0}e^{\mu t+\sigma \sqrt{t}Z}
+\end{equation}\]</span>
+<p>Esta ecuación conocida como la ecuación de Black and Scholes y se encuentra desarrollada en el libro de <span class="citation">Hull et al. (<a href="#ref-hull2013fundamentals">2013</a>)</span>; esta ecuación representa de forma aproximada los movimientos del precio de una acción incluyendo el proceso de incertidumbre al que se encuentra atado. Se puede ver que además de lo anterior, esta tiene la desviación estándar <span class="math inline">\(\sigma\)</span> que es la raíz de la varianza, la raíz del tiempo <span class="math inline">\(\sqrt{t}\)</span> y <span class="math inline">\(Z\)</span> que es la distribución normal estándar y es la que se encarga de generar el proceso aleatorio.</p>
+<div class="figure"><span id="fig:MTE"></span>
+<img src="TeoriaPortafolio_files/figure-html/MTE-1.png" alt="Precios Instrumentos Financieros" width="672" />
+<p class="caption">
+Figure 2.2: Precios Instrumentos Financieros
+</p>
+</div>
+<p>La figura de precios de un instrumento financiero <a href="procesos-de-incertidumbre.html#fig:MTE">2.2</a> muestra el precio de una acción en verde cuando solo crece a una tasa <span class="math inline">\(\mu\)</span> a lo largo del tiempo, en este caso el efecto de la volatilidad y la distribución normal no genera un efecto directo sobre el precio de la acción y por esa razón solo se aprecia una linea verde sin variaciones y con un crecimiento constante.</p>
+<p>La linea roja es una caminata aleatoria construida con la ayuda de una distribución normal que depende del tiempo, se puede ver que las observaciones se forman de manera aleatoria y por eso se ve un gráfico errático. Por último se tiene la linea azul que es la combinación de la linea verde y la linea roja como en la última ecuación que tiene en cuenta a <span class="math inline">\(\mu\)</span> y a <span class="math inline">\(\sigma\)</span> multiplicada por la distribución normal, ese efecto genera que la linea azul realmente refleje el comportamiento del precio de una acción a lo largo de un horizonte de tiempo.</p>
+<p>La linea azul del gráfico solo refleja un posible escenario,por lo tanto, para encontrar un valor esperado y una desviación estándar se debe generar una cantidad considerable de escenarios que garantice que se está teniendo en cuenta absolutamente todas las posibilidades, el siguiente paso consiste en generar los posibles eventos.</p>
+<p>Para generar las simulaciones, es necesario crear una función que realice cada uno de los escenarios. Esta función se bautizó con el nombre de caminatas y utiliza cuatro parámetros para crear las simulaciones. El primer parámetro es el precio inicial <span class="math inline">\(S_{0}\)</span>, que para este ejercicio es el último precio registrado de cada acción, el segundo parámetro es <span class="math inline">\(\mu\)</span> que es la media de los rendimientos, el tercero es la volatilidad <span class="math inline">\(\sigma\)</span> que pertenece también a los rendimientos.</p>
+<p>El siguiente parámetro corresponde al número de simulaciones que en este caso son 1000, y el último parámetro es el número de períodos que es un vector que va desde cero a cuatro haciendo referencia al número de semanas que se desea pronosticar.</p>
+<div class="figure"><span id="fig:TMB"></span>
+<img src="TeoriaPortafolio_files/figure-html/TMB-1.png" alt="Pronóstico de Precios" width="768" />
+<p class="caption">
+Figure 2.3: Pronóstico de Precios
+</p>
+</div>
+<p>Una vez que se generan las simulaciones con ayuda de la función caminatas como en la figura <a href="procesos-de-incertidumbre.html#fig:TMB">2.3</a> , se logra obtener la figura de cada una de las acciones en donde se genera un tornado mostrando todos los posibles escenarios de cada uno de los precios de las acciones.</p>
+<p>Sin embargo aunque esto ofrece mayor información que el modelo generado a través del proceso binomial, es mejor obtener el valor esperado y la volatilidad de cada uno de los períodos y graficarlos para obtener un mejor panorama del comportamiento de los precios de las acciones para el próximo mes.</p>
+<div class="figure"><span id="fig:VEX"></span>
+<img src="TeoriaPortafolio_files/figure-html/VEX-1.png" alt="Valor esperado y Varianza" width="768" />
+<p class="caption">
+Figure 2.4: Valor esperado y Varianza
+</p>
+</div>
+<p>Finalmente, después de obtener el valor esperado de cada período y la volatilidad de cada uno de los precios de las acciones para los próximos veinte días, se pueden graficar los resultados mostrando que al menos tres acciones tienen una tendencia al alza como se observa en la figura <a href="procesos-de-incertidumbre.html#fig:VEX">2.4</a> , la desviación estándar se presenta dentro de escenarios normales para cada acción aunque para compararlas es mejor examinar nuevamente el coeficiente de variación de cada una.</p>
+<table class="table table-striped" style="width: auto !important; ">
+<caption>
+<span id="tab:CV">Table 2.2: </span>Coeficiente de Variación
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+Semanas
+</th>
+<th style="text-align:right;">
+CVBXP
+</th>
+<th style="text-align:right;">
+CVAXP
+</th>
+<th style="text-align:right;">
+CVAES
+</th>
+<th style="text-align:right;">
+CVGLW
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+<td style="text-align:right;">
+0.0000
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.0114
+</td>
+<td style="text-align:right;">
+0.0121
+</td>
+<td style="text-align:right;">
+0.0149
+</td>
+<td style="text-align:right;">
+0.0158
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0.0161
+</td>
+<td style="text-align:right;">
+0.0171
+</td>
+<td style="text-align:right;">
+0.0211
+</td>
+<td style="text-align:right;">
+0.0223
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+0.0197
+</td>
+<td style="text-align:right;">
+0.0209
+</td>
+<td style="text-align:right;">
+0.0257
+</td>
+<td style="text-align:right;">
+0.0272
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+0.0230
+</td>
+<td style="text-align:right;">
+0.0239
+</td>
+<td style="text-align:right;">
+0.0296
+</td>
+<td style="text-align:right;">
+0.0315
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0.0255
+</td>
+<td style="text-align:right;">
+0.0269
+</td>
+<td style="text-align:right;">
+0.0331
+</td>
+<td style="text-align:right;">
+0.0352
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+0.0279
+</td>
+<td style="text-align:right;">
+0.0297
+</td>
+<td style="text-align:right;">
+0.0363
+</td>
+<td style="text-align:right;">
+0.0389
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+0.0303
+</td>
+<td style="text-align:right;">
+0.0319
+</td>
+<td style="text-align:right;">
+0.0393
+</td>
+<td style="text-align:right;">
+0.0420
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+0.0325
+</td>
+<td style="text-align:right;">
+0.0341
+</td>
+<td style="text-align:right;">
+0.0421
+</td>
+<td style="text-align:right;">
+0.0449
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+0.0345
+</td>
+<td style="text-align:right;">
+0.0362
+</td>
+<td style="text-align:right;">
+0.0443
+</td>
+<td style="text-align:right;">
+0.0477
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+0.0362
+</td>
+<td style="text-align:right;">
+0.0382
+</td>
+<td style="text-align:right;">
+0.0469
+</td>
+<td style="text-align:right;">
+0.0500
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+0.0380
+</td>
+<td style="text-align:right;">
+0.0400
+</td>
+<td style="text-align:right;">
+0.0491
+</td>
+<td style="text-align:right;">
+0.0524
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+0.0397
+</td>
+<td style="text-align:right;">
+0.0415
+</td>
+<td style="text-align:right;">
+0.0513
+</td>
+<td style="text-align:right;">
+0.0547
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+0.0412
+</td>
+<td style="text-align:right;">
+0.0433
+</td>
+<td style="text-align:right;">
+0.0533
+</td>
+<td style="text-align:right;">
+0.0570
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:right;">
+0.0426
+</td>
+<td style="text-align:right;">
+0.0451
+</td>
+<td style="text-align:right;">
+0.0552
+</td>
+<td style="text-align:right;">
+0.0591
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:right;">
+0.0441
+</td>
+<td style="text-align:right;">
+0.0467
+</td>
+<td style="text-align:right;">
+0.0575
+</td>
+<td style="text-align:right;">
+0.0610
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+0.0454
+</td>
+<td style="text-align:right;">
+0.0480
+</td>
+<td style="text-align:right;">
+0.0594
+</td>
+<td style="text-align:right;">
+0.0629
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+0.0468
+</td>
+<td style="text-align:right;">
+0.0497
+</td>
+<td style="text-align:right;">
+0.0612
+</td>
+<td style="text-align:right;">
+0.0649
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+0.0481
+</td>
+<td style="text-align:right;">
+0.0512
+</td>
+<td style="text-align:right;">
+0.0633
+</td>
+<td style="text-align:right;">
+0.0673
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:right;">
+0.0494
+</td>
+<td style="text-align:right;">
+0.0525
+</td>
+<td style="text-align:right;">
+0.0654
+</td>
+<td style="text-align:right;">
+0.0694
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+0.0507
+</td>
+<td style="text-align:right;">
+0.0536
+</td>
+<td style="text-align:right;">
+0.0666
+</td>
+<td style="text-align:right;">
+0.0714
+</td>
+</tr>
+</tbody>
+</table>
+<p>El coeficiente de variación de la tabla <a href="procesos-de-incertidumbre.html#tab:CV">2.2</a> refleja el crecimiento de la volatilidad a medida que aumenta el tiempo. para la semana número cuatro se puede ver que los resultados con excepción de la acción de AES son similares a los que se obtuvieron con el modelo binomial. Mostrando una vez más que el proceso discreto y continuo son equivalentes.</p>
+<div id="diseno-de-una-estrategia-de-inversion." class="section level3">
+<h3><span class="header-section-number">2.3.1</span> Diseño de una estrategia de inversión.</h3>
+<p>En esta sección se busca implementar el concepto de matriz de varianza convarianza, valor esperado, promedio ponderado y minimización de la volatilidad (desviación estándar) a través de la ponderación de un portafolio.</p>
+<p>La media de los rendimientos se puede obtener con ayuda de la media del valor esperado generado a lo largo del horizonte de tiempo.</p>
+<span class="math display">\[\begin{equation}
+r_{t}=\frac{S_{t}-S_{t-1}}{S_{t-1}}
+\end{equation}\]</span>
+<span class="math display">\[\begin{equation}
+\overline{r} =\frac{1}{t}\sum_{i=1}^{t}r_{i}
+\end{equation}\]</span>
+<p>La varianza para este ejercicio también se obtuvo con los rendimientos del valor esperado.</p>
+<span class="math display">\[\begin{equation}
+\sigma^{2}=\frac{1}{t}\sum_{i=1}^{t}(r_{i}-\overline{r})^{2}
+\end{equation}\]</span>
+<p>La correlación se generó con los rendimientos del pronóstico y con estos se calculó la matriz de varianza y covarianza.</p>
+<span class="math display">\[\begin{equation}
+Cov(r_{x},r_{y})=\frac{1}{t}\sum_{i=1}^{t}(r_{xi}-\overline{r}_{x})(r_{yi}-\overline{r}_{y})
+\end{equation}\]</span>
+<span class="math display">\[\begin{equation}
+\rho =\frac{Cov(r_{x},r_{y})}{\sigma_{x}\sigma_{y}}
+\end{equation}\]</span>
+<p>Matriz Varianza-Covarianza</p>
+<span class="math display">\[\begin{equation}
+   \begin{pmatrix} 
+   \sigma^{2}_{11} &amp; cov_{12} &amp; cov_{13} &amp; cov_{14} \\
+   cov_{21} &amp; \sigma^{2}_{22} &amp; cov_{23} &amp; cov_{24} \\
+   cov_{31} &amp; cov_{32} &amp; \sigma^{2}_{33} &amp; cov_{34}  \\
+   cov_{41}&amp;cov_{42} &amp;cov_{43} &amp;\sigma^{2}_{44}
+   \end{pmatrix} 
+\end{equation}\]</span>
+<p>El valor esperado del portafolio se obtiene de la siguiente forma:</p>
+<span class="math display">\[\begin{equation} 
+r_{p}= \begin{bmatrix} 
+   \mu_{1}&amp; \mu_{2}&amp; \mu_{3}&amp;\mu_{4}  \\
+  
+   \end{bmatrix}
+   \begin{bmatrix} 
+   w_{1}  \\
+   w_{2}  \\
+   w_{3}  \\
+   w_{4}
+   \end{bmatrix} \quad   
+\end{equation}\]</span>
+<p>Donde <span class="math inline">\(r_{p}\)</span> es la rentabilidad del portafolio, <span class="math inline">\(\mu\)</span> es la rentabilidad de cada activo y <span class="math inline">\(w\)</span> es el peso que se le da a dicho activo en la inversión.</p>
+<p>La varianza del portafolio se obtiene con ayuda de los pesos y la matriz de varianza y covarianza.</p>
+<span class="math display">\[\begin{equation}
+\sigma^{2}=\begin{bmatrix} 
+   w_{1}&amp; w_{2}&amp; w_{3}&amp; w_{4}  \\
+  
+   \end{bmatrix}
+   \begin{bmatrix} 
+   \sigma^{2}_{11} &amp; cov_{12} &amp; cov_{13} &amp; cov_{14} \\
+   cov_{21} &amp; \sigma^{2}_{22} &amp; cov_{23} &amp; cov_{24} \\
+   cov_{31} &amp; cov_{32} &amp; \sigma^{2}_{33} &amp; cov_{34}  \\
+   cov_{41}&amp;cov_{42} &amp;cov_{43} &amp;\sigma^{2}_{44}
+   \end{bmatrix} 
+      \begin{bmatrix} 
+   w_{1}  \\
+   w_{2}  \\
+   w_{3}  \\
+   w_{4}
+   \end{bmatrix}
+   
+\end{equation}\]</span>
+<p>El objetivo es obtener los pesos para generar un portafolio eficiente en términos de rentabilidad y riesgo.</p>
+<p>Asumiendo que la inversión tiene un horizonte de 20 días o cuatro semanas, se desea ponderar un portafolio como en la parte final de la primera fase usando una inversión inicial de 500.000 USD.</p>
+<p>Cuando se habla de un portafolio de mínima varianza, se busca minimizar el efecto del riesgo sobre el portafolio total y obtener una rentabilidad mucho mayor de la que se obtendría si solo se invierte en una sola acción.</p>
+<p>Con ayuda del vector de valores esperados y la matriz de varianza y covarianza, se genera un proceso conjunto para obtener una inversión que garantice una eficiente distribución de los recursos.</p>
+<p>Primero se obtienen los rendimientos partir de los datos generados en la simulación del valor esperado para cada uno de los días. Después se obtiene la media y la desviación estándar de esos rendimientos.</p>
+<p>Una vez que se tienen los rendimientos se genera un proceso que permita a través de una matriz de varianza y covarianza, así como un vector de valores esperados generar un portafolio óptimo en donde se pueda minimizar el riesgo diversificando el capital en el portafolio.</p>
+<table class="table table-striped" style="width: auto !important; ">
+<caption>
+<span id="tab:INEF">Table 2.3: </span>Resultados
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+EV
+</th>
+<th style="text-align:right;">
+VOL
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+BXP
+</td>
+<td style="text-align:right;">
+0.3745
+</td>
+<td style="text-align:right;">
+0.2470
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AXP
+</td>
+<td style="text-align:right;">
+1.4294
+</td>
+<td style="text-align:right;">
+0.2468
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AES
+</td>
+<td style="text-align:right;">
+1.6476
+</td>
+<td style="text-align:right;">
+0.3419
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GLW
+</td>
+<td style="text-align:right;">
+1.5498
+</td>
+<td style="text-align:right;">
+0.2967
+</td>
+</tr>
+</tbody>
+</table>
+<p>La tabla <a href="procesos-de-incertidumbre.html#tab:INEF">2.3</a> muestra el valor esperado y la volatilidad de cada activo para 20 días, se puede ver que la acción de la que menos se esperan incrementos y variaciones es BXP con una rentabilidad del 0.37% y una volatilidad del 0.24%, mientras que las demás acciones presentan rendimientos del por encima del 1% para los próximos 20 días. De acuerdo a la volatilidad AES parece tener más posibilidades de tener variaciones de acuerdo al pronóstico realizado en la sección anterior, mientras que las acciones del sector financiero para que van a mostrar una relativa calma. En conclusión se espera que la mayor rentabilidad del portafolio sea la de AES y la mínima sea la de BXP. Bajo estos parámetros se procede a obtener el mejor rendimiento dentro de ese intervalo, mínimizando el riesgo de portafolio.</p>
+<pre><code>## Call:
+## globalMin.portfolio(er = mu.vec, cov.mat = sigma.mat)
+## 
+## Portfolio expected return:     0.01244 
+## Portfolio standard deviation:  0.001231 
+## Portfolio weights:
+##    BXP    AXP    AES    GLW 
+## 0.2430 0.3079 0.1770 0.2720</code></pre>
+<p>La función globalMin.portfolio usa el vector de valores esperados y la matriz de varianza y covarianza para hacer el proceso de optimización que se presento a través de las matrices. El resultado de la ponderación del portafolio, es un retorno del 1.24% con una volatilidad de 0.123%.</p>
+<p>Para obtener ese retorno a ese nivel de volatilidad, el modelo aconseja invertir 27.20% en GLW, el 30.79% en AXP, el 17.70% en AES y el 27.20% en GLW.</p>
+<p>A pesar de ofrecer un resultado claro usando toda la información generada en este documento en diferentes secciones, a veces es necesario tener más alternativas puesto que los perfiles de los inversionistas pueden ser diversos como por ejemplo el de uno al que no le gusta el riesgo hasta otro que no tiene problemas con buscar altas ganancias asumiendo riesgos altos.</p>
+<div class="figure"><span id="fig:FEC"></span>
+<img src="TeoriaPortafolio_files/figure-html/FEC-1.png" alt="Curva Eficiente" width="672" />
+<p class="caption">
+Figure 2.5: Curva Eficiente
+</p>
+</div>
+<div class="figure"><span id="fig:AFEC"></span>
+<img src="TeoriaPortafolio_files/figure-html/AFEC-1.png" alt="Acciones" width="672" />
+<p class="caption">
+Figure 2.6: Acciones
+</p>
+</div>
+<p>Para poder observar mejor la relación entre riesgo y rentabilidad, se crean diez escenarios y se grafican de tal forma que se puedan observar cada una de las alternativas, en la figura <a href="procesos-de-incertidumbre.html#fig:FEC">2.5</a> se puede ver primero que a mayor rentabilidad mayor riesgo, segundo que si uno invierte en un solo activo el riesgo que se obtiene es mayor y la rentabilidad no es la misma que la que se puede obtener diversificando el portafolio.</p>
+<p>La tabla adicional <a href="procesos-de-incertidumbre.html#tab:ESC">2.4</a> genera los resultados de las ponderaciones para cada uno de los portafolios organiyados de una rentabilidad menor una mayor rentabilidad.</p>
+<p>En este portafolio se pueden hacer operaciones en largo y en corto, una operación en largo es aquella en la cuál se compra un activo para venderlo a un precio mayor, mientras que una operación en corto es aquella en donde se vende un activo sin tenerlo necesariamente y se paga después esperando que su precio sea menor al que se vendió.</p>
+<p>En este portafolio se sugiere vender un activo cuando la ponderación es negativa, es decir, se espera que la perdida de valor de ese activo genere un mayor rendimiento en el portafolio.</p>
+<table class="table table-striped" style="width: auto !important; ">
+<caption>
+<span id="tab:ESC">Table 2.4: </span>Ponderación
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+BXP
+</th>
+<th style="text-align:right;">
+AXP
+</th>
+<th style="text-align:right;">
+AES
+</th>
+<th style="text-align:right;">
+GLW
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+port 1
+</td>
+<td style="text-align:right;">
+-0.1045
+</td>
+<td style="text-align:right;">
+0.4465
+</td>
+<td style="text-align:right;">
+0.2935
+</td>
+<td style="text-align:right;">
+0.3645
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+port 2
+</td>
+<td style="text-align:right;">
+-0.0659
+</td>
+<td style="text-align:right;">
+0.4311
+</td>
+<td style="text-align:right;">
+0.2806
+</td>
+<td style="text-align:right;">
+0.3542
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+port 3
+</td>
+<td style="text-align:right;">
+-0.0273
+</td>
+<td style="text-align:right;">
+0.4157
+</td>
+<td style="text-align:right;">
+0.2676
+</td>
+<td style="text-align:right;">
+0.3440
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+port 4
+</td>
+<td style="text-align:right;">
+0.0113
+</td>
+<td style="text-align:right;">
+0.4003
+</td>
+<td style="text-align:right;">
+0.2547
+</td>
+<td style="text-align:right;">
+0.3337
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+port 5
+</td>
+<td style="text-align:right;">
+0.0499
+</td>
+<td style="text-align:right;">
+0.3849
+</td>
+<td style="text-align:right;">
+0.2417
+</td>
+<td style="text-align:right;">
+0.3234
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+port 6
+</td>
+<td style="text-align:right;">
+0.0886
+</td>
+<td style="text-align:right;">
+0.3695
+</td>
+<td style="text-align:right;">
+0.2288
+</td>
+<td style="text-align:right;">
+0.3131
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+port 7
+</td>
+<td style="text-align:right;">
+0.1272
+</td>
+<td style="text-align:right;">
+0.3541
+</td>
+<td style="text-align:right;">
+0.2159
+</td>
+<td style="text-align:right;">
+0.3029
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+port 8
+</td>
+<td style="text-align:right;">
+0.1658
+</td>
+<td style="text-align:right;">
+0.3387
+</td>
+<td style="text-align:right;">
+0.2029
+</td>
+<td style="text-align:right;">
+0.2926
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+port 9
+</td>
+<td style="text-align:right;">
+0.2044
+</td>
+<td style="text-align:right;">
+0.3233
+</td>
+<td style="text-align:right;">
+0.1900
+</td>
+<td style="text-align:right;">
+0.2823
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+port 10
+</td>
+<td style="text-align:right;">
+0.2430
+</td>
+<td style="text-align:right;">
+0.3079
+</td>
+<td style="text-align:right;">
+0.1770
+</td>
+<td style="text-align:right;">
+0.2720
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="conclusion" class="section level2">
+<h2><span class="header-section-number">2.4</span> Conclusión</h2>
+<p>La segunda fase tiene como objetivo introducir al estudiante en los procesos de incertidumbre; con ayuda del valor esperado y la varianza se busca que el estudiante se encuentre en la capacidad de entender la naturaleza de los elementos que conforman la teoría de la probabilidad y aplicarlos a modelos financieros especializados en el pronóstico de precios.</p>
+<p>Primero se implementó el modelo binomial que nace directamente de la función de distribución binomial asignándole a una variable aleatoria que es el precio, un factor de riesgo que es el rendimiento para obtener la probabilidad que permite modelar el precio de los activos financieros en diferentes escenarios.</p>
+<p>Una vez se obtienen los escenarios, se calcula el valor esperado y la varianza para analizar los posibles cambios del precio en un escenario discreto. En esta sección se puede mencionar el papel que juegan la probabilidad condicional, la probabilidad total y el teorema de bayes alrededor de la generación de escenarios y como se puede obtener la probabilidad de un valor específico con ayuda de la función de distribución binomial.</p>
+<p>Después de obtener el valor esperado y la varianza de forma discreta, se puede entender mejor como es la creación de escenarios continuos usando como referencia la función de distribución normal complementandola con los conceptos de matemática financiera sobre el valor futuro en un proceso continuo de un instrumento financiero.</p>
+<p>Una vez que se generan los escenarios se obtiene el valor esperado y la varianza de cada proceso, observando que estos modelos pueden mostrar una tendencia marcada del precio de la acción.</p>
+<p>Después de generar los escenarios de forma continua se puede desarrollar una estrategía de inversión teniendo en cuenta los resultados de los pronósticos.</p>
+<p>Usando operaciones matriciales, se genera un portafolio de mínima varianza que busca diversificar de forma ponderada (usando promedio pondeardo) los rendimientos y el riesgo de las acciones con ayuda del álgebra lineal. Una vez se tienen claro estos conceptos se minimiza la varianza con un proceso de optimización produciendo lo que se conoce como una inversión eficiente donde la rentabilidad que se obtiene es la más alta posible al nivel de riesgo mínimo que resulta del proceso de optimización.</p>
+<p>Combinando cada uno de los conceptos aprendidos hasta el final del curso se puede desarrollar un modelo que permita tomar decisiones usando conceptos</p>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-cox1979option">
+<p>Cox, John C, Stephen A Ross, and Mark Rubinstein. 1979. “Option Pricing: A Simplified Approach.” <em>Journal of Financial Economics</em> 7 (3). Elsevier: 229–63.</p>
+</div>
+<div id="ref-hull2013fundamentals">
+<p>Hull, John, Sirimon Treepongkaruna, David Colwell, Richard Heaney, and David Pitt. 2013. <em>Fundamentals of Futures and Options Markets</em>. Pearson Higher Education AU.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introduccion.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="referencias.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+},
+"search": false
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

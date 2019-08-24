@@ -1,0 +1,1440 @@
+---
+title: "Teoría de Portafolio"
+author: "Andrés Martínez"
+date: "`r Sys.Date()`"
+site: "bookdown::bookdown_site"
+output:
+  bookdown::gitbook: default
+documentclass: book
+bibliography: ["Bib.bib"]
+biblio-style: apalike
+link-citations: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message=FALSE)
+require("knitcitations")
+cleanbib()
+options("citation_format" = "pandoc")
+read.bibtex(file = "Bib.bib")
+library(kableExtra)
+```
+
+
+
+# Introducción
+
+Para un inversionista que desea armar una cartera, es decir, poseer acciones en diferentes instrumentos financieros, surge el siguiente problema: quiere invertir en los instrumentos financieros dados de tal manera que la cartera dada por esta inversión tenga el mayor rendimiento posible, por un lado, pero por otro lado Tiene el menor riesgo posible de pérdida.
+
+Teóricamente, puede lograr un rendimiento esperado arbitrariamente alto al realizar una venta corta de un instrumento financiero de bajo rendimiento esperado e invertir el préstamo recibido en un instrumento financiero de alto rendimiento esperado. Sin embargo, con el retorno esperado, el riesgo de pérdida de su estrategia de inversión también aumenta y es teóricamente ilimitado. A la inversa, las carteras particularmente de bajo riesgo generalmente solo prometen un rendimiento esperado relativamente bajo. Por lo tanto, las reclamaciones de minimización de riesgo y maximización de rendimientos no pueden cumplirse simultáneamente.
+
+En ausencia de una mejor cartera a nivel mundial, el enfoque de Markowitz, también denominado enfoque de varianza de expectativas, ofrece un compromiso entre las afirmaciones de maximizar los retornos y minimizar el riesgo. Se produce esencialmente en dos formas, que son:
+
+1. Para $r \in R$ dada, se determina una cartera que tenga un rendimiento $r$ mínimo esperado y minimice el riesgo entre todas las carteras que también tengan un rendimiento esperado de al menos $r$ (problema de minimización de la varianza), respectivamente.
+
+2. Para un nivel de riesgo dada $\sigma \geq 0$, se detremina una cartera cuyo riesgo no exceda este límite y cuyo rendimiento esperado sea máximo entre todas las carteras que también cumplan con el límite de riesgo $\sigma$ (problema de maximización del rendimiento).
+
+El homónimo de este enfoque es Harry M. Markowitz, quien sentó las bases de la teoría de la cartera con un artículo correspondiente en 1952 y recibió el Premio Nobel de Economía en 1990. 
+
+
+
+
+ Supuestos
+
+* Solo se considera un período de negociación único, que comienza en el momento actual$t= 0$ y finaliza en un tiempo futuro $t=1$. 
+* Los inversores pueden tener participaciones tanto positivas como negativas de inversiones de capital. Las acciones negativas se crean mediante ventas en corto: un inversionista vende instrumentos financieros prestados a pesar de que no los posee. Sin embargo, al final del período de negociación, estas acciones deben devolverse al acreedor.
+* Tanto el préstamo como la inversión de un instrumento financiero se basan en la misma tasa de interés.
+* Al comprar y vender instrumentos financieros, no hay impuestos ni costos de transacción.
+* Los precios de las acciones no están influenciados por órdenes individuales de los inversionistas.
+* Las mismas acciones tienen los mismos precios. No hay descuentos por volumen.
+
+
+```{definition, def1}
+
+Siendo $(\Omega, \mathcal{F},P)$ un espacio de probabilidad calculado en un modelo financiero de un período, el precio de un activo financiero $(S_{0},S_{1},P)$ depende de :
+  
+* Un vector $S_{0}\in \mathbb{R}$ con $S_{0}\neq 0$ para $i=1,..,N
+
+* Un vector aleatorio $S_{1}=(S_{1}^{1},...,S_{1}^{N})$ con variables aletaorias cuadraticas  $S_{1}^{i}\in \mathcal{L}^{2}(\Omega, \mathcal{F},P)$.
+  
+* Para  $i$ $\in \{1,...,N\}$ es $S_{i} := (S_{0}^{i},S_{1}^{i})$ el instrumento financiero $i$ del mercado $(S_{0},S_{1},P)$.
+```
+
+* La variable aleatoria $R_{i}:\Omega \rightarrow \mathbb{R}$
+
+\begin{equation}
+\omega \rightarrow \frac{S_{1}^{i}(\omega)-S_{0}^{i}}{S_{0}^{i}}
+(\#eq:zufall)
+\end{equation}
+
+Es el rendimiento de un instrumento financiero
+
+* El valor esperado del instrumento $i$ es $\mu_{i}=E[R_{i}]$ que es el rendimiento esperado de $S_{i}$.
+
+* El riesgo o la volatilidad $\sigma$ es la desviación estandar.
+
+
+Como cada activo es una variable aleatoria, un portafolio está compuesto por la ponderación de las variables aleatorias, de esta manera la suma de esta ponderación es igual a 1 y muestra cuanto se invierte en cada uno de los activos.
+
+
+El rendimiento de un portafolio se obtiene con la suma de la multiplicación del valor ponderado con respecto a la media o el valor esperado de los rendimientos.
+
+\begin{equation}
+R_{p}=\sum_{i=1}^{n}R_{i}w_{i}
+(\#eq:pond)
+\end{equation}
+
+Donde $w_{i}$ es la ponderación de acuerdo a cada uno de los activos dentro del portafolio.
+
+
+## Inicio del caso.
+
+
+Para este ejemplo se analizan cuatro empresas aleatorias que pertenecen a alguna de las bolsas de valores de los Estados Unidos. Para tener una idea de las empresas que cotizan en este mercado y de los sectores más comunes que se pueden encontrar además del tecnológico,  existen tres índices que promedian el comportamiento de los precios de las acciones más importantes estos son el  [NASDAQ](https://www.nasdaq.com) , el [Dow Jones](https://www.dowjones.com) y el [S&P500](https://espanol.spindices.com/indices/equity/sp-500), son el barómetro del mercado de capitales en Estados Unidos e indican la tendencia general del mercado. Es decir si el precio de un conjunto de acciones cae, el índice pierde valor reflejando ese comportamiento conjunto, por el contrario si el precio de la mayoría de las acciones sube, el índice lo reflejará incrementando su valor. Uno de estos índices ellos se llama el S&P500; para saber mejor que contiene,  se usa el archivo SPlista.txt en donde se encuentran los nombres, símbolos y sectores de 504 empresas que pertenecen al índice Standard and Poors. 
+
+
+
+```{r, echo=FALSE, message=FALSE,results='hide',warning=FALSE}
+
+library(RCurl)# La dirección web
+library(readr)# La base de datos
+library(dplyr)# Para usar el mutate
+text=getURL("https://raw.githubusercontent.com/Andres1984/Estadistica-1/master/SPlista.txt")
+SPlista <- read_csv(file=text)
+SPlista$Sector[SPlista$Sector=="Consumer Discretionary"]="Cons D"
+SPlista$Sector[SPlista$Sector=="Information Technology"]="IT"
+SPlista$Sector[SPlista$Sector=="Telecommunications Services"]="TS"
+SPlista$Sector[SPlista$Sector=="Consumer Staples"]="Cons S"
+attach(SPlista)
+fabs<-table(Sector)
+fabs=as.data.frame(fabs)
+n=dim(SPlista)
+n<-n[1]
+fabs= mutate(fabs, Freqr =fabs$Freq/n)
+fabs= mutate(fabs, FreqA =cumsum(Freq))
+fabs= mutate(fabs, FreqrA =cumsum(Freqr))
+
+
+```
+
+```{r TFREQ, echo=FALSE, message=FALSE}
+library('knitr')
+options(digits=4, width=70)
+kable(fabs,booktabs=TRUE,caption = "Tabla de Frecuencias")%>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+```
+
+Después de generar la tabla de frecuencias \@ref(tab:TFREQ) , se puede ver que hay 10 sectores dentro del índice S&P 500, además es claro que hay tres que lideran el índice que son Consumer Discretionary(Bienes no esenciales)16%, Financials 18% e Industrials 14%, esto quiere decir que el índice tiene alta representación de empresas en estos tres sectores. Servicios en Telecomunicaciones por el contrario es el sector con menos empresas en el índice ya que solo aporta un 0.9%.
+
+```{r FREQ, echo=FALSE, message=FALSE, fig.cap = 'Gráfico de Barras'}
+library(ggplot2)
+
+ggplot(data=fabs, aes(x=Sector, y=Freq)) +
+  geom_bar(stat="identity", fill="steelblue")+
+  geom_text(aes(label=Freq), vjust=1.6, color="white", size=3.5)+
+  theme_minimal()
+
+```
+
+
+En el gráfico \@ref(fig:FREQ) se puede apreciar mejor la información de la tabla, es importante destacar que este índice es el mas usado para el análisis financiero debido a la gran variedad de empresas de diferentes sectores que contiene, a pesar de que hay sectores que se benefician más dentro del índice, estos se ven mejor representados y reflejan mejor el comportamiento del mercado de capitales en Estados Unidos.
+
+
+Ahora que hay un mejor panorama del mercado accionario, se   escogerán cuatro empresas, en donde se van a invertir 500.000 USD, estas acciones  pertenecen a los sectores de utilities, en donde se negocian activos como gas y energía y de la cual hacer parte AES corp, también hay dos empresas del sector financiero que son American Express AXP y Boston properties BXP. Por último tenemos una empresa del sector industrial que se llama Corning Inc GLW. El intervalo de tiempo va desde el primero de enero de 2017, hasta el tres de marzo de 2019, los datos se descargan directamente de yahoo, y tienen  todos los precios listados en bolsa para cada acción como son el precio de apertura, el de cierre, el máximo y el mínimo. También cuenta con el volumen de negociación en número de acciones. La frecuencia de los datos es diaria y el número de observaciones por cada variable es 542 en donde se cuenta solo los días de negociación. 
+
+
+```{r, echo=FALSE, message=FALSE,results='hide',warning=FALSE}
+library(quantmod)
+symbols=c('AES','AXP','BXP','GLW')# Vector de caracteres
+getSymbols(symbols,src='yahoo',from="2017-01-01",to="2019-03-01")
+
+```
+
+
+Primero revisaremos los precios de cierre en el período observado para determinar si existen tendencias o ciclos y que permitan comparar el comportamiento del precio de cada una.
+
+```{r Precios, fig.width = 8, fig.height = 4,fig.cap=" Precios Acciones", echo=FALSE, message=FALSE}
+
+par(mfrow=c(2,2))
+plot(AES$AES.Close, col="green",main = "AES")
+plot(AXP$AXP.Close,col="red",main="AXP")
+plot(BXP$BXP.Close,col="blue",main="BXP")
+plot(GLW$GLW.Close,main="GLW")
+
+```
+
+
+
+```{r Precios2, fig.cap=" Comparación Precios Acciones", echo=FALSE, message=FALSE}
+library(plotly)
+library(dplyr)
+o=data.frame(date=index(AES), coredata(AES))
+mat <-  data.frame( Date=o$date,
+                   AES1 = round(AES$AES.Adjusted,2),
+                   AXP1 = round(AXP$AXP.Adjusted,2),
+                   BXP1 = round(BXP$BXP.Adjusted,2),
+                   GLW1 = round(GLW$GLW.Adjusted,2))
+
+p <- plot_ly(x = mat$Date, y = mat$BXP.Adjusted, fill = "tozeroy", name = "BXP", type = 'scatter',
+    fill = 'toself',
+    fillcolor = 'rgba(168, 216, 234, 0.5)',
+    hoveron = 'points',
+    marker = list(
+      color = 'rgba(168, 216, 234, 0.5)'
+    ),
+    line = list(
+      color = 'rgba(168, 216, 234, 0.5)'
+    )) %>%
+  add_trace(x = mat$Date,y = mat$AXP.Adjusted, fill = "tozeroy", name = "AXP",type = 'scatter',
+    fill = 'toself',
+    fillcolor = 'rgba(255, 212, 96, 0.5)',
+    hoveron = 'points',
+    marker = list(
+      color = 'rgba(255, 212, 96, 0.5)'
+    ),
+    line = list(
+      color = 'rgba(255, 212, 96, 0.5)'
+    ))%>%
+   add_trace(x = mat$Date,y = mat$AES.Adjusted, fill = "tozeroy", name = "AES",type = 'scatter',
+   
+    fillcolor = 'rgba(200, 100, 200, 0.5)',
+    hoveron = 'points+fills',
+    marker = list(
+      color = 'rgba(200, 100, 200, 0.5)'
+    ),
+    line = list(
+      color = 'rgba(200, 100, 200, 0.5)'
+    ))%>%
+  add_trace(x = mat$Date,y = mat$GLW.Adjusted, fill = "tozeroy", name = "GLW",type = 'scatter',
+    fillcolor = 'rgba(50, 100, 234, 0.5)',
+    hoveron = 'points',
+    marker = list(
+      color = 'rgba(50, 100, 234, 0.5)'
+    ),
+    line = list(
+      color = 'rgba(50, 100, 234, 0.5)'
+    ))%>%
+
+  layout(title = "Precios de Acciones", 
+         xaxis = list(title = "Tiempo"),
+         yaxis = list(title = "Precios"))
+p  
+```
+
+Se puede observar en la figura \@ref(fig:Precios) y \@ref(fig:Precios2)  que hay dos acciones BXP y AXP cuyos precios superan los cien dolares para el 2019 presentando grandes cambios en términos monetarios, lo que sugiere que el sector financiero de este portafolio es el más costoso y podría ser el mayor riesgo. Mientras que la empresa del sector utilities AES tiene precios accionarios muy bajos pero que se han incrementado de forma constante a partir de finales de 2017. Finalmente  se puede observar que GLW podría tener un comportamiento estable en precios con una variación entre 26 y 36 dolares durante el período observado, sin embargo, esto solo se puede corroborar con ayuda de las mediciones descriptivas.
+
+
+
+```{r vol, echo=FALSE, message=FALSE,fig.cap='Rendimientos'}
+aes = Delt(AES$AES.Close)*100 # Rendimientos
+aes=aes[-1,]
+axp = Delt(AXP$AXP.Close)*100
+axp=axp[-1,]
+bxp =Delt(BXP$BXP.Close)*100
+bxp=bxp[-1,]
+glw = Delt(GLW$GLW.Close)*100
+glw=glw[-1,]
+
+par(mfrow=c(2,2))
+plot(aes)
+plot(axp)
+plot(bxp)
+plot(glw)
+
+
+
+```
+
+Usando el eje $y$  de la figura \@ref(fig:vol) como parámetro de medición, se puede ver que solo la acción de BXP podría presentar rendimientos pequeños, donde los picos de volatilidad de la serie no superan los valores de -4 que son los que se encuentran dentro del rango de una distribución simétrica de campana estándar. Con respecto a las demás series se puede ver que la acción del sector industrial GLW, presenta la mayor volatilidad del mercado alcanzado valores entre -5 y 10.  Tanto AES como AXP presentan variaciones constantes entre sus intervalos, sin embargo son mayores a lo que se espera dando muestras de un posible caso de curtosis baja.
+
+## Medición y análisis a través de procesos descriptivos.
+
+
+```{r TED, echo=FALSE, message=FALSE,warning=FALSE}
+library(psych)
+library('knitr')
+rend1=cbind(aes,axp,bxp,glw)
+colnames(rend1)=c("aes","axp","bxp","glw")
+rend1=describe(rend1)
+kable(rend1[,3:9], booktabs=TRUE,caption = "Estadísticas Descriptivas")%>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+```
+
+```{r TED1, echo=FALSE, message=FALSE,warning=FALSE}
+library('knitr')
+kable(rend1[,10:13], booktabs=TRUE,caption = "Estadísticas Descriptivas")%>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+```
+
+
+Obteniendo las medidas descriptivas más representativas a partir de los rendimientos en términos de porcentaje, en la tabla \@ref(tab:TED) se puede observar que la acción con más rendimiento es la que pertenece a AES con un 0.08% diario, mientras que la acción de BXP presenta un rendimiento promedio de 0.0143% diario, por otra parte la volatilidad medida a través de la desviación estándar, muestra que la acción de GLW presenta una mayor dispersión con respecto a la media con un valor de 1.58% confirmando la gráfica del punto a en donde los rendimientos de GLW parecían ser lo más volátiles no obstante es bueno tener en cuenta la curtosis, ya que pareciera tener más datos agrupados alrededor de la media. Usando el rango como referencia se puede observar que la acción de BXP presenta la menor dispersión entre su valor máximo y mínimo mientras que el sesgo negativo nos dice que tiene valores extremos hacia la izquierda. 
+
+
+
+
+
+```{r HIST, echo=FALSE,fig.cap='Histogramas',message=FALSE,warning=FALSE,echo=FALSE}
+par(mfrow=c(2,2))
+rend=cbind(aes,axp,bxp,glw)
+colnames(rend)=c("aes","axp","bxp","glw")
+
+
+hist(as.numeric(rend$aes),breaks=20,main="",xlab="Rendimientos AES", col="red")
+hist(as.numeric(rend$axp),breaks=20,main="",xlab="Rendimientos AXP", col="green")
+hist(as.numeric(rend$bxp),breaks=20,main="",xlab="Rendimientos BXP", col="yellow")
+hist(as.numeric(rend$glw),breaks=20,main="",xlab="Rendimientos GLW", col="blue")
+
+
+
+
+```
+
+
+Los histogramas de la figura \@ref(fig:HIST) concuerdan con las medidas descriptivas de la tabla \@ref(tab:TED), incluyendo el comportamiento leptocurtico de GLW. Con una curtosis igual a 10.76%  los rendimientos de GLW se centran alrededor de la media y la mediana,  sin embargo, la gráfica no expone un comportamiento volátil como lo demuestra en algún punto el rango  y la desviación estándar y esto puede ser porque existen escenarios extremos que incrementaron la desviación estándar pero no fueron constantes y por lo tanto se puede pensar que la acción  es realmente volátil, si no que por el contrario solo tuvo algunos días de fuertes variaciones. 
+
+La acción de BXP que hasta el momento se presenta como el activo más estable del portafolio, reflejando una simetría en su distribución, usando la regla empírica, se observa que los datos reflejan completamente una distribución de campana acomodándose entre los intervalos 4 y -4, con un rendimiento promedio muy cercano a cero (0,01%) y una desviación estándar cerca al 1%, se confirma la estabilidad de la acción en comparación con la demás.
+
+Dejando de lado la curtosis como parámetro de medición, pues para este análisis se convierte en un instrumento ambiguo que no permite clasificar de forma eficaz las variables, se observa que la probabilidad de tener rendimientos alejados de la media es mayor en la acción que pertenece a la empresa AES, siendo esta la más volátil de las cuatro y reordenando el portafolio con un nuevo activo riesgo y uno menos riesgo.
+
+Por lo tanto después de revisar los histogramas y comparándolos con el punto b, el orden de las acciones de mayor a menor riesgo cambia siendo la más riesgosa AES, después AXP, seguida de BXP y por último GLW.
+
+
+Después de realizar un ejercicio descriptivo en el anterior punto para ver que acciones tuvieron mayores variaciones en el período observado, es momento de revisar la relación que existe entre las variables  con el propósito de entender mejor que puede pasar con el precio de las acciones cuando hay cambios en los procesos económicos. 
+
+La diversificación hacer parte de la disminución del riesgo dentro de un portafolio, por lo tanto ver la relación entre los rendimientos de las acciones es importante para saber que dirección puede tomar el precio de una acción cuando otra dentro del portafolio sube o baja. La correlación de pearson que se mide de forma lineal, nos puede ofrecer un panorama básico para saber que hay relación hay entre las acciones.
+
+```{r TCORR, echo=FALSE, message=FALSE,warning=FALSE,echo=FALSE}
+
+kable(cor(rend), booktabs=TRUE, caption = "Correlación")%>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+```
+
+
+```{r CORR,fig.cap='Correlación', echo=FALSE, message=FALSE,warning=FALSE,echo=FALSE}
+
+library(corrplot)
+corrplot(cor(rend))
+```
+
+
+
+La tabla \@ref(tab:TCORR) y la figura \@ref(fig:CORR) muestran que aunque no hay correlaciones mayores a 0,5 indicado una baja correlación positiva entre las variables, existe una relación lineal positiva entre todas la variables, destacando la correlación de 0.30 entre AXP y BXP y la correlación de  0.48 entre GLW y AXP. Las demás relaciones lineales si bien son diferentes de cero, no muestran grandes dependencias entre las variables. 
+
+## Diversificación de un portafolio.
+
+Un portafolio se puede diversificar de acuerdo a los criterios establecidos por el inversionista al momento de repartir el capital entre los activos que desea usar para generar rentabilidad. El objetivo principal de diversificar un portafolio es obtener una mejor rentabilidad con un menor riesgo, de esta forma se obtiene lo que se conoce como portafolio eficiente y la asignación de los recursos se hace de acuerdo al perfil de riesgo que tiene cada uno de los inversionistas.
+
+
+Un portafolio es eficiente cuando la rentabilidad $\mu_{p} \geq R_{p}$ que es el promedio de rentabilidad de portafolio de la ecuación  \@ref(eq:pond) es mayor a la rentabilidad esperada por algún otro portafolio que no logre disminuir el riesgo $\sigma$ en el mismo punto.
+
+
+\begin{equation}
+\sigma_{p}=min\{\sigma_{p}|\quad p \quad es \quad  un \quad  portafolio \quad  con \quad \mu_{p} \geq R_{p} \}
+\end{equation}
+
+
+Dado que existen diferentes perfiles de riesgo, también existen diferentes portafolio para cada perfil de riesgo formando lo que se conoce como la frontera de curva eficiente.
+
+
+### Ejemplo para dos activos 
+
+Usando un secuencia para un activo $A$ y un activo $B$ se crean los rendimientos de cada una de las acciones $\mu_{A}=0.175$ y $\mu_{B}=0.055$ con sus respectivas desviaciones estandar $\sigma_{A}=0.258$ y $\sigma_{B}=0.115$, también se crea la correlación $\rho = -0.164$ mostrando una relación inversa entre los activos
+
+```{r , message=FALSE,warning=FALSE,echo=FALSE}
+mu.A = 0.175
+sig.A = 0.258
+sig2.A = sig.A^2
+mu.B = 0.055
+sig.B = 0.115
+sig2.B = sig.B^2
+rho.AB = -0.164
+sig.AB = rho.AB*sig.A*sig.B
+w0 = 100000
+x.A = seq(from=-0.4, to=1.4, by=0.1)
+x.B = 1 - x.A
+mu.p = x.A*mu.A + x.B*mu.B
+sig2.p = x.A^2 * sig2.A + x.B^2 * sig2.B + 2*x.A*x.B*sig.AB
+sig.p = sqrt(sig2.p)
+
+# Portafolio de mínima varianza
+xA.min = (sig2.B - sig.AB)/(sig2.A + sig2.B - 2*sig.AB)
+xB.min = 1 - xA.min
+
+mu.p.min = xA.min*mu.A + xB.min*mu.B
+sig2.p.min = xA.min^2 * sig2.A + xB.min^2 * sig2.B + 2*xA.min*xB.min*sig.AB
+sig.p.min = sqrt(sig2.p.min)
+
+```
+
+Se generan los cáculos para un portafolio de dos activos mostrando como resultado el valor mínimo de la varianza y su respectiva rentabilidad.
+
+```{r, message=FALSE,warning=FALSE,echo=FALSE}
+library('knitr')
+port=cbind(mu.p.min,sig.p.min)
+colnames(port)=c("Rentabilidad","Volatilidad")
+
+kable(as.data.frame(port), booktabs=TRUE,caption = "Portafolio mínima varianza")%>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+```
+
+
+```{r PEF,fig.cap='Curva Eficiente', echo=FALSE, message=FALSE,warning=FALSE}
+cex.val = 2
+plot(sig.p, mu.p, type="b", pch=16, cex = cex.val,
+     ylim=c(0, max(mu.p)), xlim=c(0, max(sig.p)),
+     xlab=expression(sigma[p]), ylab=expression(mu[p]), cex.lab=cex.val,
+     col=c(rep("red", 6), "blue", rep("green", 12)))
+text(x=sig.A, y=mu.A, labels="Asset A", pos=4, cex = cex.val)
+text(x=sig.B, y=mu.B, labels="Asset B", pos=4, cex = cex.val)
+text(x=sig.p.min, y=mu.p.min, labels="Global min", pos=2, cex = cex.val)
+
+```
+
+Como se mencionó en el anterior apartado, un solo resultado no es factible para un inversionista dados los diferentes perfiles de riesgo. La figura \@ref(fig:PEF) muestra con color verde los portafolios que se ubican en la frontera eficiente y que por lo tanto diversifican mejor el riesgo, los que están en rojo son portafolios que no son eficiente dado que a ese mismi riesgo se obtiene una mejor rentabilidad. 
+
+
+
+
+```{r, echo=FALSE, message=FALSE,warning=FALSE}
+#
+# portfolio frontier with varying values of rho
+#
+rho.AB.vals = c(-0.9,-0.5, -0.25, 0, 0.25, 0.5, 0.9)
+x.A = seq(from=-0.4, to=1.4, by=0.1)
+x.B = 1 - x.A
+mu.p = x.A*mu.A + x.B*mu.B
+sig2.p = x.A^2 * sig2.A + x.B^2 * sig2.B + 2*x.A*x.B*rho.AB.vals[1]*sig.A*sig.B
+sig.p = sqrt(sig2.p)
+
+```
+
+Un portafolio diversificado es aquel en donde sus activos tienen una realción casi nula, ya que esto permite que el portafolio se ajuste de acuerdo a las variaciones de cada uno de los precios de los activos del portafolio, para poder ver esta relación se puede obtener el coeficiente de correlación. 
+
+```{r PCORR,fig.cap='Diferentes Correlaciones', echo=FALSE, message=FALSE,warning=FALSE}
+# create portfolio plot
+cex.val = 1.5
+plot(sig.p, mu.p, type="b", pch=16, cex = cex.val,
+     ylim=c(0, max(mu.p)), xlim=c(0, max(sig.p)),
+     xlab=expression(sigma[p]), ylab=expression(mu[p]),
+     cex.lab = cex.val, col=1)
+text(x=sig.A, y=mu.A, labels="Asset A", pos=4, cex = cex.val)
+text(x=sig.B, y=mu.B, labels="Asset B", pos=4, cex = cex.val)
+
+for (i in 2:length(rho.AB.vals)) {
+  sig2.p = x.A^2 * sig2.A + x.B^2 * sig2.B + 2*x.A*x.B*rho.AB.vals[i]*sig.A*sig.B
+  sig.p = sqrt(sig2.p)
+  points(sig.p, mu.p, type="b", pch=16, col=i, cex=cex.val)
+}
+legend(list(x = 0.32,y = 0.15), legend=paste("rho", as.character(rho.AB.vals), sep="="), 
+       col=1:length(rho.AB.vals), pch=16)
+```
+
+La gráfica \@ref(fig:PCORR) compara diferentes correlaciones desde $\rho=-0.9$ hasta $\rho= 0.9$ la linea negar con puntos muestra que los activos pueden ir en dos direcciones cuando su relación es inversa, mientras que la gráfica amarilla se vuelve lentamente lineal a medida que los activos presentan una mayor relación positiva entre si. Una diversificación perfecta se presenta cuando los activos tienen una correlación de cero, ya que al no haber relación el portafolio presentar mayor probabilidad de corregir las perdidas generadas por un instrumento financiero específico.
+
+
+```{r CORREX,fig.cap='Diferentes Correlaciones', echo=FALSE, message=FALSE,warning=FALSE}
+#
+# show portfolio plot with rho = 1 and rho = -1
+#
+rho.AB = 1
+sig.AB = rho.AB*sig.A*sig.B
+mu.p.1 = x.A*mu.A + x.B*mu.B
+sig2.p.1 = x.A^2 * sig2.A + x.B^2 * sig2.B + 2*x.A*x.B*sig.AB
+sig.p.1 = sqrt(sig2.p.1)
+rho.AB = -1
+sig.AB = rho.AB*sig.A*sig.B
+mu.p.m1 = x.A*mu.A + x.B*mu.B
+sig2.p.m1 = x.A^2 * sig2.A + x.B^2 * sig2.B + 2*x.A*x.B*sig.AB
+sig.p.m1 = sqrt(sig2.p.m1)
+
+plot(sig.p.1, mu.p.1, type="b", pch=16, cex = cex.val,
+     ylim=c(0, max(mu.p)), xlim=c(0, max(sig.p)),
+     xlab=expression(sigma[p]), ylab=expression(mu[p]))
+points(sig.p.m1, mu.p.m1, type="b", col="blue", pch=22, cex = cex.val)
+text(x=sig.A, y=mu.A, labels="Asset A", pos=4, cex = cex.val)
+text(x=sig.B, y=mu.B, labels="Asset B", pos=4, cex = cex.val)
+legend(x="topleft", legend=c(expression(rho==1), expression(rho==-1)),
+       col=c("black", "blue"), pch=c(16,22))
+
+```
+
+En la figura  \@ref(fig:CORREX)  se presenta dos escenarios en donde la correlación entre las variables tiene los máximos valores.
+
+
+```{r EFP,fig.cap='Portafolios eficientes', echo=FALSE, message=FALSE,warning=FALSE}
+#
+# show efficient portfolios
+#
+rho.AB = -0.164
+sig.AB = rho.AB*sig.A*sig.B
+x.A = seq(from=-0.4, to=1.4, by=0.1)
+x.B = 1 - x.A
+mu.p = x.A*mu.A + x.B*mu.B
+sig2.p = x.A^2 * sig2.A + x.B^2 * sig2.B + 2*x.A*x.B*sig.AB
+sig.p = sqrt(sig2.p)
+plot(sig.p, mu.p, type="b", pch=16, ylim=c(0, max(mu.p)), cex = cex.val,
+     xlim=c(0, max(sig.p)),
+     xlab=expression(sigma[p]), ylab=expression(mu[p]),
+     col=c(rep("red", 6), rep("green", 13)))
+text(x=sig.A, y=mu.A, labels="Asset A", pos=4, cex = cex.val)
+text(x=sig.B, y=mu.B, labels="Asset B", pos=4, cex = cex.val)
+segments(x0=sig.p[3], y0=0, x1=sig.p[3], y1=mu.p[11], 
+         lwd=3, lty="dotted")
+text(x=sig.p[3], y=mu.p[3], labels="Inefficient portfolio", 
+     pos=4, cex = cex.val)
+text(x=sig.p[3], y=mu.p[11], labels="Efficient portfolio", 
+     cex = cex.val, pos=4)
+
+```
+
+Usando un portafolio diversificado con grado de correlación $\rho=0$ se puede observar  en la figura \@ref(fig:EFP) las diferentes opciones de ponderación de acuerdo al perfil de riesgo que puede tener un inversionista, en donde cada uno de los puntos representa un portafolio diferente. Los puntos en verde muestran las opciones eficientes, mientras que los puntos rojos reflejan las decisiones menos óptimas debido a que a esos niveles de riesgo la rentabilidad en menor en comparación a la que se puede obtener en los portafolios con puntos verdes. 
+
+
+### Implementando títulos de renta fija.
+
+La idea de implementar un título de renta fija es minimizar el riesgo con el objetivo de conseguir un portafolio más seguro pero que oferece una menor rentabilidad debido a que hay una poricón de la inversión en un título de menor riesgo y rentabilidad. Usando ahora un título de renta fija, se comparan dos portafolios, uno usando la acción $A$ y un título de renta fija con una tasa libre de riesgo $r=0,03$ y otro usando la acción $B$ con el mismo título de renta fija. 
+
+```{r TSHARP, echo=FALSE, message=FALSE,warning=FALSE}
+#
+# portfolios with 1 risky asset and T-Bills
+#
+
+r.f = 0.03
+# T-bills + asset A
+x.A = seq(from=0, to=1.4, by=0.1)
+mu.p.A = r.f + x.A*(mu.A - r.f)
+sig.p.A = x.A*sig.A
+sharpe.A = (mu.A - r.f)/sig.p.A
+
+# T-bills + asset B
+x.B = seq(from=0, to=1.4, by=0.1)
+mu.p.B = r.f + x.B*(mu.B - r.f)
+sig.p.B = x.B*sig.B
+sharpe.B = (mu.B - r.f)/sig.p.B
+
+
+library('knitr')
+ports=cbind(sharpe.A,sharpe.B)
+colnames(ports)=c("Sharpe A","Sharpe B")
+
+kable(as.data.frame(ports), booktabs=TRUE,caption = "Indice Sharp")%>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+```
+
+
+Para comparar estos dos portafolios, se usa el índice de sharp que mide la rentabilidad real en razón del nivel de riesgo de cada uno de los activos.
+
+\begin{equation}
+IS=(\mu-rf)/\sigma
+(\#eq:IS)
+\end{equation}
+
+La ecuación \@ref(eq:IS) hace referencia al índice de sharp, en donde $\mu$ es la rentabilidad del portafolio, $rf$ la tasa libre de riesgo y $\sigma$ el nivel de riesgo de ese portafolio.
+
+```{r TBILL,fig.cap='Portafolios eficientes de SHARP', echo=FALSE, message=FALSE,warning=FALSE}
+
+# plot portfolios of T-Bills and assets A and B
+plot(sig.p.A, mu.p.A, type="b", col="green", ylim=c(0, max(mu.p.A)),
+     xlim=c(0, max(sig.p.A, sig.p.B)), pch=16, cex = cex.val,
+     xlab=expression(sigma[p]), ylab=expression(mu[p]), cex.lab = cex.val)
+points(sig.p.B, mu.p.B, type="b", col="red", pch=16, cex = cex.val)
+text(x=sig.A, y=mu.A, labels="Asset A", pos=4, cex = cex.val)
+text(x=sig.B, y=mu.B, labels="Asset B", pos=1, cex = cex.val)
+text(x=0, y=r.f, labels=expression(r[f]), pos=2, cex = cex.val)
+
+```
+
+
+Comparando los resultados de la gráfica de sharp  \@ref(fig:TBILL) con la tabla \@ref(tab:TSHARP) en donde el valor para el portafolio $A=0.56$, se confirma que combinando un título de renta fija con la acción $A$ la rentabilidad es mucho mayor que haciendo el mismo proceso con la acción $B$.
+
+
+```{r 2RAT, echo=FALSE, message=FALSE,warning=FALSE}
+#
+# portfolios of 2 risky assets and T-Bills
+#
+rho.AB = -0.164
+sig.AB = rho.AB*sig.A*sig.B
+top = (mu.A - r.f)*sig2.B - (mu.B - r.f)*sig.AB
+bot = (mu.A - r.f)*sig2.B + (mu.B - r.f)*sig2.A - (mu.A - r.f + mu.B - r.f)*sig.AB
+x.A.tan = top/bot
+x.B.tan = 1 - x.A.tan
+
+mu.p.tan = x.A.tan*mu.A + x.B.tan*mu.B
+sig2.p.tan = x.A.tan^2 * sig2.A + x.B.tan^2 * sig2.B + 2*x.A.tan*x.B.tan*sig.AB
+sig.p.tan = sqrt(sig2.p.tan)
+
+
+# T-bills plus tangency
+x.tan = seq(from=0, to=2.4, by=0.1)
+mu.p.tan.tbill = r.f + x.tan*(mu.p.tan - r.f)
+sig.p.tan.tbill = x.tan*sig.p.tan
+
+library('knitr')
+pors=rbind(x.A.tan,x.B.tan,mu.p.tan,sig.p.tan)
+colnames(pors)=c("Resultados")
+rownames(pors)=c("tan A","tan B","mu.p","sig.p")
+
+kable(as.data.frame(pors), booktabs=TRUE,caption = "Indice Sharp")%>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+```
+
+La tabla \@ref(tab:2RAT) muestra cuanto se debe invertir en A y en B sin incluir el título de renta fija para un portafolio óptimo de acuerdo al índice de sharp, adicional muestra cuanto sería el riesgo y la rentabilidad de acuerdo a la ponderación de este portafolio.
+
+
+
+
+
+```{r WOTBILL,fig.cap='Portafolios eficientes sin Renta Fija', echo=FALSE, message=FALSE,warning=FALSE}
+# plot portfolios w/o tangency portfolio
+plot(sig.p, mu.p, type="b", pch=16, cex = cex.val,
+     ylim=c(0, max(mu.p)), xlim=c(0, max(sig.p)),
+     xlab=expression(sigma[p]), ylab=expression(mu[p]), cex.lab = cex.val)
+text(x=sig.A, y=mu.A, labels="Asset A", pos=4, cex = cex.val)
+text(x=sig.B, y=mu.B, labels="Asset B", pos=4, cex = cex.val)
+text(x=sig.p.min, y=mu.p.min, labels="Global min", pos=4, cex = cex.val)
+text(x=0, y=r.f, labels=expression(r[f]), pos=2, cex = cex.val)
+text(x=sig.p.tan, y=mu.p.tan, labels="Tangency", pos=2, cex = cex.val)
+points(sig.p.A, mu.p.A, type="b", col="red", pch=16, cex = cex.val)
+points(sig.p.B, mu.p.B, type="b", col="blue", pch=16, cex = cex.val)
+
+```
+
+La figura \@ref(fig:WOTBILL) combina los resultados las gráficas \@ref(fig:TBILL) y \@ref(fig:EFP) siendo la linea roja con puntos las opciones en $A$, la linea azul las opciones en $B$ y la curva negra las opciones en ambos activos.
+
+
+```{r WTBILL,fig.cap='Portafolios eficientes con Renta Fija', echo=FALSE, message=FALSE,warning=FALSE}
+
+# plot portfolios with tangency portfolio
+plot(sig.p, mu.p, type="b", pch=16, cex = cex.val,
+     ylim=c(0, max(mu.p)), xlim=c(0, max(sig.p)),
+     xlab=expression(sigma[p]), ylab=expression(mu[p]), cex.lab = cex.val)
+text(x=sig.A, y=mu.A, labels="Asset A", pos=4, cex = cex.val)
+text(x=sig.B, y=mu.B, labels="Asset B", pos=4, cex = cex.val)
+text(x=sig.p.min, y=mu.p.min, labels="Global min", pos=4, cex = cex.val)
+text(x=0, y=r.f, labels=expression(r[f]), pos=2, cex = cex.val)
+text(x=sig.p.tan, y=mu.p.tan, labels="Tangency", pos=2, cex = cex.val)
+points(sig.p.A, mu.p.A, type="b", col="red", pch=16, cex = cex.val)
+points(sig.p.B, mu.p.B, type="b", col="blue", pch=16, cex = cex.val)
+points(sig.p.tan.tbill, mu.p.tan.tbill, type="b", col="green", pch=16, cex = cex.val)
+
+
+# T-bills plus tangency
+x.tan = seq(from=0, to=2.4, by=0.1)
+mu.p.tan.tbill = r.f + x.tan*(mu.p.tan - r.f)
+sig.p.tan.tbill = x.tan*sig.p.tan
+
+
+#
+```
+
+
+Finalmente se tiene la figura \@ref(fig:WTBILL) que inlcuye la recta tangente que atravieza la curva eficiente de portafolio. En el punto en el cual se encuentran ambos puntos está el portfolio óptimo en donde la razón rentabilidad y volatilidad es la más alta. 
+
+# Procesos de incertidumbre
+
+Usando los elementos de la teoría de probabilidad, con ayuda de las funciones distribución discretas y continuas, se crearán los escenarios para determinar cuales pueden ser los posibles cambios que pueden llegar a sufrir los precios de las acciones. En este punto se aprovecha que los estudiantes ya han avanzado en la asignatura de matemática financiera y tienen una muy buena comprensión de lo que es el valor del dinero en el tiempo y como se debe valorar a través de procesos como el interés simple, el compuesto y el continuo. 
+
+
+Aprovechando la definición de variables aleatorias, se trabajará con los precios y los rendimientos de las acciones asumiendo primero que son una variable discreta para trabajar con un proceso binomial, y luego asumiendo  son variables continuas para trabajar con un proceso continuo.
+
+
+Como son dos modelos financieros que tienen sus raíces en la teoría de probabilidad, primero se va a hacer una introducción a cada uno de estos modelos antes de utilizarlos.
+
+
+## Modelo Binomial para Acciones.
+
+Diversos autores han buscado representar los movimientos de los instrumentos financieros que están sujetos bajo incertidumbre. Muchos de ellos han optado por usar un modelo binomial, pues brinda las herramientas básicas a través de tasa de interés y volatilidad para mostrar los posibles cambios del precio de una acción, en un horizonte de tiempo determinado. En este espacio se usa el que plantearon @cox1979option en donde se establece una probabilidad, de acuerdo a unos supuestos como la ausencia de arbitraje que es necesaria para mantener el escenario de incertidumbre y que los rendimientos tienen una distribución normal $ln\Big(\frac{S_{t}}{S_{t-1}}\Big)\sim N(\mu t, \sigma^{2}t)$ donde $ln\Big(\frac{S_{t}}{S_{t-1}}\Big)$ son los rendimientos del precio de un instrumento financiero al momento $S_{t}$. Se puede ver también que tanto $\mu$ como $\sigma^{2}$ se multiplican por $t$ dado que estamos hablando de variables que miden el valor del dinero en el tiempo.
+
+Antes de resolver como se genera la probabilidad, primero se define el crecimiento y el decrecimiento del precio $S$ de un activo de acuerdo a unas condiciones dadas. De esta manera  se representan las subidas $U$ y bajadas $D$ de los precios con el ejemplo de la moneda en donde si lanza la moneda y cae cara $H$ entonces sus ingresos suben, pero si se lanza la moneda y cae sello $T$, entonces sus ingresos disminuyen. A mayor lanzamiento de monedas, mayor probabilidad de aumentar o disminuir las ganancias. 
+
+El número del lanzamiento de cada moneda se da por el literal $i$, de esta forma si se quiere conocer el valor del precio de una acción después de lanzar la moneda $i$ veces, se está buscando el valor $S_{i}$
+
+
+Antes de empezar se describe el conjunto $\Omega$ de todos los posibles resultados para el lanzamiento de una moneda.
+
+\begin{align}
+\Omega=\{U,D\}^{n}=\{(\omega_{1},\omega_{2},...,\omega_{n}\}; \omega_{i}=U \quad o \quad \omega_{i}=D
+\label{eq:omea}
+\end{align}
+
+En donde los resultados que se generan en $\Omega$ se ven reflejados en el espacio de los números reales $\mathbb{R}$.
+
+
+\begin{align}
+X_{i}=\Omega \rightarrow \mathbb{R} \quad \omega \rightarrow \omega_{i}
+\end{align}
+
+Por un lado se tienen los resultados cuando la moneda cae en cara
+
+
+\begin{align}
+H_{i}: \Omega \rightarrow \mathbb{R} \quad \omega \rightarrow \# \{j \leq i :\omega_{j}=U\}
+\end{align}
+
+Y por otro lado se tienen los resultados cuando la moneda cae sello.
+
+\begin{align}
+T_{i}: \Omega \rightarrow \mathbb{R} \quad \omega \rightarrow \# \{j \leq i :\omega_{j}=D\}
+\end{align}
+
+El precio de una acción al momento $S_{i}$ se da entonces por la multiplicación de los resultados de la variable aleatoria $X_{j}$ que son los resultados de la moneda por $S_{0}$.
+
+\begin{equation}
+S_{i}=S_{0}\Pi_{j=1}^{i}X_{j}=S_{0}U^{H_{i}}D^{T_{i}}
+(\#eq:PSMB)
+\end{equation}
+
+
+
+
+El valor esperado del precio se calcula con ayuda de la función de distribución binomial:
+
+\begin{equation}
+P(X=x)=\binom{t}{x}  p^{x}q^{t-x}
+(\#eq:binom)
+\end{equation}
+
+Donde $p$ y $q$ son probabilidades $n$ el número de escenarios y $x$ el valor que se desea obtener. Combinando \@ref(eq:binom) con \@ref(eq:PSMB) de acuerdo a los resultados de cara y sello se puede crear el valor esperado del precio de una acción usando la función de distribución binomial. 
+
+
+\begin{equation}
+E [S_{t}]=\sum_{x=0}^{t}\binom{t}{x}  p^{x}(1-p )^{t-x}S_{0}U^{x}D^{t-x}
+(\#eq:CRR1)
+\end{equation}
+
+
+Se puede ver que el proceso para obtener el valor esperado con ayuda de \@ref(eq:CRR1) es el mismo que se usa para hallar el valor esperado de una función de distribución binomial, donde la variable aleatoria es el precio y la probabilidad es la función de distribución binomial, el resultado del precio se obtiene después de $n$ ensayos.
+
+La varianza se calcula aplicando la propiedad $Var[x]=E[S_{t}^{2}]-E[S_{t}]^{2}$ junto con la ecuación \@ref(eq:CRR1)  .
+
+
+Si bien la probabilidad que se ha abordado hasta este momento está relacionada con el cálculo de las frecuencias absolutas y relativas, se puede usar también los conceptos de matemática financiera para encontrar la probabilidad de un proceso usando conceptos como los que se abordan en matemática financiera. Como se mencionó anteriormente es importante que no exista arbitraje en este modelo, ya que la no ausencia de arbitraje genera que la incertidumbre se pierda y el resultado sea seguro produciendo un resultado determinista.
+
+Para garantizar que el modelo se puede desarrollar se establece la siguiente desigualdad:
+
+\begin{equation}
+D<(1+r)<U
+(\#eq:ARB)
+\end{equation}
+
+Donde $D$ es la constante cuando el precio cae y $U$ es la constate cuando el precio sube, por otra parte $r$ es la tasa libre de riesgo. Como se puede ver en la desigualdad \@ref(eq:ARB) la tasa libre de riesgo debe encontrarse en la mitad de las posibilidades cuando el precio de un instrumento financiero sube o baja.
+
+El cálculo de $U$ se obtiene con ayuda de la desviación estándar que en finanzas es la volatilidad, multiplicada por la raíz del tiempo, la raíz del tiempo  se da porque como se mencionó desde el inicio del documento los rendimientos tienen una distribución normal y como ellos nos dan el valor del dinero en el tiempo, siempre se deben multiplicar por $t$ para obtener la equivalencia deseada en términos de tiempo. Dado que los parámetros de una distribución normal son media y varianza, cada una debe ser multiplicada por $t$ entonces al obtener la raíz cuadrada de la varianza, se obtiene la desviación estándar multiplicada por la raíz de $t$.
+
+Estos procesos se calculan a través de procesos continuos por lo tanto el valor al que sube un precio se obtiene con $U=e^{\sigma\sqrt{t}}$ mientras que el valor del precio cuando baja se obtiene con $D=e^{-\sigma\sqrt{t}}$.
+
+
+Por último se puede mostrar el cálculo de la probabilidad de este modelo, si bien hasta ahora se han visto dos formas de obtener la probabilidad (Frecuencias y Subjetivas) modelos como el que se va a utilizar, deben ofrecer la forma en que se obtiene la probabilidad usando los conceptos financieros.
+
+\begin{equation}
+p = \frac{(1+r)-D}{U-D}
+(\#eq:pq)
+\end{equation}
+
+Se puede ver en  \@ref(eq:ARB) $p$ es el resultado de la combinación entre la tasa libre de riesgo y la posibilidad de que el precio suba o baje. Usando la propiedad de la probabilidad en donde $P(A^{c})=1-P(A)$ se puede obtener $q=1-p$.
+
+
+Con todas las variables del modelo, se puede proceder a generar un escenario para las cuatro acciones que se han trabajado hasta este momento.
+
+
+Primero se van a crear cuatro árboles binomiales que muestren el comportamiento de las acciones usando los parámetros del modelo binomial.
+
+
+
+```{r AB,fig.cap="Árbol Binomial", fig.width = 8, fig.height = 8,echo=FALSE, message=FALSE,warning=FALSE,echo=FALSE}
+library(derivmkts)
+par(mfrow=c(2,2))
+binomplot(as.numeric(tail(BXP$BXP.Close, n=1)), 140, sd(bxp)/100*sqrt(5), (1.0231)^(1/52)-1,  4,0, nstep=4, american=TRUE, putopt=TRUE,
+          plotvalues=TRUE, plotarrows=TRUE,titles = FALSE,pointsize = 3,crr=TRUE)
+title("BXP")
+binomplot(as.numeric(tail(AXP$AXP.Close, n=1)), 0, sd(axp)/100*sqrt(5), (1.0231)^(1/52)-1,  4,0, nstep=4, american=TRUE, putopt=TRUE,
+          plotvalues=TRUE, plotarrows=TRUE,titles = FALSE,pointsize = 0,crr=TRUE)
+title("AXP")
+binomplot(as.numeric(tail(AES$AES.Close, n=1)), 0, sd(aes)/100*sqrt(5), (1.0231)^(1/52)-1,  4,0, nstep=4, american=TRUE, putopt=TRUE,
+          plotvalues=TRUE, plotarrows=TRUE,titles = FALSE,pointsize = 0,crr=TRUE)
+title("AES")
+binomplot(as.numeric(tail(GLW$GLW.Close, n=1)), 0, sd(glw)/100*sqrt(5), (1.0231)^(1/52)-1,  4,0, nstep=4, american=TRUE, putopt=TRUE,
+          plotvalues=TRUE, plotarrows=TRUE,titles = FALSE,pointsize = 0,crr=TRUE)
+title("GLW")
+```
+
+Usando el modelo binomial se realiza un pronóstico de los precios de cada acción para un mes dividido en cuatro semanas como se observa en la figura \@ref(fig:AB) , se puede ver en cada una de las gráficas, que la varianza genera que el precio aumente y se aleje de la media a medida que avanzan las semanas. A mayor horizonte de tiempo, mayor sera el grado de dispersión con respecto al valor esperado. Entre las cuatro gráficas, la que pertenece a AXP presenta un mayor grado de dispersión mostrando que puede llegar a alcanzar variaciones hasta de  20 USD, mientras que AES parece no mostrar grandes cambios en un mes dado que su máxima variación podría ser de  2 USD.
+
+
+```{r  echo=FALSE, message=FALSE,warning=FALSE}
+#Precio Futuro bajo incertidumbre
+PFI <- function(X0, u , d , N ) {
+  X <- c()
+  X[1] <- X0
+  count <- 2
+  
+  for (i in 1:N) {
+    for (j in 0:i) {
+      X[count] <- X0 * u^j * d^(i-j)
+      count <- count + 1
+    }
+  }
+  return(X)
+}
+
+
+
+```
+
+
+Usando las ecuaciones que construyen el modelo binomial, se procede a calcular el valor esperado  y la varianza de cada una de las acciones.
+
+
+```{r  echo=FALSE, message=FALSE,warning=FALSE}
+
+
+ubxe=exp(sd(bxp)/100*sqrt(5))
+dbxe=1/ubxe
+
+uaxp=exp(sd(axp)/100*sqrt(5))
+daxp=1/uaxp
+
+uaes=exp(sd(aes)/100*sqrt(5))
+daes=1/uaes
+
+uglw=exp(sd(glw)/100*sqrt(5))
+dglw=1/uglw
+
+N=4
+
+SBXE=PFI(as.numeric(tail(BXP$BXP.Close, n=1)), ubxe, dbxe , N)
+SAXP=PFI(as.numeric(tail(AXP$AXP.Close, n=1)), uaxp, daxp, N)
+SAES=PFI(as.numeric(tail(AES$AES.Close, n=1)), uaes, daes , N)
+SGLW=PFI(as.numeric(tail(GLW$GLW.Close, n=1)), uglw, dglw , N)
+
+
+
+p1=((1.0231)^(1/52)-dbxe)/(ubxe-dbxe)
+p2=((1.0231)^(1/52)-daxp)/(uaxp-daxp)
+p3=((1.0231)^(1/52)-daes)/(uaes-daes)
+p4=((1.0231)^(1/52)-dglw)/(uglw-dglw)
+
+
+pbxe=rep(0, N+1)
+paxp=rep(0, N+1)
+paes=rep(0, N+1)
+pglw=rep(0, N+1)
+
+pbxe[1]=dbinom(0, N,p1,log = FALSE)
+paxp[1]=dbinom(0, N,p2,log = FALSE)
+paes[1]=dbinom(0, N,p3,log = FALSE)
+pglw[1]=dbinom(0, N,p4,log = FALSE)
+
+
+for (i in 1:N){
+  
+  pbxe[i+1]=dbinom(i, N, p1,log = FALSE)
+  paxp[i+1]=dbinom(i, N, p2,log = FALSE)
+  paes[i+1]=dbinom(i, N, p3,log = FALSE)
+  pglw[i+1]=dbinom(i, N, p4 ,log = FALSE)
+  
+  
+}
+
+
+
+
+
+
+```
+
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+EVBXE=sum(pbxe*SBXE[11:15])
+EVbxe=sum(pbxe*SBXE[11:15]^2)
+volbxe= sqrt(EVbxe-EVBXE^2)
+
+EVAXP=sum(paxp*SAXP[11:15])
+EVaxp=sum(paxp*SAXP[11:15]^2)
+volaxp=sqrt(EVaxp-EVAXP^2)
+
+EVAES=sum(paes*SAES[11:15])
+EVaes=sum(paes*SAES[11:15]^2)
+volaes=sqrt(EVaes-EVAES^2)
+
+EVGLW=sum(pglw*SGLW[11:15])
+EVglw=sum(pglw*SGLW[11:15]^2)
+volglw=sqrt(EVglw-EVGLW^2)
+
+cvbxe=volbxe/EVBXE
+cvaxp=volaxp/EVAXP
+cvaes=volaes/EVAES
+cvglw=volglw/EVGLW
+```
+
+
+
+
+
+```{r echo=FALSE, message=FALSE,warning=FALSE}
+
+
+result=matrix(c(EVBXE,volbxe,cvbxe,EVAXP,volaxp,cvaxp,EVAES,volaes,cvaes,EVGLW,volglw,cvglw),nrow=3,ncol = 4)
+colnames(result)=c("BXP","AXP","AES","GLW")
+rownames(result)=c("EV","VOL","CV")
+
+result=as.data.frame(result)
+
+kable(result, booktabs=TRUE,caption = "Resultados") %>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+```
+
+Los resultados muestran que en un mes los precios pueden estar variando hasta un 7% GLW y una variación mínima del 5.11% de acuerdo al modelo binomial. Viendo los resultados de la tabla se ve que las acciones generan un buen dinamismo de mercado dándole al inversionista la posibilidad de aumentar su capital,Estas  variaciones aproximadas en términos porcentuales como lo muestra el coeficiente de variación, muestran que estas empresas se caracterizan porque están consolidadas y así lo demuestran los resultados en cuanto al pronóstico de sus movimientos. Una persona que quiere generar ganancias por encima de la tasa libre de riesgo, podría invertir en una de estas acciones. 
+
+
+Aunque se pueden obtener resultados completos con el modelo binomial, también es importante aclarar que se debe tener cuidado con el manejo de las estrategias, puesto que al tratarse de temas discretos, se están obviando un más de un centenar de posibilidades de variación del precio. Esto se puede resolver con ayuda de la implementación de modelos continuos que generar una mayor cantidad de escenarios y proponen otras alternativas que no se pueden ver en un escenario discreto dada su limitada capacidad de generación de escenarios.
+
+
+
+
+
+## Modelo Continuo para acciones
+
+El papel de las  funciones de distribución binomial y normal, es generar esos procesos aleatorios sobre las variables que no se pueden hacer en otro escenario, así como en el anterior modelo la función de distribución binomial buscaba a través de la probabilidad generar el efecto aleatorio en el precio, en la distribución normal se busca generar el efecto sobre la volatilidad del rendimiento activo creando las caminatas aleatorias que permitirán representar el precio de un instrumento financiero que está sujeto a incertidumbre.
+
+Para realizar el modelo de forma continua, es necesario entender porque se puede transformar un proceso discreto en uno continuo.
+
+En este caso usamos el teorema del límite central que propone la representación de ciertas distribuciones discretas en forma continua, como ocurriría en este caso con la relación que se espera obtener entre la función de distribución binomial y la función de distribución normal.
+
+
+Como se sabe, la distribución normal es aquella que trabaja con variables continuas y que tiene parámetros de media $\mu$ y varianza $\sigma^{2}$, por lo tanto, se dice que una variable aleatoria continua se distribuye $X\sim(\mu,\sigma^{2})$, como en este caso las variables dependen del tiempo entonces $X_{t}\sim(\mu t, \sigma^{2}t)$ donde $t$ hace referencia al tiempo en el cuál se está valorando la variable. 
+
+
+La función de densidad de la distribución normal se define así:
+
+\begin{equation}
+f(x_{t})=\frac{1}{\sqrt{2\pi\sigma^{2}}}e^{-(x-\mu)^{2}t/2\sigma^{2}t}
+\end{equation}
+Donde $\mu$ es la media y $\sigma^{2}$ la varianza $t$ como se mencionó hace referencia al tiempo.
+
+Por otra parte la función de distribución binomial que se usó para obtener el modelo binomial se implementar para obtener una aproximación binomial a la distribución normal.
+
+### Aproximación de la distribución binomial a la distribución normal 
+
+Sea $X$ cualquier variable aleatoria que tiene distribución binomial con parámetros $n$ y $p$.
+
+
+\begin{itemize}
+
+\item[a] Si $n\geq 30$, entonces la distribución binomial se puede aproximar a la distribución normal con $\mu=np$ y $\sigma^{2}=npq$
+\item[b] Si $np\geq 5$ y $n(1-p)\geq 5$, entonces también la distribución binomial se puede aproximar a la distribución normal con $\mu =np$, y $\sigma^{2}=npq$.
+
+En cualquiera de los casos se cumple que 
+
+\begin{equation}
+P(X\leq k)=B(k;n;p)=N\Big(\frac{k+0.5-np}{\sqrt{npq}}\Big)
+\end{equation}
+
+La aproximación que se acaba de nombrar, establece que a mayor cantidad de ensayos, es más probable que estos se puedan leer a través de los parámetros de la distribución normal, es por esta razón que los resultados convergen en un proceso continuo y se puede implementar la media y la varianza del las medidas descriptivas para obtener los parámetros del modelo. Nuevamente se aclara que en este ejercicio se trabaja con la media y la varianza de los rendimientos, pues son estos los que presentan un comportamiento de una distribución normal ya que los precios presentan por lo general otro tipo de distribución.
+
+## Aplicación general
+
+La representación de los precios se hace con ayuda de los conceptos básicos de matemática financiera, en donde el valor futuro de un activo se calcula con ayuda del valor actual y un promedio geométrico en el tiempo que determina a que velocidad está creciendo el dinero.
+
+Sin embargo, la tasa a la que crecen los instrumentos financieros sujetos a incertidumbre contiene además de la tasa libre de riesgo la volatilidad asociada a los rendimientos, pues es claro que si busco una mayor rentabilidad haciendo una inversión en una acción, esta debe ser mayor a la tasa libre de riesgo.
+
+Siendo $r$ la tasa libre de riesgo, el rendimiento promedio de un activo debería ser igual a $\mu=r+\frac{1}{2}\sigma^{2}$ donde $\sigma$ es la desviación estándar de los rendimientos, también conocida como la volatilidad. Usando los conceptos de estadística descriptiva, estos son la media y la desviación estándar.
+
+
+El concepto de valor del dinero en el tiempo en términos continuos se da por la ecuación
+
+\begin{equation}
+VF=VAe^{rt}
+\end{equation}
+
+Donde $VF$ es el valor futuro, $VA$ el valor actual, $r$ la tasa libre de riesgo y $t$ el tiempo. Esta ecuación es perfecta para un proceso determinista o un activo libre de riesgo que solo crece a una tasa $r$. 
+
+
+Una acción por otra parte debería valorarse de la siguiente forma:
+
+\begin{align}
+S_{t}=S_{0}e^{\mu t}
+\end{align}
+
+Donde $S_{t}$ es el precio futuro de la acción, $S_{0}$ el valor presente, $\mu$ la media de los rendimientos y $t$ el tiempo.
+
+Aunque a simple vista parece razonable, si se gráfica esta ecuación se podrá ver que el resultado no refleja realmente el comportamiento de una acción. Por lo tanto, es necesario agregarle el proceso generador de la incertidumbre que está ligado a la volatilidad de los rendimientos.
+
+\begin{equation}
+S_{t}=S_{0}e^{\mu t+\sigma \sqrt{t}Z}
+\end{equation}
+
+
+Esta ecuación conocida como la ecuación de Black and Scholes y se encuentra desarrollada en el libro de @hull2013fundamentals; esta ecuación representa de forma aproximada los movimientos del precio de una acción incluyendo el proceso de incertidumbre al que se encuentra atado. Se puede ver que además de lo anterior, esta tiene la desviación estándar $\sigma$ que es la raíz de la varianza, la raíz del tiempo $\sqrt{t}$ y $Z$ que es la distribución normal estándar y es la que se encarga de generar el proceso aleatorio.
+
+
+
+```{r MTE,fig.cap= "Precios Instrumentos Financieros",echo=FALSE, message=FALSE, warning=FALSE}
+set.seed(123)
+maturity <- 15
+simulation.length <- 1000
+dt <-  maturity/(simulation.length-1)
+
+tiempo <- seq(0,maturity, dt)
+
+S0<-1
+r<-0.05
+mu<-0.1
+mu0<-0.2
+sigma<-0.2
+sigma0<-0.375
+
+f <- h <- h0 <- rep(0, times=simulation.length)
+ h0[1]  <-  h[1] <- S0
+
+for(i in 2:simulation.length){
+  f[i] <- f[i-1]+sqrt(dt)*rnorm(1)
+  h[i] <- h[1]*exp((mu0-sigma0^2/2)*(i-1)*dt+sigma0*f[i])
+  h0[i] <- h0[1]*exp(mu0*(i-1)*dt)
+}
+
+o_range <- range(f,h,h0)
+
+plot(tiempo,f, ylim=o_range, type="l", col="coral1")
+lines(tiempo,h, col="deepskyblue1")
+lines(tiempo,h0, col="chartreuse3")
+
+title(main="Precios de un Instrumento Financiero", col.main="blue", font.main=4)
+
+
+
+legend(1, o_range[2], c("Con Volatilidad","Sin Volatilidad ","Distribución Normal"), cex=0.8, 
+       col=c("deepskyblue1","chartreuse3","coral1"), pch=1, lty=1)
+```
+
+
+La figura de precios de un instrumento financiero \@ref(fig:MTE)  muestra el precio de una acción en verde cuando solo crece a una tasa $\mu$ a lo largo del tiempo, en este caso el efecto de la volatilidad y la distribución normal no genera un efecto directo sobre el precio de la acción y por esa razón solo se aprecia una linea verde sin variaciones y con un crecimiento constante.
+
+La linea roja es una caminata aleatoria construida con la ayuda de una distribución normal que depende del tiempo, se puede ver que las observaciones se forman de manera aleatoria y por eso se ve un gráfico errático. Por último se tiene la linea azul que es la combinación de la linea verde y la linea roja como en la última ecuación que tiene en cuenta a $\mu$ y a $\sigma$ multiplicada por la distribución normal, ese efecto genera que la linea azul realmente refleje el comportamiento del precio de una acción a lo largo de un horizonte de tiempo.
+
+
+La linea azul del gráfico solo refleja un posible escenario,por lo tanto, para encontrar un valor esperado y una desviación estándar se debe generar una cantidad considerable de escenarios que garantice que se está teniendo en cuenta absolutamente todas las posibilidades, el siguiente paso consiste en generar los posibles eventos.
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+## Proceso Continuo
+set.seed(123)
+caminatas <- function(s0, mu, sigma, 
+                        nsims, 
+                        periods   # tiempo en el que se hace la simulación
+) 
+{
+  
+  s0 = as.vector(s0)
+  nsteps = length(periods)
+  dt = c(periods[1], diff(periods))
+  
+  if( length(s0) == 1 ) {
+    drift = mu - 0.5 * sigma^2
+    if( nsteps == 1 ) {
+      s0 * exp(drift * dt + sigma * sqrt(dt) * rnorm(nsims))
+    } else {
+      temp = matrix(exp(drift * dt + sigma * sqrt(dt) * rnorm(nsteps * nsims)), nc=nsims)
+      for(i in 2:nsteps) temp[i,] = temp[i,] * temp[(i-1),]
+      s0 * temp
+    }
+  } else {
+    require(MASS)
+    drift = mu - 0.5 * diag(sigma)
+    n = length(mu)
+    
+    if( nsteps == 1 ) {
+      s0 * exp(drift * dt + sqrt(dt) * t(mvrnorm(nsims, rep(0, n), sigma)))
+    } else {
+      temp = array(exp(as.vector(drift %*% t(dt)) + t(sqrt(dt) * mvrnorm(nsteps * nsims, rep(0, n), sigma))), c(n, nsteps, nsims))
+      for(i in 2:nsteps) temp[,i,] = temp[,i,] * temp[,(i-1),]
+      s0 * temp
+    }
+  }
+}
+
+
+
+```
+Para generar las simulaciones, es necesario crear una función que realice cada uno de los escenarios. Esta función se bautizó con el nombre de caminatas y utiliza cuatro parámetros para crear las simulaciones. El primer parámetro es el precio inicial $S_{0}$, que para este ejercicio es el último precio registrado de cada acción, el segundo parámetro es $\mu$ que es la media de los rendimientos, el tercero es la volatilidad $\sigma$ que pertenece también a los rendimientos. 
+
+
+El siguiente parámetro corresponde al número de simulaciones que en este caso son 1000, y el último parámetro es el número de períodos que es un vector que va desde cero a cuatro haciendo referencia al número de semanas que se desea pronosticar.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+S = c(as.numeric(tail(BXP$BXP.Close, n=1)),as.numeric(tail(AXP$AXP.Close, n=1)),as.numeric(tail(AES$AES.Close, n=1)),as.numeric(tail(GLW$GLW.Close, n=1)))
+mu = c(mean(bxp)/100,mean(axp)/100,mean(aes)/100,mean(glw)/100)
+sigma = c(sd(bxp)/100,sd(axp)/100,sd(aes)/100,sd(glw)/100)
+
+N = 10000
+```
+
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+periods = 0:20
+BXPC = caminatas(S[1], mu[1], sigma[1], N, periods = periods)
+AXPC = caminatas(S[2], mu[2], sigma[2], N, periods = periods)
+AESC = caminatas(S[3], mu[3], sigma[3], N, periods = periods)
+GLWC = caminatas(S[4], mu[4], sigma[4], N, periods = periods)
+```
+
+```{r TMB,fig.cap="Pronóstico de Precios",fig.width = 8, fig.height = 8,echo=FALSE, message=FALSE,warning=FALSE,echo=FALSE}
+zeit=0:20
+par(mfrow=c(2,2))
+matplot(zeit,BXPC[,1:1000], type='l', xlab='días', ylab='Precios',
+        main='Escenarios BXP')
+matplot(zeit,AXPC[,1:1000], type='l', xlab='días', ylab='Precios',
+        main='Escenarios AXP')
+matplot(zeit,AESC[,1:1000], type='l', xlab='días', ylab='Precios',
+        main='Escenarios AES')
+matplot(zeit,GLWC[,1:1000], type='l', xlab='días', ylab='Precios',
+        main='Escenarios GLW')
+```
+
+
+Una vez que se generan las simulaciones con ayuda de la función caminatas como en la figura \@ref(fig:TMB) , se logra obtener la figura de cada una de las acciones en donde se genera un tornado mostrando todos los posibles escenarios de cada uno de los precios de las acciones.
+
+
+Sin embargo aunque esto ofrece mayor información que el modelo generado a través del proceso binomial, es mejor obtener el valor esperado y la volatilidad de cada uno de los períodos y graficarlos para obtener un mejor panorama del comportamiento de los precios de las acciones para el próximo mes.
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(dplyr)
+EVBXPC=rowMeans(BXPC)
+VOLBXPC=sqrt(rowMeans(BXPC^{2})-EVBXPC^{2})
+BXPRC=as.data.frame(EVBXPC)
+BXPRC=mutate(BXPRC, VOLMA =EVBXPC+VOLBXPC)
+BXPRC=mutate(BXPRC, VOLMI =EVBXPC-VOLBXPC)
+
+EVAXPC=rowMeans(AXPC)
+VOLAXPC=sqrt(rowMeans(AXPC^{2})-EVAXPC^{2})
+VOLAXPC[1]=0
+AXPRC=as.data.frame(EVAXPC)
+AXPRC=mutate(AXPRC, VOLMA =EVAXPC+VOLAXPC)
+AXPRC=mutate(AXPRC, VOLMI =EVAXPC-VOLAXPC)
+
+EVAESC=rowMeans(AESC)
+VOLAESC=sqrt(rowMeans(AESC^{2})-EVAESC^{2})
+VOLAESC[1]=0
+AESRC=as.data.frame(EVAESC)
+AESRC=mutate(AESRC, VOLMA =EVAESC+VOLAESC)
+AESRC=mutate(AESRC, VOLMI =EVAESC-VOLAESC)
+
+EVGLWC=rowMeans(GLWC)
+VOLGLWC=sqrt(rowMeans(GLWC^{2})-EVGLWC^{2})
+VOLGLWC[1]=0
+GLWRC=as.data.frame(EVGLWC)
+GLWRC=mutate(GLWRC, VOLMA =EVGLWC+VOLGLWC)
+GLWRC=mutate(GLWRC, VOLMI =EVGLWC-VOLGLWC)
+```
+
+
+```{r VEX,fig.cap="Valor esperado y Varianza",fig.width = 8, fig.height = 8,echo=FALSE, message=FALSE,warning=FALSE,echo=FALSE}
+
+par(mfrow=c(2,2))
+matplot(BXPRC[,], type='l', xlab='días', ylab='Precios',
+        main='Escenarios BXP')
+matplot(AXPRC[,], type='l', xlab='días', ylab='Precios',
+        main='Escenarios AXP')
+matplot(AESRC[,], type='l', xlab='días', ylab='Precios',
+        main='Escenarios AES')
+matplot(GLWRC[,], type='l', xlab='días', ylab='Precios',
+        main='Escenarios GLW')
+```
+
+Finalmente, después de obtener el valor esperado de cada período y la volatilidad de cada uno de los precios de las acciones para los próximos veinte días, se pueden graficar los resultados mostrando que al menos tres acciones tienen una tendencia al alza como se observa en la figura \@ref(fig:VEX) , la desviación estándar se presenta dentro de escenarios normales para cada acción aunque para compararlas es mejor examinar nuevamente el coeficiente de variación de cada una.
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+
+CVBXP=VOLBXPC/EVBXPC
+CVAXP=VOLAXPC/EVAXPC
+CVAES=VOLAESC/EVAESC
+CVGLW=VOLGLWC/EVGLWC
+
+```
+
+
+
+```{r CV,echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+Semanas=0:20
+CVPC=as.data.frame(Semanas)
+CVPC=mutate(CVPC,CVBXP)
+CVPC=mutate(CVPC, CVAXP)
+CVPC=mutate(CVPC, CVAES)
+CVPC=mutate(CVPC, CVGLW)
+
+
+kable(CVPC, booktabs=TRUE,caption = "Coeficiente de Variación")%>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+```
+El coeficiente de variación de la tabla \@ref(tab:CV) refleja el crecimiento de la volatilidad a medida que aumenta el tiempo. para la semana número cuatro se puede ver que los resultados con excepción de la acción de AES son similares a los que se obtuvieron con el modelo binomial. Mostrando una vez más que el proceso discreto y continuo son equivalentes.
+
+### Diseño de una estrategia de inversión.
+
+En esta sección se busca implementar el concepto de matriz de varianza convarianza, valor esperado, promedio ponderado y minimización de la volatilidad (desviación estándar) a través de la ponderación de un portafolio.
+
+
+La media de los rendimientos se puede obtener con ayuda de la media del valor esperado generado a lo largo del horizonte de tiempo.
+
+\begin{equation}
+r_{t}=\frac{S_{t}-S_{t-1}}{S_{t-1}}
+\end{equation}
+
+
+\begin{equation}
+\overline{r} =\frac{1}{t}\sum_{i=1}^{t}r_{i}
+\end{equation}
+
+La varianza para este ejercicio también se obtuvo con los rendimientos del valor esperado.
+
+\begin{equation}
+\sigma^{2}=\frac{1}{t}\sum_{i=1}^{t}(r_{i}-\overline{r})^{2}
+\end{equation}
+
+La correlación se generó con los rendimientos del pronóstico y con estos se calculó la matriz de varianza y covarianza.
+
+
+\begin{equation}
+Cov(r_{x},r_{y})=\frac{1}{t}\sum_{i=1}^{t}(r_{xi}-\overline{r}_{x})(r_{yi}-\overline{r}_{y})
+\end{equation}
+
+\begin{equation}
+\rho =\frac{Cov(r_{x},r_{y})}{\sigma_{x}\sigma_{y}}
+\end{equation}
+
+Matriz Varianza-Covarianza
+
+\begin{equation}
+   \begin{pmatrix} 
+   \sigma^{2}_{11} & cov_{12} & cov_{13} & cov_{14} \\
+   cov_{21} & \sigma^{2}_{22} & cov_{23} & cov_{24} \\
+   cov_{31} & cov_{32} & \sigma^{2}_{33} & cov_{34}  \\
+   cov_{41}&cov_{42} &cov_{43} &\sigma^{2}_{44}
+   \end{pmatrix} 
+\end{equation}
+
+
+El valor esperado del portafolio se obtiene de la siguiente forma:
+
+\begin{equation} 
+r_{p}= \begin{bmatrix} 
+   \mu_{1}& \mu_{2}& \mu_{3}&\mu_{4}  \\
+  
+   \end{bmatrix}
+   \begin{bmatrix} 
+   w_{1}  \\
+   w_{2}  \\
+   w_{3}  \\
+   w_{4}
+   \end{bmatrix} \quad   
+\end{equation}
+
+Donde $r_{p}$ es la rentabilidad del portafolio, $\mu$ es la rentabilidad de cada activo y $w$ es el peso que se le da a dicho activo en la inversión.   
+
+La varianza del portafolio se obtiene con ayuda de los pesos y la matriz de varianza y covarianza.
+
+\begin{equation}
+\sigma^{2}=\begin{bmatrix} 
+   w_{1}& w_{2}& w_{3}& w_{4}  \\
+  
+   \end{bmatrix}
+   \begin{bmatrix} 
+   \sigma^{2}_{11} & cov_{12} & cov_{13} & cov_{14} \\
+   cov_{21} & \sigma^{2}_{22} & cov_{23} & cov_{24} \\
+   cov_{31} & cov_{32} & \sigma^{2}_{33} & cov_{34}  \\
+   cov_{41}&cov_{42} &cov_{43} &\sigma^{2}_{44}
+   \end{bmatrix} 
+      \begin{bmatrix} 
+   w_{1}  \\
+   w_{2}  \\
+   w_{3}  \\
+   w_{4}
+   \end{bmatrix}
+   
+\end{equation}
+
+El objetivo es obtener los pesos para generar un portafolio eficiente en términos de rentabilidad y riesgo.
+
+Asumiendo que la inversión tiene un horizonte de 20 días o cuatro semanas, se desea ponderar un portafolio como en la parte final de la primera fase usando una inversión inicial de 500.000 USD. 
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(quantmod)
+library(dplyr)
+rbxpc=Delt(EVBXPC)
+colnames(rbxpc)="rbxpc"
+PEVR=as.data.frame(rbxpc)
+PEVR=mutate(PEVR,raxpc=Delt(EVAXPC))
+PEVR=mutate(PEVR,raesc=Delt(EVAESC))
+PEVR=mutate(PEVR,rglwc=Delt(EVGLWC))
+PEVR=PEVR[-1,]
+```
+
+
+
+Cuando se habla de un portafolio de mínima varianza, se busca minimizar el efecto del riesgo sobre el portafolio total y obtener una rentabilidad mucho mayor de la que se obtendría si solo se invierte en una sola acción.
+
+Con ayuda del vector de valores esperados y la matriz de varianza y covarianza, se genera un proceso conjunto para obtener una inversión que garantice una eficiente distribución de los recursos.
+
+Primero se obtienen los rendimientos partir de los datos generados en la simulación del valor esperado para cada uno de los días. Después se obtiene la media y la desviación estándar de esos rendimientos. 
+
+Una vez que se tienen los rendimientos se genera un proceso  que permita a través de una matriz de varianza y covarianza, así como un vector de valores esperados generar un portafolio óptimo en donde se pueda minimizar el riesgo diversificando el capital en el portafolio.
+
+
+
+
+```{r INEF,echo=FALSE, message=FALSE, warning=FALSE}
+
+EVP=c(mean(PEVR$rbxpc),mean(PEVR$raxpc),mean(PEVR$raesc),mean(PEVR$rglwc))
+
+SDP=c(sd(PEVR$rbxpc),sd(PEVR$raxpc),sd(PEVR$raesc),sd(PEVR$rglwc))
+
+activos <- c("BXP", "AXP", "AES","GLW")
+mu.vec = EVP*20
+
+SDP=SDP*20
+names(mu.vec) = activos
+
+qw=SDP[1]*SDP[1]
+wq=cor(PEVR$rbxpc,PEVR$raxpc)*SDP[1]*SDP[2]
+ee=cor(PEVR$rbxpc,PEVR$raesc)*SDP[1]*SDP[3]
+rr=cor(PEVR$rbxpc,PEVR$rglwc)*SDP[1]*SDP[4]
+tt=SDP[2]*SDP[2]
+uu=cor(PEVR$raxpc,PEVR$raesc)*SDP[2]*SDP[3]
+ui=cor(PEVR$raxpc,PEVR$rglwc)*SDP[2]*SDP[4]
+qq=SDP[3]*SDP[3]
+ww=cor(PEVR$raesc,PEVR$rglwc)*SDP[3]*SDP[4]
+rt=SDP[4]*SDP[4]
+sigma.mat = matrix(c(qw,wq,ee,rr,wq,tt,uu,ui,ee,uu,qq,ww,rr,ui,ww,rt),
+                   nrow=4, ncol=4)
+dimnames(sigma.mat) = list(activos, activos)
+sd.vec = sqrt(diag(sigma.mat))
+library(dplyr)
+resultados=as.data.frame(mu.vec*100)
+resultados=mutate(resultados,SDP*100)
+rownames(resultados)=c("BXP", "AXP", "AES","GLW")
+colnames(resultados)=c("EV", "VOL")
+library(knitr)
+kable(resultados, booktabs=TRUE,caption = "Resultados")%>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+
+
+```
+
+La tabla \@ref(tab:INEF) muestra el valor esperado y la volatilidad de cada activo para 20 días, se puede ver que la acción de la que menos se esperan incrementos y variaciones es BXP con una rentabilidad del 0.37% y una volatilidad del 0.24%, mientras que las demás acciones presentan rendimientos del por encima del 1% para los próximos 20 días. De acuerdo a la volatilidad AES parece tener más posibilidades de tener variaciones de acuerdo al pronóstico realizado en la sección anterior, mientras que las acciones del sector financiero para que van a mostrar una relativa calma. En conclusión se espera que la mayor rentabilidad del portafolio sea la de AES y la mínima sea la de BXP. Bajo estos parámetros se procede a obtener el mejor rendimiento dentro de ese intervalo, mínimizando el riesgo de portafolio.
+
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(IntroCompFinR)
+gmin.port = globalMin.portfolio(mu.vec, sigma.mat)
+gmin.port
+
+```
+
+La función globalMin.portfolio usa el vector de valores esperados y la matriz de varianza y covarianza para hacer el proceso de optimización que se presento a través de las matrices. El resultado de la ponderación del portafolio, es un retorno  del 1.24% con una volatilidad de 0.123%. 
+
+Para obtener ese retorno a ese nivel de volatilidad, el modelo aconseja invertir 27.20% en GLW, el 30.79% en AXP, el 17.70% en AES y el 27.20% en GLW. 
+
+
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(quadprog)
+D.mat = 2*sigma.mat
+d.vec = rep(0, 4)
+A.mat = cbind(rep(1,4), diag(4))
+b.vec = c(1, rep(0,4))
+# use solve.QP to minimize portfolio variance
+qp.out = solve.QP(Dmat=D.mat, dvec=d.vec,
+                  Amat=A.mat, bvec=b.vec, meq=1)
+# compute mean, variance and sd
+w.gmin.ns = qp.out$solution
+names(w.gmin.ns) = names(mu.vec)
+er.gmin.ns = as.numeric(crossprod(w.gmin.ns, mu.vec))
+var.gmin.ns = as.numeric(t(w.gmin.ns)%*%sigma.mat%*%w.gmin.ns)
+sdp=sqrt(var.gmin.ns)
+
+
+```
+
+
+A pesar de ofrecer un resultado claro usando toda la información generada en este documento en diferentes secciones, a veces es necesario tener más alternativas puesto que  los perfiles de los inversionistas pueden ser diversos como por ejemplo el de uno al que no le gusta el riesgo hasta otro que no tiene problemas con buscar altas ganancias asumiendo riesgos altos.
+
+
+
+```{r FEC,fig.cap="Curva Eficiente",echo=FALSE, message=FALSE, warning=FALSE}
+
+# compute efficient frontier with no-short sales
+ef <- efficient.frontier(mu.vec, sigma.mat, alpha.min=0, 
+                         alpha.max=1, nport=10)
+
+plot(ef$sd, ef$er, type="b", ylim=c(min(ef$er), max(ef$er)), xlim=c(min(ef$sd),max(ef$sd)), 
+     pch=16, col="blue", cex=2, ylab=expression(mu[p]), xlab=expression(sigma[p]))
+title("Posibles portafolios a 20 días")
+
+
+```
+
+
+
+
+```{r AFEC,fig.cap="Acciones",echo=FALSE, message=FALSE, warning=FALSE}
+plot(SDP,EVP*20, type= "p",  pch=16, col="green")
+text(SDP, EVP*20, labels=activos, pos=4)
+
+```
+
+Para poder observar mejor la relación entre riesgo y rentabilidad, se crean diez escenarios y se grafican de tal forma que se puedan observar cada una de las alternativas, en la figura \@ref(fig:FEC) se puede ver primero que a mayor rentabilidad mayor riesgo, segundo que si uno invierte en un solo activo el riesgo que se obtiene es mayor y la rentabilidad no es la misma que la que se puede obtener diversificando el portafolio.
+
+
+La tabla adicional \@ref(tab:ESC)  genera los resultados de las ponderaciones para cada uno de los portafolios organiyados de una rentabilidad menor una mayor rentabilidad.
+
+En este portafolio se pueden hacer operaciones en largo y en corto, una operación en largo es aquella en la cuál se compra un activo para venderlo a un precio mayor, mientras que una operación en corto es aquella en donde se vende un activo sin tenerlo necesariamente y se paga después esperando que su precio sea menor al que se vendió.
+
+En este portafolio se sugiere vender un activo cuando la ponderación es negativa, es decir, se espera que la perdida de valor de ese activo genere un mayor rendimiento en el portafolio.
+
+
+```{r ESC,echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+kable(ef$weights, booktabs=TRUE, caption = "Ponderación")%>%
+  kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
+
+```
+## Conclusión
+
+La segunda fase tiene como objetivo introducir al estudiante en los procesos de incertidumbre; con ayuda del valor esperado y la varianza se busca que el estudiante se encuentre en la capacidad de entender la naturaleza de los elementos que conforman la teoría de la probabilidad y aplicarlos a modelos financieros especializados en el pronóstico de precios.
+
+Primero se implementó el modelo binomial que nace directamente de la función de distribución binomial asignándole a una variable aleatoria que es el precio, un factor de riesgo que es el rendimiento para obtener la probabilidad que permite modelar el precio de los activos financieros en diferentes escenarios. 
+
+Una vez se obtienen los escenarios, se calcula el valor esperado y la varianza para analizar los posibles cambios del precio en un escenario discreto. En esta sección se puede mencionar el papel que juegan  la probabilidad condicional, la probabilidad total y el teorema de bayes  alrededor de la generación de escenarios y como se puede obtener la probabilidad de un valor específico con ayuda de la función de distribución binomial.
+
+Después de obtener el valor esperado y la varianza de forma discreta,  se puede entender mejor como es la creación de escenarios continuos usando como referencia la función de distribución normal complementandola con los conceptos de matemática financiera sobre el valor futuro en un proceso continuo de un instrumento financiero.
+
+Una vez que se generan los escenarios se obtiene el valor esperado y la varianza de cada proceso, observando que estos modelos pueden mostrar una tendencia marcada del precio de la acción.
+
+Después de generar los escenarios de forma continua se puede desarrollar una estrategía de inversión teniendo en cuenta los resultados de los pronósticos. 
+
+Usando operaciones matriciales, se genera un portafolio de mínima varianza que busca diversificar de forma ponderada (usando promedio pondeardo) los rendimientos y el riesgo de las acciones con ayuda del álgebra lineal. Una vez se tienen claro estos conceptos se minimiza la varianza con un proceso de optimización produciendo lo que se conoce como una inversión eficiente donde la rentabilidad que se obtiene es la más alta posible al nivel de riesgo mínimo que resulta del proceso de optimización.
+
+Combinando cada uno de los conceptos aprendidos hasta el final del curso se puede desarrollar un modelo que permita tomar decisiones usando conceptos 
+
+
+
+
+
+# Referencias
+
+
