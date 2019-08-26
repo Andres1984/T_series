@@ -2,8 +2,9 @@
 title: "Valor en Riesgo"
 author: "Andrés Martínez"
 date: "18 8 2019"
-output: html_document
-
+output:
+  html_document: default
+  word_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -96,7 +97,7 @@ VaRP
 
 Una persona puede llegar a perder $91.610 dólares si inverte en 3M durante un mes.
 
-Se calcula para un horizonte de 
+Se calcula para un horizonte de 20 días laborales 
 
 
 
@@ -245,7 +246,7 @@ Para un mejor compresión del proceso, primero se van a crear un árbol binomial
 ```{r AB,fig.cap="Árbol Binomial", fig.width = 8, fig.height = 8,echo=FALSE, message=FALSE,warning=FALSE,echo=FALSE}
 library(derivmkts)
 
-binomplot(as.numeric(tail(MMM$MMM.Close, n=1)), 0, sd(mmm)*sqrt(5), (1.0231)^(1/52)-1,  4,0, nstep=4, american=TRUE, putopt=TRUE,
+binomplot(373, 0, 0.22, 0.0103,  8,0, nstep=8, american=TRUE, putopt=TRUE,
           plotvalues=TRUE, plotarrows=TRUE,titles = FALSE,pointsize = 0,crr=TRUE)
 title("3M")
 
@@ -285,14 +286,14 @@ ummm=exp(sd(mmm)*sqrt(5))
 dmmm=1/ummm
 
 
-N=4
+N=8
 
 SMMM=PFI(as.numeric(tail(MMM$MMM.Close, n=1)), ummm, dmmm , N)
 
 
 
 
-p1=((1.0231)^(1/52)-dmmm)/(ummm-dmmm)
+p1=(1.0103-0.8)/(1.24-0.8)
 
 
 pmmm=rep(0, N+1)

@@ -82,7 +82,6 @@ SM=as.data.frame(SM)
 
 SM=t(SM)
 tiempo=0:11
-par(mfrow=c(2,2))
 matplot(tiempo,SM[,1:100],  type='l')
 
 library(dplyr)
@@ -98,10 +97,10 @@ matplot(SMC[,], type='l')
 
 
 library(dplyr)
+class(MSFT)
 
-
-MSFTM=subset(MSFT$MSFT.Close, )
-days <- c("2018-07-02","2018-08-01","2018-09-01","2018-10-01","2018-11-01","2018-12-03", "2019-01-02","2019-02-01","2019-03-01","2019-04-01","2019-05-01","2019-06-03","2019-07-01") 
+MSFTM=subset(MSFT$MSFT.Close )
+days <- c("2018-07-02","2018-08-01","2018-09-04","2018-10-01","2018-11-01","2018-12-03", "2019-01-02","2019-02-01","2019-03-01","2019-04-01","2019-05-01","2019-06-03","2019-07-01") 
 
 
 MSFTM=MSFT$MSFT.Close[days]
@@ -110,7 +109,8 @@ RS=rep(0,11)
 RS[1]=MSFTM[1]
 
 
-MSFTM=as.numeric(MSFTM)
+MSFTM=as.numeric(MSFTM) 
+
 
 for (i in 1:11) {
   RS[i+1]=MSFTM[i]+(mu*MSFTM[i]*1+sigma*MSFTM[i]*rnorm(i))
@@ -119,6 +119,7 @@ for (i in 1:11) {
 }
 
 RS=as.data.frame(RS)
+MSFTM=MSFTM[-1]
 RS$M=MSFTM
 
 #Medidas de error.
