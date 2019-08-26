@@ -1,0 +1,275 @@
+---
+title: "Modelos Estacionarios"
+author: "Andrés Martínez"
+date: "27 8 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Modelos Estacionarios
+
+
+* Modelos de promedio movil $MA$
+* Modelos Auotoregressivos $AR$
+* Modelos diferenciados $ARIMA$
+
+Para este ejemplo usaremos los datos ma1 que son simulaciones que se encuentran en la libreria TSA (Time Seres Analysis) con el objetivo de mostrar el proceso de autocorrelación de los errores.
+
+
+Primero se crea una serie de orden $ma(1)=0.9$ en donde los errores dependen de los resagos anteriores.
+
+```{r , echo=FALSE, warning=FALSE,message=FALSE}
+library(TSA)
+
+data(ma1.2.s)
+plot(ma1.2.s,ylab=expression(Y[t]),type='o')
+grid()
+```
+
+En la siguiente gráfica se simela un $ma=-0.9$ y luego se genera un gráfico de dispersión entre $Y_{t}$ y $Y_{t-1}$ en donde se puede ver que es negativa esa relación debido al valor del coeficiente.
+
+
+```{r}
+set.seed(12345) 
+y=arima.sim(model=list(ma=-c(-0.9)),n=100)
+
+plot(y=ma1.2.s,x=zlag(ma1.2.s),ylab=expression(Y[t]),xlab=expression(Y[t-1]),type='p')
+grid()
+
+```
+
+EN la siguiente se hace el mismo proceso para observar relación entre las variables, pero resagando la variable dos períodos
+
+```{r}
+
+plot(y=ma1.2.s,x=zlag(ma1.2.s,2),ylab=expression(Y[t]),xlab=expression(Y[t-2]),type='p')
+grid()
+
+
+
+```
+
+
+
+## Modelo Autoregresivo 
+
+
+```{r}
+y=arima.sim(model=list(ar=c(0.9)),n=100)
+# Note that the R convention for the AR model formula is same as the book, so  
+# NO additional minus sign.  
+data(ar1.s)
+
+plot(y=ar1.s,x=zlag(ar1.s),ylab=expression(Y[t]),xlab=expression(Y[t-1]),type='p')
+
+
+
+
+
+
+```
+
+
+```{r}
+# Exhibit 4.15
+plot(y=ar1.s,x=zlag(ar1.s,2),ylab=expression(Y[t]),xlab=expression(Y[t-2]),type='p')
+
+
+
+```
+
+
+```{r}
+# Exhibit 4.16
+plot(y=ar1.s,x=zlag(ar1.s,3),ylab=expression(Y[t]),xlab=expression(Y[t-3]),type='p')
+
+
+```
+
+\textbf{Ejemplo} Use la formula recursiva para calcula la función de autocorrelación para un proceso $AR(2)$ con parámetros especificados. En cada caso especifique si las raices características son reales o complejas.
+\begin{itemize}
+\item[a]  $\phi_{1} =0.6 \quad \phi_{2} =0.3$
+\item[b]  $\phi_{1} =-0.4 \quad \phi_{2} =0.5$
+\item[c]  $\phi_{1} = 1.2 \quad \phi_{2} =-0.7$
+\end{itemize}
+
+Solución punto a
+
+
+```{r}
+rho=NULL; phi1=.6; phi2=.3; max.lag=20
+rho1=phi1/(1-phi2); rho2=(phi2*(1-phi2)+phi1^2)/(1-phi2)
+rho[1]=rho1; rho[2]=rho2
+for (k in 3:max.lag) rho[k]=phi1*rho[k-1]+phi2*rho[k-2]
+plot(y=rho,x=1:max.lag,type='h',ylab='ACF',xlab='Lag',ylim=c(-1,+1)); abline(h=0)
+polyroot(c(1,-phi1,-phi2)) # get the roots of the characteristic polynomial
+```
+
+Solución punto b
+
+```{r}
+rho=NULL; phi1=-.4; phi2=.5; max.lag=20
+rho1=phi1/(1-phi2); rho2=(phi2*(1-phi2)+phi1^2)/(1-phi2)
+rho[1]=rho1; rho[2]=rho2
+for (k in 3:max.lag) rho[k]=phi1*rho[k-1]+phi2*rho[k-2]
+plot(y=rho,x=1:max.lag,type='h',ylab='ACF',xlab='Lag',ylim=c(-1,+1)); abline(h=0)
+polyroot(c(1,-phi1,-phi2)) # get the roots of the characteristic polynomial
+```
+
+Solución punto c
+
+```{r}
+rho=NULL; phi1=1.2; phi2=-.7; max.lag=20
+rho1=phi1/(1-phi2); rho2=(phi2*(1-phi2)+phi1^2)/(1-phi2)
+rho[1]=rho1; rho[2]=rho2
+for (k in 3:max.lag) rho[k]=phi1*rho[k-1]+phi2*rho[k-2]
+plot(y=rho,x=1:max.lag,type='h',ylab='ACF',xlab='Lag',ylim=c(-1,+1)); abline(h=0)
+polyroot(c(1,-phi1,-phi2)) # get the roots of the characteristic polynomial
+```
+
+
+
+
+## Creación de un ARMA
+
+En este ejemplo se van a usa la tasa de interés de Estados Unidos para lograr un modelo estacionario ARMA
+
+```{r}
+data=quarterly
+data = read.xls("/Users/user/Google Drive/Website/Book/Enders/QUARTERLY.xls")
+library("zoo")
+
+```
+
+Para mayor exactitud, se prentende modelar el spread de tasas de intéres entre los Tbill títulos de corto plazo como los CDT en Colombia y la tasa a 5 años de los bonos del tesoro de Estados Unidos
+
+```{r}
+data$DATE = as.yearqtr(data$DATE)
+data$spread = data$r5-data$Tbill
+
+
+```
+
+
+Luego graficamos el spread y la variación de la tasa durante el período observado.
+
+```{r}
+par(mfrow=c(2,1))
+plot(data$DATE,data$spread,type="l",las=1,xaxs="i",yaxs="i",xlab="",ylab="",main="The Interest Rate Spread",tck=0.02,col="steelblue4",ylim=c(-2,4))
+abline(h=0)
+plot(data$DATE[-1],diff(data$spread),type="l",las=1,xaxs="i",yaxs="i",xlab="",ylab="",main="First-Difference of The Spread",tck=0.02,col="steelblue4",ylim=c(-3,3))
+abline(h=0)
+
+
+```
+
+
+Obtenemos las funciones de autocorrelación y autocorrelaición parcial de las series para especificar el modelo.
+
+```{r}
+par(mfrow=c(2,1))
+acf2=acf(data$spread,lag=12,tck=.02,xlab="",ylab="",main="",las=1)
+pacf2=pacf(data$spread,lag=12,tck=.02,xlab="",ylab="",main="",las=1)
+acf2 ## Buscar m?s de dos desviaciones estanda raiz(1/T)
+pacf2
+
+
+```
+
+Generamos los modelos posibles y los evaluamos a través de la prueba Ljung Box, en donde revisaremos el nivel de correlación serial de las series. Adicional a eso graficaremos la función ACF y PACF de los residuales con el objetivo de corroborar la prueba Ljung Box y por último
+generamos el criterio BIC y AIC para determinar el mejor modelo para esta serie
+
+Primero para un $AR(7)$
+
+```{r}
+### PAGE 91
+### TABLE 2.4
+spec.ar7 = arfimaspec(mean.model=list(armaOrder=c(7,0),include.mean=TRUE))
+fit.ar7 = arfimafit(spec=spec.ar7,data=data$spread)
+fit.ar7
+res.ar7 = fit.ar9@fit$residuals
+Box.test(res.ar7,lag=4,type="Ljung-Box")
+Box.test(res.ar7,lag=8,type="Ljung-Box")
+Box.test(res.ar7,lag=12,type="Ljung-Box")
+
+
+
+```
+
+Luego un $AR(6)$
+
+
+```{r}
+spec.ar6 = arfimaspec(mean.model=list(armaOrder=c(6,0),include.mean=TRUE))
+fit.ar6 = arfimafit(spec=spec.ar6,data=data$spread)
+fit.ar6
+res.ar6 = fit.ar6@fit$residuals
+Box.test(res.ar6,lag=4,type="Ljung-Box")
+Box.test(res.ar6,lag=8,type="Ljung-Box")
+Box.test(res.ar6,lag=12,type="Ljung-Box")
+
+
+
+```
+
+Seguimos con un $AR(2)$
+```{r}
+spec.ar2 = arfimaspec(mean.model=list(armaOrder=c(2,0),include.mean=TRUE))
+fit.ar2 = arfimafit(spec=spec.ar2,data=data$spread)
+fit.ar2
+res.ar2 = fit.ar2@fit$residuals
+Box.test(res.ar2,lag=4,type="Ljung-Box")
+Box.test(res.ar2,lag=8,type="Ljung-Box")
+Box.test(res.ar2,lag=12,type="Ljung-Box")
+
+
+
+```
+
+
+Luego un $AR(7)$ usando solo los rezagos 2 y 7
+
+```{r}
+spec.ar27 = arfimaspec(mean.model=list(armaOrder=c(7,0),include.mean=TRUE),
+                       fixed.pars=list(ar3=0,ar4=0,ar5=0,ar6=0))
+fit.ar27 = arfimafit(spec=spec.ar27,data=data$spread)
+fit.ar27
+res.ar27 = fit.ar29@fit$residuals
+Box.test(res.ar27,lag=4,type="Ljung-Box")
+Box.test(res.ar27,lag=8,type="Ljung-Box")
+Box.test(res.ar27,lag=12,type="Ljung-Box")
+
+
+
+```
+
+En este ejemplo se genera un $ARMA(1,1)$
+
+```{r}
+spec.arma11 = arfimaspec(mean.model=list(armaOrder=c(1,1),include.mean=TRUE))
+fit.arma11 = arfimafit(spec=spec.arma11,data=data$spread)
+fit.arma11
+res.arma11 = fit.arma11@fit$residuals
+Box.test(res.arma11,lag=4,type="Ljung-Box")
+Box.test(res.arma11,lag=8,type="Ljung-Box")
+Box.test(res.arma11,lag=12,type="Ljung-Box")
+
+
+
+```
+
+Por último generamos un $ARMA(2,1)$
+
+```{r}
+spec.arma21 = arfimaspec(mean.model=list(armaOrder=c(2,1),include.mean=TRUE))
+fit.arma21 = arfimafit(spec=spec.arma21,data=data$spread)
+fit.arma21
+res.arma21 = fit.arma21@fit$residuals
+Box.test(res.arma21,lag=4,type="Ljung-Box")
+Box.test(res.arma21,lag=8,type="Ljung-Box")
+Box.test(res.arma21,lag=12,type="Ljung-Box")
+```
+
