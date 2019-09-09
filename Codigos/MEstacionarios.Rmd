@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 * Modelos de promedio movil $MA$
 * Modelos Auotoregressivos $AR$
-* Modelos diferenciados $ARIMA$
+* Modelos diferenciados $ARMA$
 
 Para este ejemplo usaremos los datos ma1 que son simulaciones que se encuentran en la libreria TSA (Time Seres Analysis) con el objetivo de mostrar el proceso de autocorrelación de los errores.
 
@@ -138,8 +138,9 @@ polyroot(c(1,-phi1,-phi2)) # get the roots of the characteristic polynomial
 En este ejemplo se van a usa la tasa de interés de Estados Unidos para lograr un modelo estacionario ARMA
 
 ```{r}
+library(readxl)
+quarterly <- read_excel("Dataset/quarterly.xls")
 data=quarterly
-data = read.xls("/Users/user/Google Drive/Website/Book/Enders/QUARTERLY.xls")
 library("zoo")
 
 ```
@@ -190,7 +191,7 @@ Primero para un $AR(7)$
 spec.ar7 = arfimaspec(mean.model=list(armaOrder=c(7,0),include.mean=TRUE))
 fit.ar7 = arfimafit(spec=spec.ar7,data=data$spread)
 fit.ar7
-res.ar7 = fit.ar9@fit$residuals
+res.ar7 = fit.ar7@fit$residuals
 Box.test(res.ar7,lag=4,type="Ljung-Box")
 Box.test(res.ar7,lag=8,type="Ljung-Box")
 Box.test(res.ar7,lag=12,type="Ljung-Box")
@@ -230,14 +231,14 @@ Box.test(res.ar2,lag=12,type="Ljung-Box")
 ```
 
 
-Luego un $AR(7)$ usando solo los rezagos 2 y 7
+Luego un $AR(7)$ usando solo los resagos 2 y 7
 
 ```{r}
 spec.ar27 = arfimaspec(mean.model=list(armaOrder=c(7,0),include.mean=TRUE),
                        fixed.pars=list(ar3=0,ar4=0,ar5=0,ar6=0))
 fit.ar27 = arfimafit(spec=spec.ar27,data=data$spread)
 fit.ar27
-res.ar27 = fit.ar29@fit$residuals
+res.ar27 = fit.ar27@fit$residuals
 Box.test(res.ar27,lag=4,type="Ljung-Box")
 Box.test(res.ar27,lag=8,type="Ljung-Box")
 Box.test(res.ar27,lag=12,type="Ljung-Box")
@@ -271,5 +272,39 @@ res.arma21 = fit.arma21@fit$residuals
 Box.test(res.arma21,lag=4,type="Ljung-Box")
 Box.test(res.arma21,lag=8,type="Ljung-Box")
 Box.test(res.arma21,lag=12,type="Ljung-Box")
+```
+
+
+
+```{r}
+
+
+par(mfrow=c(2,2))
+
+
+acf( fit.arma21@fit$residuals)
+acf(fit.arma11@fit$residuals)
+acf(fit.ar7@fit$residuals)
+acf(fit.ar27@fit$residuals)
+
+```
+
+```{r}
+
+par(mfrow=c(2,1))
+acf( fit.ar2@fit$residuals)
+acf(fit.ar6@fit$residuals)
+
+```
+
+
+## Detectando estabilidad
+
+
+```{r}
+sum(polyroot(1-fit.ar2@fit$coef))
+sum(polyroot(1-fit.ar27@fit$coef))
+sum(polyroot(1-fit.ar7@fit$coef))
+
 ```
 
