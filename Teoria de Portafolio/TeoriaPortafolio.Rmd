@@ -533,8 +533,9 @@ colnames(ports)=c("Sharpe A","Sharpe B")
 kable(as.data.frame(ports), booktabs=TRUE,caption = "Indice Sharp")%>%
   kable_styling(bootstrap_options = "striped", full_width = F, position = "left")
 
- ```
+```
 
+ 
 
 Para comparar estos dos portafolios, se usa el índice de sharp que mide la rentabilidad real en razón del nivel de riesgo de cada uno de los activos.
 
@@ -544,6 +545,7 @@ IS=(\mu-rf)/\sigma
 \end{equation}
 
 La ecuación \@ref(eq:IS) hace referencia al índice de sharp, en donde $\mu$ es la rentabilidad del portafolio, $rf$ la tasa libre de riesgo y $\sigma$ el nivel de riesgo de ese portafolio.
+
 
 ```{r TBILL,fig.cap='Portafolios eficientes de SHARP', echo=FALSE, message=FALSE,warning=FALSE}
 
@@ -953,9 +955,204 @@ sig.pz.05 = sqrt(sig2.pz.05)
   
 ```
 
+```{r}
+# show 4 efficient frontier portfolios 
+sd.vals = c(sig.px, sig.py, sig.pz)
+mu.vals = c(mu.px, mu.py, mu.pz)
+plot(sd.vals, mu.vals,  ylim=c(0, 0.06), xlim=c(0, 0.20), ylab=expression(mu[p]),
+     xlab=expression(sigma[p]), pch=16, col="green", cex=2) 
+points(sig.gmin, mu.gmin, pch=16, cex=2, col="green")     
+points(sd.vec, mu.vec, pch=16, col="blue", cex=2)
+points(sig.pz.05, mu.pz.05, pch=16, col="green", cex=2) 
+text(sd.vals, mu.vals, labels=c("E1","E2","E3"), pos=2, cex = cex.val)
+text(sig.gmin, mu.gmin, labels="GLOBAL MIN", pos=2, cex = cex.val)        
+text(sd.vec, mu.vec, labels=asset.names, pos=4, cex = cex.val)
+text(sig.pz.05, mu.pz.05, labels="E4", pos=2, cex = cex.val)    
+```
+
+
+```{r}
+target.return <- mu.vec[1]
+e.port.msft <- efficient.portfolio(mu.vec, sigma.mat, target.return)
+e.port.msft
+```
+
+```{r}
+# compute and plot efficient frontier
+#
+a = seq(from=1, to=-1, by=-0.1)
+n.a = length(a)
+z.mat = matrix(0, n.a, 3)
+colnames(z.mat) = names(mu.vec)
+mu.z = rep(0, n.a)
+sig2.z = rep(0, n.a)
+sig.mx = t(m.vec)%*%sigma.mat%*%x.vec
+for (i in 1:n.a) {
+  z.mat[i, ] = a[i]*m.vec + (1-a[i])*x.vec
+  mu.z[i] = a[i]*mu.gmin + (1-a[i])*mu.px
+  sig2.z[i] = a[i]^2 * sig2.gmin + (1-a[i])^2 * sig2.px + 2*a[i]*(1-a[i])*sig.mx
+}
+plot(sqrt(sig2.z), mu.z, type="b", ylim=c(0, 0.06), xlim=c(0, 0.16), 
+     pch=16, col="green", cex = cex.val, ylab=expression(mu[p]), xlab=expression(sigma[p]))
+points(sd.vec, mu.vec, pch=16, cex=2, lwd=2, col="blue")
+points(sig.gmin, mu.gmin, pch=16, col="green", cex=2)
+points(sig.px, mu.px, pch=16, col="green", cex=2)
+text(sig.gmin, mu.gmin, labels="GLOBAL MIN", pos=2, cex = cex.val)
+text(sd.vec, mu.vec, labels=asset.names, pos=4, cex = cex.val)
+text(sig.px, mu.px, labels="E1", pos=2, cex = cex.val)
+```
+
+```{r}
+#
+# plot weights as stacked barchart
+#
+
+# for some reason xlab doesn't show up
+chart.StackedBar(z.mat, xaxis.labels=round(sqrt(sig2.z),digits=3), 
+                 xlab="Portfolio SD", ylab="Weights")
+```
+
+
+```{r}
+# compute and plot efficient frontier and random portfolios
+#
+a = seq(from=1, to=-2, by=-0.1)
+n.a = length(a)
+z.mat = matrix(0, n.a, 3)
+mu.z = rep(0, n.a)
+sig2.z = rep(0, n.a)
+sig.mx = t(m.vec)%*%sigma.mat%*%x.vec
+for (i in 1:n.a) {
+  z.mat[i, ] = a[i]*m.vec + (1-a[i])*x.vec
+  mu.z[i] = a[i]*mu.gmin + (1-a[i])*mu.px
+  sig2.z[i] = a[i]^2 * sig2.gmin + (1-a[i])^2 * sig2.px + 2*a[i]*(1-a[i])*sig.mx
+}
+plot(sqrt(sig2.z), mu.z, type="b", ylim=c(-0.03, 0.08), xlim=c(0, 0.4), 
+     pch=16, col="green", cex = cex.val, ylab=expression(mu[p]), xlab=expression(sigma[p]))
+points(sd.vec, mu.vec, pch=16, cex=2, col="blue")
+
+for (i in 1:length(x.msft)) {
+  z.vec = c(x.msft[i], x.nord[i], x.sbux[i])
+  mu.p = crossprod(z.vec,mu.vec)
+  sig.p = sqrt(t(z.vec)%*%sigma.mat%*%z.vec)
+  points(sig.p, mu.p, pch=16, col="black", cex=1.5)
+}
+
+text(sig.gmin, mu.gmin, labels="GLOBAL MIN", pos=2, col="green", cex = cex.val)
+text(sd.vec, mu.vec, labels=asset.names, pos=4, col="blue", cex = cex.val)
+
+```
+
+
+```{r}
+# compute tangency portfolio
+#
+
+rf = 0.005
+sigma.inv.mat = solve(sigma.mat)
+one.vec = rep(1, 3)
+mu.minus.rf = mu.vec - rf*one.vec
+top.mat = sigma.inv.mat%*%mu.minus.rf
+bot.val = as.numeric(t(one.vec)%*%top.mat)
+t.vec = top.mat[,1]/bot.val
+t.vec
+
+# compute mean, var and sd
+mu.t = as.numeric(crossprod(t.vec, mu.vec))
+sig2.t = as.numeric(t(t.vec)%*%sigma.mat%*%t.vec)
+sig.t = sqrt(sig2.t)
+mu.t
+sig.t
+
+# sharpe ratio on tangency portfolio
+sr.t = (mu.t - rf)/sig.t
+sr.t
 
 
 
+
+```
+
+
+```{r}
+#
+# Efficient portfolios of T-bills and tangency portfolio
+#
+x.t = seq(0, 2, by=0.1)
+mu.pe = rf + x.t*(mu.t - rf)
+sig.pe = x.t*sig.t 
+slope.t = (mu.t - rf)/sig.t
+
+# plot efficient portfolios
+plot(sqrt(sig2.z), mu.z, type="b", ylim=c(0, 0.08), xlim=c(0, 0.17), 
+     pch=16, col="blue", cex=2, ylab=expression(mu[p]), xlab=expression(sigma[p]))
+abline(a=rf, b=slope.t, col="green", lwd=2)
+points(sig.t, mu.t, pch=16, col="green", cex=2)
+points(sd.vec, mu.vec, pch=16, cex=2, col="black")
+text(sig.gmin, mu.gmin, labels="Global min", pos=4, cex=2)
+text(sd.vec, mu.vec, labels=asset.names, pos=4, cex=2)
+text(sig.t, mu.t, labels="tangency", pos=4,cex=2)
+text(0, rf, labels="Rf", pos=2, cex=2)
+```
+
+
+```{r}
+# plot weights
+t.mat = x.t %o% t.vec
+e.mat = cbind(1-x.t, t.mat)
+colnames(e.mat)[1] = "T-Bill"
+chart.StackedBar(e.mat, xaxis.labels=round(sig.pe,digits=3), 
+                 xlab="Portfolio SD", ylab="Weights")
+```
+
+
+
+
+```{r}
+# find efficient portfolio with target volatility (risk) equal 0.02
+x.t.02 = 0.02/sig.t
+x.t.02
+1-x.t.02
+# shares in msft, nord and sbux
+x.t.02*t.vec
+
+# comute mean, var and sd
+mu.t.02 = x.t.02*mu.t + (1-x.t.02)*rf
+sig.t.02 = x.t.02*sig.t
+mu.t.02
+sig.t.02
+
+# find efficient portfolio with target expected return equal to 0.07
+x.t.07 = (0.07 - rf)/(mu.t - rf)
+x.t.07
+1-x.t.07
+# shares in msft, nord and sbux
+x.t.07*t.vec
+
+# compute mean, var and sd
+mu.t.07 = x.t.07*mu.t + (1-x.t.07)*rf
+sig.t.07 = x.t.07*sig.t
+mu.t.07
+sig.t.07
+
+```
+
+
+```{r}
+# plot efficient portfolios
+plot(sqrt(sig2.z), mu.z, type="b", ylim=c(0, 0.08), xlim=c(0, 0.17), 
+     pch=16, col="blue", cex=2, ylab=expression(mu[p]), xlab=expression(sigma[p]))
+abline(a=rf, b=slope.t, col="green", lwd=2)
+points(sig.t, mu.t, pch=16, col="green", cex=2)
+points(sig.t.02, mu.t.02, pch=16, col="green", cex=2)
+points(sig.t.07, mu.t.07, pch=16, col="green", cex=2)
+points(sd.vec, mu.vec, pch=16, col="black", cex=2)
+text(sig.gmin, mu.gmin, labels="Global min", pos=4, cex=cex.val)
+text(sd.vec, mu.vec, labels=asset.names, pos=4, cex=cex.val)
+text(sig.t, mu.t, labels="tangency", pos=4, cex=cex.val)
+text(sig.t.02, mu.t.02, labels="E1", pos=3, cex=cex.val)
+text(sig.t.07, mu.t.07, labels="E2", pos=3, cex=cex.val)
+```
 
 
 # Procesos de incertidumbre
