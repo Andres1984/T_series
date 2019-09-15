@@ -130,12 +130,17 @@ plot(y=rho,x=1:max.lag,type='h',ylab='ACF',xlab='Lag',ylim=c(-1,+1)); abline(h=0
 polyroot(c(1,-phi1,-phi2)) # get the roots of the characteristic polynomial
 ```
 
+## Función de Autocorrelación ACF y Autocorrelación Parcial PACF
+
+```{r, echo=FALSE, message=FALSE,warning=FALSE}
+
+```
 
 
 
 ## Creación de un ARMA
 
-En este ejemplo se van a usa la tasa de interés de Estados Unidos para lograr un modelo estacionario ARMA
+En este ejemplo se va a usar la tasa de interés de Estados Unidos para lograr un modelo estacionario ARMA
 
 ```{r}
 library(readxl)
@@ -174,7 +179,7 @@ Obtenemos las funciones de autocorrelación y autocorrelaición parcial de las s
 par(mfrow=c(2,1))
 acf2=acf(data$spread,lag=12,tck=.02,xlab="",ylab="",main="",las=1)
 pacf2=pacf(data$spread,lag=12,tck=.02,xlab="",ylab="",main="",las=1)
-acf2 ## Buscar m?s de dos desviaciones estanda raiz(1/T)
+acf2 ## Buscar más de dos desviaciones estanda raiz(1/T)
 pacf2
 
 
@@ -188,6 +193,7 @@ Primero para un $AR(7)$
 ```{r}
 ### PAGE 91
 ### TABLE 2.4
+library(rugarch)
 spec.ar7 = arfimaspec(mean.model=list(armaOrder=c(7,0),include.mean=TRUE))
 fit.ar7 = arfimafit(spec=spec.ar7,data=data$spread)
 fit.ar7
@@ -307,4 +313,20 @@ sum(polyroot(1-fit.ar27@fit$coef))
 sum(polyroot(1-fit.ar7@fit$coef))
 
 ```
+
+
+## Modelos Estacionales
+
+
+
+Ahora implementaremos el mismo proceso cuando tenemos un modelo estacional. Antes de comenzar a trabajar la serie, se debe tener claro si esta se encuentra ajustada de forma estacional o desestacionalizada. Cuando se trabaja con una serie estacional ajustada, se ha removido el patrón estacional, no obstante el patrón puede ser muy fuerte y puede encontrarse en la serie creando problemas de varianza.
+
+Siempre que se trabaja con una serie estacionalizada, se van a encontrar dos pasos, primero desetacionalizar la serie y luego encontrar los mejores parámetros del modelo.
+
+```{r}
+
+```
+
+
+
 
