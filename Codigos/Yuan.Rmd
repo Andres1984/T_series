@@ -1,0 +1,306 @@
+---
+title: "Canasta de Divisas Yuan"
+author: "Andrés Martínez"
+date: "29 8 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Canasta de Divisas
+
+En este archivo se presentará la variación de la canasta de divisas que usa la moneda de China el Yuan como patrón de tasa de cambio en el mundo. 
+
+Desde que el regimen comunista de China generó la apertura económica en 1978, ha continuado reformando su estructura económica y su tasa de cambio para una economía más planificada orientada a lo que se conoce como una economía social de mercado. Desde entonces, se han adoptado una serie de régimes diferentes que han apoyado de forma eventual el desarrollo económico de China hasta hoy en día.
+
+Uno de los procesos de tasa de cambio más conocidos de China fué el hard peg, este se mantuvo con un patrón de dóllar que tenía como objetivo mantener una tasa de cambio constante. Más adelante China adportará diferentes regímenes de tasa de cambio, que buscarán según los países desarrollados generar una compotencia deseleal dado que en este caso se intentó manipular la tasa de cambio entre el Yuan y el Dollar para mantener los costos de los productos chinos más bajos, incetivando entre otras cosas una mayor inversión extranjera directa sobre este país.
+
+
+
+
+```{r, echo=FALSE,message=FALSE,warning=FALSE}
+library(quantmod)
+symbol0<-c("DEXCHUS", "DEXJPUS", "DEXKOUS", "DEXMAUS", 
+                "DEXUSEU", "DEXUSUK", "DEXTHUS", "DEXSZUS")
+
+
+# Print symbol/description/units of these rates from data frame  fred.fxrates.doc 
+
+options(width=120)
+
+
+getSymbols(symbol0,src="FRED") # FX rates from FRED 
+
+fxrates000=cbind(DEXCHUS, DEXJPUS, DEXKOUS, DEXMAUS, DEXUSEU, DEXUSUK, DEXTHUS, DEXSZUS)
+
+
+```
+
+
+
+Las monedas que se desean usar para este estudio, son aquellas con las el gobierno chino ha decidido generar su canasta de variación cambiara.
+
+* DEXCHUS Cambio Yuan-Dolar  Indirecto
+* DEXJPUS Cambio Yen Dollar Indirecto
+* DEXKOUS Cambio Won Dollar Indirecto
+* DEXMAUS Cambio Ringgit(Malasia) Dollar Indirecto
+* DEXUSEU Cambio Euro Dollar Directo
+* DEXUSUK Cambio Libra Dollar Directo
+* DEXTHUS Cambio Thai Bath (Tailandia) Dollar Indirecto
+* DEXSZUS Cambio Franco Suizo Dollar Indirecto
+
+## Gráfico de cada una de las monedas 
+
+ 
+
+```{r , echo=FALSE, message=FALSE,warning=FALSE}
+
+# Plot exchange rate time series in 2x2 panels
+par(mfcol=c(2,2))
+plot(fxrates000$DEXCHUS,main="DEXCHUS")
+plot(fxrates000$DEXJPUS,main="DEXJPUS")
+plot(fxrates000$DEXKOUS,main="DEXKOUS")
+plot(fxrates000$DEXMAUS,main="DEXMAUS")
+```
+
+
+En cada de las gráficas se tiene el historial de los precios de las divisas.
+
+
+
+```{r , echo=FALSE, message=FALSE,warning=FALSE}
+
+# Plot exchange rate time series in 2x2 panels
+par(mfcol=c(2,2))
+plot(fxrates000$DEXCHUS,main="DEXUSEU")
+plot(fxrates000$DEXJPUS,main="DEXUSUK")
+plot(fxrates000$DEXKOUS,main="DEXTHUS")
+plot(fxrates000$DEXMAUS,main="DEXSZUS")
+```
+
+
+Dado que existen dos tipos de cambio (indirecto y directo) respecto al dolar, se genera un cambio con respecto al franco suizo facilitando la relación de las divisas que giran alrededor del dollar con respecto al Yuan eliminando la colinelaidad. Escoger el franco suizo, permite que a través de una moneda estable se puede obtener la relaciónde la canasta de divisas por cada período con respecto al dollar.
+
+```{r , echo=FALSE,message=FALSE,warning=FALSE}
+fxrates000.0<-fxrates000
+
+# For exchange rates with 1 U.S. $ in base, divide by DEXSZUS
+for (jcol0 in c(1,2,3,4,7)){
+  coredata(fxrates000.0)[,jcol0]<- coredata(fxrates000.0[,jcol0])/coredata(fxrates000[,8])
+  
+}
+# For exchange rates with 1 U.S. $ in numerator, divide inverse by DEXSZUS
+for (jcol0 in c(5,6)){
+  coredata(fxrates000.0)[,jcol0]<- coredata(1./fxrates000.0[,jcol0])/coredata(fxrates000.0[,8])
+}
+# For USD, divide $1 by the DEXSZUS rate
+dimnames(fxrates000.0)[[2]]
+coredata(fxrates000.0)[,8]<- 1/coredata(fxrates000)[,8]
+
+
+
+
+
+```
+
+
+
+
+
+
+```{r, echo=FALSE,message=FALSE,warning=FALSE}
+
+# Rename series in terms of the SWIFT currency codes
+#     as determined by the International Organization for Standardization. 
+list.symbol0.swiftcode<-c("CNY","YEN","WON","MYR","EUR","GBP","THB","USD")
+dimnames(fxrates000.0)[[2]]<-paste(list.symbol0.swiftcode,"_SFR",sep="")
+
+
+
+
+par(mfcol=c(2,2))
+plot(fxrates000.0$YEN_SFR,main="YEN")
+plot(fxrates000.0$EUR_SFR,main="EUR")
+plot(fxrates000.0$GBP_SFR,main="GBP")
+plot(fxrates000.0$USD_SFR,main="SFR")
+
+
+
+```
+
+Las siguientes gráficas presentan las divisas usando el franco suizo como base en vez del dollar.
+
+
+```{r, message=FALSE,warning=FALSE,echo=FALSE}
+
+par(mfcol=c(2,2))
+plot(fxrates000.0$CNY_SFR,main="YUAN")
+plot(fxrates000.0$WON_SFR,main="WON")
+plot(fxrates000.0$MYR_SFR,main="MYR")
+plot(fxrates000.0$THB_SFR,main="THB")
+
+
+```
+
+
+
+
+
+```{r, echo=FALSE,message=FALSE,warning=FALSE}
+# Linear Regression Models of Currency Returns 
+
+# 3.0 Compute daily price changes on the log scale
+#     Due to missing data, fill in missing values with previous non-NA
+#     To check for presence of missing values, execute
+apply(is.na(fxrates000.0),2,sum)
+#     If necessary apply 
+fxrates000.0<-na.locf(fxrates000.0)
+fxrates000.0.logret<-diff(log(fxrates000.0))
+
+
+par(mfcol=c(2,2))
+plot(fxrates000.0.logret$YEN_SFR,main="YEN")
+plot(fxrates000.0.logret$EUR_SFR,main="EUR")
+plot(fxrates000.0.logret$GBP_SFR,main="GBP")
+plot(fxrates000.0.logret$USD_SFR,main="SFR")
+
+#  First, we fit  the regression model for the period prior to July 2005 when the Chinese currency was pegged to the US dollar.
+
+
+```
+
+Se realiza un análisis de la variación de los rendimientos de cada una de las divisas.
+
+
+```{r, echo=FALSE,message=FALSE,warning=FALSE}
+
+par(mfcol=c(2,2))
+plot(fxrates000.0.logret$CNY_SFR,main="CNY")
+plot(fxrates000.0.logret$WON_SFR,main="WON")
+plot(fxrates000.0.logret$USD_SFR,main="USD")
+plot(fxrates000.0.logret$THB_SFR,main="THB")
+```
+
+## Análisis de la Canasta
+
+
+Para generar el análisis de la canasta, se realiza un análisis de regresión lineal donde la variable dependiente es el Yuan y las variables independientes son las que pertenecen a la canasta de divisas.
+
+```{r}
+options(show.signif.stars=FALSE)
+
+lmfit.period1<-lm( CNY_SFR ~ USD_SFR + YEN_SFR + EUR_SFR + GBP_SFR, 
+         data=window(fxrates000.0.logret, 
+                     start=as.Date("2001-01-01"), end=as.Date("2005-06-30")) )
+summary.lm(lmfit.period1)
+
+
+# The regression fit identifies the pegging of the Yuan (CNR\_SFR) to the US Dollar (USD\_SFR).  The $R-Squared$ is nearly $1.0$
+
+
+# Second, we fit the regression model for the first six months following the announcement of the change in currency policy.
+
+
+
+```
+El nivel de significancia reflejará como tenía China su ponderación con respecto a las divisas.
+
+```{r}
+lmfit.period2<-lm( CNY_SFR ~ USD_SFR + YEN_SFR + EUR_SFR + GBP_SFR + 
+                     WON_SFR + MYR_SFR + THB_SFR, 
+                   data=window(fxrates000.0.logret, 
+                        start=as.Date("2005-07-01"), end=as.Date("2005-12-31")) )
+summary.lm(lmfit.period2)
+
+# During this six-month period, there is evidence of the Yuan departing from a US Dollar peg.  The exchange rates with the statsitically significant regression parameters are for the Korean Won (WON\_SFR) and the Malaysian Ringgit (MYR\_SFR). 
+
+
+
+# To examine for futher changes in the implicit reference basket, we fit the same model for the annual periods from 2006 through 2012 and for the first 6 months of 2013.
+
+
+
+
+```
+
+
+
+```{r, echo=FALSE, message=FALSE,warning=FALSE}
+for (year0 in as.character(c(2006:2013))){
+  # year0<-"2012"
+  lmfit.year0<-lm( CNY_SFR ~ USD_SFR + YEN_SFR + EUR_SFR + GBP_SFR +
+                     WON_SFR + MYR_SFR + THB_SFR, 
+                   data=fxrates000.0.logret[year0])  
+  
+  cat("\n\n--------------------------------\n");cat(year0);cat(":\n")
+  print(summary.lm(lmfit.year0))
+  rate.appreciation.usd<-round( exp(252*log(1+ lmfit.year0$coefficients[1])) -1,digits=3)
+  cat("\n"); cat(year0); cat("\t Annualized appreciation rate to implied reference basket: "); cat(rate.appreciation.usd); cat("\n")
+}
+
+#From these annual results we note:
+#   These fitted regression models demonstrate that the statistical evidence for the underlying reference basket of currencies changes from year to year. 
+#   Note how the different exhange rates are significant predictors of the daily change in the Yuan exchange rate for different years.
+#   The computations include a measure of the annualized trend in the Yuan exchange rate relative to the other currencies.  Notice that this rate is negative, to varying degrees over the seven-plus years.
+
+
+
+```
+
+```{r, echo=FALSE,message=FALSE,warning=FALSE}
+#  We illustrate some additional features of exchange rate regime modelling using the reference basket implied by the data for 2012.
+ 
+
+
+#First, we plot the currency returns for the Yuan and all currencies included in the analysis.
+
+
+year0<-"2012"
+par(mfcol=c(1,1))
+  ts.plot(cumsum(fxrates000.0.logret["2012"]), col=rainbow(NCOL(fxrates000.0.logret)),
+          main="2012 Currency Returns")
+
+  legend(x=250,y=.15, legend=dimnames(fxrates000.0.logret)[[2]], lty=rep(1,times=ncol(fxrates000.0.logret)),
+       col=rainbow(NCOL(fxrates000.0.logret)), cex=0.2)
+
+#Then, we plot the currency return of the Yuan and that of the implied reference basket specified by the regression:
+
+
+
+```
+
+
+
+```{r, echo=FALSE,message=FALSE,warning=FALSE}
+lmfit.year0<-lm( CNY_SFR ~ USD_SFR + YEN_SFR + EUR_SFR + GBP_SFR + 
+                   WON_SFR + MYR_SFR + THB_SFR, 
+                 data=fxrates000.0.logret[year0])
+
+
+y0.actual<-fxrates000.0.logret["2012"][,"CNY_SFR"]
+
+y0.fit<-y0.actual - lmfit.year0$residuals
+ts.plot(cumsum(cbind(y0.actual, y0.fit)),
+        col=rainbow(NCOL(fxrates000.0.logret))[c(1,5)],
+        main="2012 Currency Returns \nCNY_SFR and Implied Basket")
+
+#Note how closely the reference basket tracks the Yuan.  This is to be expected given the high $R-$squared of the regression.
+
+
+
+```
+
+
+```{r, echo=FALSE,warning=FALSE,message=FALSE}
+#Finally, we apply the R function $influence.measures()$
+
+layout(matrix(c(1,2,3,4),2,2)) # optional 4 graphs/page 
+plot(lmfit.year0)
+
+#These diagnostics indicate:
+#   The residuals appear well-behaved as they relate to the size of the fitted values.  The residual variance does not increase with the magnitude of the fitted values.
+#   The residuals exhibit heavier tails than those of a normal distribution.  However for those residuals within two standard deviations of their mean, their distribution is close to that of a normal distribution.
+```
+
