@@ -955,7 +955,7 @@ sig.pz.05 = sqrt(sig2.pz.05)
   
 ```
 
-```{r}
+```{r, echo=FALSE,message=FALSE,warning=FALSE}
 # show 4 efficient frontier portfolios 
 sd.vals = c(sig.px, sig.py, sig.pz)
 mu.vals = c(mu.px, mu.py, mu.pz)
@@ -971,13 +971,13 @@ text(sig.pz.05, mu.pz.05, labels="E4", pos=2, cex = cex.val)
 ```
 
 
-```{r}
+```{r, echo=FALSE,message=FALSE,warning=FALSE}
 target.return <- mu.vec[1]
 e.port.msft <- efficient.portfolio(mu.vec, sigma.mat, target.return)
 e.port.msft
 ```
 
-```{r}
+```{r, echo=FALSE,message=FALSE,warning=FALSE}
 # compute and plot efficient frontier
 #
 a = seq(from=1, to=-1, by=-0.1)
@@ -1002,7 +1002,7 @@ text(sd.vec, mu.vec, labels=asset.names, pos=4, cex = cex.val)
 text(sig.px, mu.px, labels="E1", pos=2, cex = cex.val)
 ```
 
-```{r}
+```{r, echo=FALSE,message=FALSE,warning=FALSE}
 #
 # plot weights as stacked barchart
 #
@@ -1013,7 +1013,7 @@ chart.StackedBar(z.mat, xaxis.labels=round(sqrt(sig2.z),digits=3),
 ```
 
 
-```{r}
+```{r, echo=FALSE,message=FALSE,warning=FALSE}
 # compute and plot efficient frontier and random portfolios
 #
 a = seq(from=1, to=-2, by=-0.1)
@@ -1044,7 +1044,7 @@ text(sd.vec, mu.vec, labels=asset.names, pos=4, col="blue", cex = cex.val)
 ```
 
 
-```{r}
+```{r, echo=FALSE,message=FALSE,warning=FALSE}
 # compute tangency portfolio
 #
 
@@ -1074,7 +1074,7 @@ sr.t
 ```
 
 
-```{r}
+```{r, echo=FALSE,message=FALSE,warning=FALSE}
 #
 # Efficient portfolios of T-bills and tangency portfolio
 #
@@ -1096,7 +1096,7 @@ text(0, rf, labels="Rf", pos=2, cex=2)
 ```
 
 
-```{r}
+```{r, echo=FALSE,message=FALSE,warning=FALSE}
 # plot weights
 t.mat = x.t %o% t.vec
 e.mat = cbind(1-x.t, t.mat)
@@ -1108,7 +1108,7 @@ chart.StackedBar(e.mat, xaxis.labels=round(sig.pe,digits=3),
 
 
 
-```{r}
+```{r, echo=FALSE,message=FALSE,warning=FALSE}
 # find efficient portfolio with target volatility (risk) equal 0.02
 x.t.02 = 0.02/sig.t
 x.t.02
@@ -1138,7 +1138,7 @@ sig.t.07
 ```
 
 
-```{r}
+```{r, echo=FALSE,message=FALSE,warning=FALSE}
 # plot efficient portfolios
 plot(sqrt(sig2.z), mu.z, type="b", ylim=c(0, 0.08), xlim=c(0, 0.17), 
      pch=16, col="blue", cex=2, ylab=expression(mu[p]), xlab=expression(sigma[p]))
