@@ -198,6 +198,8 @@ spec.ar7 = arfimaspec(mean.model=list(armaOrder=c(7,0),include.mean=TRUE))
 fit.ar7 = arfimafit(spec=spec.ar7,data=data$spread)
 fit.ar7
 res.ar7 = fit.ar7@fit$residuals
+library(car)
+qqPlot(res.ar7)
 Box.test(res.ar7,lag=4,type="Ljung-Box")
 Box.test(res.ar7,lag=8,type="Ljung-Box")
 Box.test(res.ar7,lag=12,type="Ljung-Box")
@@ -260,6 +262,7 @@ spec.arma11 = arfimaspec(mean.model=list(armaOrder=c(1,1),include.mean=TRUE))
 fit.arma11 = arfimafit(spec=spec.arma11,data=data$spread)
 fit.arma11
 res.arma11 = fit.arma11@fit$residuals
+qqPlot(res.arma11)
 Box.test(res.arma11,lag=4,type="Ljung-Box")
 Box.test(res.arma11,lag=8,type="Ljung-Box")
 Box.test(res.arma11,lag=12,type="Ljung-Box")
@@ -285,13 +288,10 @@ Box.test(res.arma21,lag=12,type="Ljung-Box")
 ```{r}
 
 
-par(mfrow=c(2,2))
-
-
-acf( fit.arma21@fit$residuals)
-acf(fit.arma11@fit$residuals)
+par(mfrow=c(2,1))
+acf(fit.arma21@fit$residuals)
 acf(fit.ar7@fit$residuals)
-acf(fit.ar27@fit$residuals)
+
 
 ```
 
@@ -308,25 +308,7 @@ acf(fit.ar6@fit$residuals)
 
 
 ```{r}
-sum(polyroot(1-fit.ar2@fit$coef))
-sum(polyroot(1-fit.ar27@fit$coef))
+sum(polyroot(1-fit.arma21@fit$coef))
 sum(polyroot(1-fit.ar7@fit$coef))
 
 ```
-
-
-## Modelos Estacionales
-
-
-
-Ahora implementaremos el mismo proceso cuando tenemos un modelo estacional. Antes de comenzar a trabajar la serie, se debe tener claro si esta se encuentra ajustada de forma estacional o desestacionalizada. Cuando se trabaja con una serie estacional ajustada, se ha removido el patrón estacional, no obstante el patrón puede ser muy fuerte y puede encontrarse en la serie creando problemas de varianza.
-
-Siempre que se trabaja con una serie estacionalizada, se van a encontrar dos pasos, primero desetacionalizar la serie y luego encontrar los mejores parámetros del modelo.
-
-```{r}
-
-```
-
-
-
-
