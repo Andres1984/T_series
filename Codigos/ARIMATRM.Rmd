@@ -1,0 +1,317 @@
+---
+title: "Series de Tiempo Modelos ARIMA"
+author: "Andrés Martínez"
+date: "19 de Septiembre de 2019"
+output:
+  word_document: default
+  pdf_document: default
+bibliography: biblio.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message=FALSE)
+require("knitcitations")
+cleanbib()
+options("citation_format" = "pandoc")
+read.bibtex(file = "biblio.bib")
+```
+
+## Estrategia de Construcción del Modelo
+
+Buscando aplicar  \textbf( el principio de parsimonia), se intenta hacer un modelo de forma simple pero no simplista como proponía Albert Einstein, en este caso usar el menor número de parámetros para obtener el resultado deseado. En series de tiempo, esto se traduce en usar un modelo univariado o multivariado que tenga par?metros  que cumplan con los supuestos básicos y que sean faciles de estimar.
+
+La estrategía se divide en tres partes:
+
+\begin{itemize}
+\item Especificación del modelo
+\item Ajuste del modelo
+\item Diagnóstico del modelo
+\item Pronóstico
+\end{itemize}
+
+
+
+Estos cuatro pasos permiten obtener un modelo  que busca cumplir con los requerimientos mínimos en los supuestos de las series de tiempo. El modelo que se trabajaba cambiará puesto que en el ajuste del modelo y en el diagnóstico seguramente se tendrán que hacer ajustes al modelo inicial.
+
+
+Este tema se realiza con ayuda de  @CryerTSA y @end2008applied, en estos libros se encuentra toda la teoría alrededor del análisis de series de tiempo.
+
+## Especificación del modelo
+
+La base de datos que se va a utilizar es la de la TRM (Tasa representativa del mercado) que se obtiene del Banco de la República usando solo los días laborales, es decir cuando la tasa tenga movimientos. 
+
+
+```{r, message=FALSE}
+ind.install0<-TRUE
+#
+if (ind.install0){
+  install.packages("readxl") 
+  install.packages("tseries") 
+  install.packages("forecast")
+  install.packages("TSA")
+  install.packages("moments")
+  install.packages("rugarch")
+  install.packages("xts")
+  install.packages("ggplot2")  
+}
+library(readxl)
+library('ggplot2')
+library('forecast')
+library('tseries')
+library(TSA)
+TRM <- read_excel("C:/Users/ANDRES/Dropbox/U Externado/RBC/R/Tercera Semana/TRM.xlsx")
+```
+
+Se ajusta la base para que R pueda leer la columna de Fecha como una variable de tiempo.
+
+
+
+
+
+```{r}
+colnames(TRM)=c("FECHA","Precio")
+TRM$FECHA=as.Date(TRM$FECHA, format = "%d/%m/%Y")
+```
+
+
+
+#### Gráfico de la TRM 
+
+```{r fig1, fig.width = 8, fig.height = 4,fig.cap = "TRM\\label{fig:plot}", echo =FALSE}
+
+ggplot(data = TRM, mapping = aes(x = FECHA)) + 
+  geom_line(aes(y = Precio), colour="#000099")+
+  scale_x_date(breaks = function(x) seq.Date(from = min(x),to = max(x),by = "2 months")) 
+
+
+```
+
+
+```{r fig2, fig.cap = "TRM\\label{fig:plot1}", echo =FALSE}
+
+plot(diff(log(TRM$Precio)),ylab='Cambio en Log(Precio)',type='l')
+
+```
+Transformación de la serie en un objeto ts
+
+```{r, echo=FALSE,message=FALSE,warning=FALSE}
+
+TRMT=ts(TRM[2],start=c(2017,08,01),freq=147)
+
+```
+
+Se calculan dos columnas adicionales, la primera es un promedio movil de siete días, y la segunda es un promedio movil del precio por treinta días. El promedio movil ayuda a determina patrones, estacionarios y de tendencia en la serie. 
+
+```{r MA,fig.width = 8, fig.height = 4, fig.cap = "TRM\\label{fig:MA}", echo =FALSE}
+TRM$Trmma = ma(TRM$Precio, order=7) # using the clean count with no outliers
+TRM$Trmma30 = ma(TRM$Precio, order=30) # using the clean count with no outliers
+
+ggplot() +
+  geom_line(data = TRM, aes(x = FECHA, y = Precio, colour = "TRM")) +
+  geom_line(data = TRM, aes(x = FECHA, y = Trmma,   colour = "Promedio Movil Semanal"))  +
+  geom_line(data = TRM, aes(x = FECHA, y = Trmma30, colour = "Promedio Movil Mensual"))  +
+  ylab('TRM')+
+ scale_x_date(breaks = function(x) seq.Date(from = min(x),to = max(x),by = "2 months")) 
+```
+
+
+### Componente estacional y de tendencia 
+
+El método  que se puede implementar para descetacionalizar la serie y quitar la tendencia, el prime usa la función stl que tiene una ventana de mínimo siete días 
+
+```{r, echo=FALSE,message=FALSE,warning=FALSE}
+TRmma = ts(na.omit(TRM$Precio), frequency=2)
+decomp = stl(TRmma, s.window="periodic")
+deseasonal_trm <- seasadj(decomp)
+plot(decomp)
+```
+
+
+
+
+
+### Componente Estacionario
+
+Se usa el test de raiz unitaria para determinar si se rechaza la hipotesis nula de no estacionariedad. Esta condición es importante porque implica que la volatilidad de la serie es constante.
+
+```{r, echo=FALSE,message=FALSE,warning=FALSE}
+adf.test(TRmma, alternative = "stationary")
+
+```
+
+El p value, muestra que la hipótesis nula no se debe rechazar, por lo tanto, la serie no es estacionaría y es preciso generar un nuevo test diferenciando la serie original y trabajando con los retornos.
+
+
+```{r, echo=FALSE,message=FALSE,warning=FALSE}
+adf.test(diff(log(TRM$Precio)), alternative = "stationary")
+```
+
+Con un p value muy por debajo a 0.01 se rechaza la hipótesis nula de que la serie no es estacionaria y por lo tanto se puede empezar a trabajar con esta serie con el fin de ajustar un modelo que permita pronósticar el precio de la TRM.
+
+## Ajuste del modelo
+
+
+### Función de Autocorrelación y de Autocorrelación parcial
+
+La funci´n de auto correlación muestra la dependencia de las observaciones, entre mayor sea el grado de autocorrelación, significa que las observaciones toman datos pasados para generar precios futuros. El supuesto de independencia cobra fuerza en estos modelos puesto que su condición markoviana no permite procesos de memoria de largo plazo en los pronósticos, entre menos dependencia tenga el modelos con las observaciones pasadas, el pronóstico bajo la figura de independencia tendr? mejores resultados. 
+
+
+El primer paso conocido para definir los parámetros del modelo es con la función de autocorrelación ACF este permite definir el grado de dependencia entre los errores por lo tanto el rezago para el promedio movil se obtendrá con ayuda del correlograma ACF. El correlograma del PACF permite saber el nivel de auotcorrelación con las observaciones pasadas.
+
+
+
+
+
+```{r fig3,  fig.width = 8, fig.height = 4,fig.cap = "TRM\\label{fig:plot2}", echo =FALSE}
+par(mfrow=c(1,2))
+acf(TRM[2])
+pacf(TRM[2])
+```
+
+En la figura \ref{fig:plot2} se genera el correlograma para obtener los rezagos del modelo con los precios de la TRM, como se puede ver el ACF tiene una caida lineal aunque no muestra un patrón definido, por lo tanto, trabajar con las diferencias del precio puede traer mejores resultados puesto que la serie se puede volver estacionaria, por otra parte el PCAF muestra un rezago con la primera observaci?n.
+
+
+
+```{r fig4,  fig.width = 8, fig.height = 4 ,fig.cap = "TRM Diferenciada  \\label{fig:plot3}", echo =FALSE}
+par(mfrow=c(1,2))
+acf(diff(TRMT))
+pacf(diff(TRMT))
+```
+
+La figura \ref{fig:plot3} muestra la función de autocorrelacin con la primera diferencia.
+
+
+### Creación del modelo
+
+
+Se puede usar la función de auto arima para que con ayuda del rmse R obtenga el mejor modelo, sin embargo, es mejor hacer un primer modelo saturado e ir revisando cada uno de los componentes que arroja la función ACF y PCAF y encontrar el mejor candidato con los test AIK y BIC. Es importante entender la serie puesto dependieno de los supuestos con los que se est? trabajando algunaas veces puede ser mejor transformar la serie.
+
+```{r, echo=FALSE,message=FALSE,warning=FALSE}
+auto.arima(TRMT, seasonal=FALSE)
+```
+
+
+
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+fit<-auto.arima(TRMT)
+fit
+tsdisplay(residuals(fit), lag.max=45, main='(0,1,1) Model Residuals')
+```
+
+
+
+```{r, echo=FALSE,message=FALSE,warning=FALSE}
+fit2 = arima(TRMT, order=c(1,1,1))
+
+fit2
+
+tsdisplay(residuals(fit2), lag.max=15, main=' Model Residuals')
+```
+
+## Diagn?stico del modelo
+
+
+De acuerdo al gráfico de autocorrelaci?n \ref{fig:plot3} se genera primero un modelo saturado usando el coeficiente del AR y del MA más altos y diferenciando una sola vez la serie, pues el gráfico \ref{fig:plot3} es el correlograma de la serie diferenciada.
+
+* Primer Modelo
+
+```{r, echo=FALSE,message=FALSE,warning=FALSE}
+
+primero = arima(TRMT, order=c(2,1,3))
+primero
+signif(acf(residuals(primero),plot=F)$acf[1:6],2)
+Box.test(resid(primero),type="Ljung",lag=20,fitdf=1)
+AIC(primero)
+BIC(primero)
+tsdiag(primero,gof=15,omit.initial=F)
+```
+
+Residuos estandarizados
+
+
+```{r, echo=FALSE,message=FALSE,warning=FALSE}
+qqnorm(residuals(primero))
+qqline(residuals(primero))
+```
+
+
+
+* Segundo Modelo
+
+
+```{r, echo=FALSE,message=FALSE,warning=FALSE}
+
+segundo = arima(TRMT, order=c(2,1,2))
+segundo
+signif(acf(residuals(segundo),plot=FALSE)$acf[1:6],2)
+Box.test(resid(segundo),type="Ljung",lag=20,fitdf=1)
+AIC(segundo)
+BIC(segundo)
+tsdiag(segundo,gof=15,omit.initial=F)
+```
+
+
+Residuos estandarizados
+
+
+```{r, echo=FALSE,message=FALSE,warning=FALSE}
+qqnorm(residuals(segundo))
+qqline(residuals(segundo))
+```
+
+
+
+
+* Tercer Modelo
+
+
+```{r, echo=FALSE,message=FALSE,warning=FALSE}
+tercero = arima(TRMT, order=c(2,1,1))
+tercero
+signif(acf(residuals(tercero),plot=FALSE)$acf[1:6],2)
+Box.test(resid(tercero),type="Ljung",lag=8,fitdf=1)
+Box.test(resid(tercero),type="Ljung",lag=15,fitdf=1)
+Box.test(resid(tercero),type="Ljung",lag=20,fitdf=1)
+AIC(tercero)
+BIC(tercero)
+tsdiag(tercero,gof=15,omit.initial=F)
+
+```
+Residuos estandarizados
+
+
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+qqnorm(residuals(segundo))
+qqline(residuals(segundo))
+```
+
+
+## Pronóstico
+
+
+
+
+```{r, echo=FALSE,message=FALSE,warning=FALSE}
+pronostico=predict(fit2)
+```
+
+
+
+
+```{r, echo=FALSE,message=FALSE,warning=FALSE}
+plot(fit2,n.ahead=100,type='l',ylab='TRM',xlab='Tiempo',main="Pronóstico TRM")
+abline(h=coef(fit2)[names(coef(fit2))=='intercepto'])
+```
+
+
+
+
+
+```{r, echo=FALSE,message=FALSE,warning=FALSE}
+
+fcast <- autoplot(forecast(fit),ylab='TRM',xlab='Tiempo',main="Pronóstico TRM")
+plot(fcast)
+```
+
+
+## Referencias
