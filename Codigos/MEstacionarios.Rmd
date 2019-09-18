@@ -295,13 +295,7 @@ acf(fit.ar7@fit$residuals)
 
 ```
 
-```{r}
 
-par(mfrow=c(2,1))
-acf( fit.ar2@fit$residuals)
-acf(fit.ar6@fit$residuals)
-
-```
 
 
 ## Detectando estabilidad
@@ -312,3 +306,79 @@ sum(polyroot(1-fit.arma21@fit$coef))
 sum(polyroot(1-fit.ar7@fit$coef))
 
 ```
+
+
+```{r}
+### 1-STEP AHEAD ROLLING WINDOW FORECAST
+fore.ar27 = fore.ar7 = NULL
+for (i in 1:50){
+  fit.ar7=arfimafit(spec=spec.ar27,data=data$spread[1:(162+i-1)],solver="nlminb")
+  fore.ar7[i]=arfimaforecast(fit.ar27,n.ahead=1)@forecast$seriesFor
+  fit.ar27=arfimafit(spec=spec.ar27,data=data$spread[1:(162+i-1)],solver="gosolnp")
+  fore.ar27[i]=arfimaforecast(fit.ar27,n.ahead=1)@forecast$seriesFor
+}
+mean(fore.ar7)
+mean(fore.ar27)
+var(fore.ar7)
+var(fore.ar27)
+
+
+
+```
+
+```{r}
+### FORECAST ERROR and FORECAST ERROR VARIANCE
+
+data$DATE[163]
+data$spread[163] 
+
+which(data$DATE=="2000 Q2")
+data$DATE[162]
+actual = data$spread[-c(1:162)]
+fore.error.ar7 = fore.ar7-actual
+fore.error.ar27 = fore.ar27-actual
+var(fore.error.ar7)
+var(fore.error.ar27)
+
+
+
+```
+
+
+
+```{r}
+summary(lm(actual~fore.ar7))
+summary(lm(actual~fore.ar27))
+
+
+
+```
+
+
+
+```{r}
+### GRANGER-NEWBOLD TEST
+x = fore.error.ar7+fore.error.ar27
+z = fore.error.ar7-fore.error.ar27
+corxz = cor(z,x)
+corxz/( sqrt( (1-corxz^2)/(length(fore.error.ar7)-1)))
+
+
+```
+
+
+
+```{r}
+## RMSE
+library(Metrics)
+
+ar7rmse=rmse(actual, fore.ar7)
+ar7rmse
+ar27rmse=rmse(actual, fore.ar27)
+ar27rmse
+```
+
+```{r}
+plot(fore.ar27,type="l")
+```
+
