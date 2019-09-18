@@ -47,8 +47,8 @@ Como parte de la exploración de datos, primero se revisarán los precios de cie
 
 ```{r Precios, fig.width = 8, fig.height = 4,fig.cap=" Precios Acciones", echo=FALSE, message=FALSE}
 par(mfrow=c(2,1))
-plot(Wheat$Date, Wheat$Last,type="l")
-plot(WTI$Date, WTI$Settle,type="l")
+plot(Wheat$Date, Wheat$Last,type="l",ylab="Precio",xlab="Fecha")
+plot(WTI$Date, WTI$Settle,type="l",xlab="Fecha",ylab="Precio")
 
 ```
 
@@ -57,13 +57,18 @@ plot(WTI$Date, WTI$Settle,type="l")
 
 
 ```{r vol, echo=FALSE, message=FALSE,fig.cap='Rendimientos'}
-wheat = Delt(Wheat$Last) # Rendimientos
-wheat=wheat[-1,]
-wti=Delt(WTI$Settle)
+
+
+
+wheat = Delt(tail(as.numeric(Wheat$Last),251)) # Rendimientos
+wheat=wheat[-1]
+wti=Delt(tail(as.numeric(WTI$Settle),251))
 wti=wti[-1]
 par(mfrow=c(2,1))
-plot(Wheat$Date[-1], wheat, type="l", xlab="")
-plot(WTI$Date[-1], wti,type="l", col="red",xlab="")
+plot( wheat, type="l", xlab="")
+abline(h=0)
+plot( wti,type="l", col="red",xlab="")
+abline(h=0)
 
 
 
@@ -77,8 +82,8 @@ Usando lo visto en clase pueden calcular el VaR en este espacio
 
 ```{r, echo=FALSE, message=FALSE}
 
-VaRP=qnorm(0.05)*  sd(wheat)*sqrt(20) # No olvide incluir el monto de la inversión
-VaRP
+VaRPT=qnorm(0.05)*  sd(wheat)*sqrt(20) # No olvide incluir el monto de la inversión
+VaRPP= qnorm(0.05)*sd(wti)*sqrt(20)
   
 ```
 
@@ -91,16 +96,20 @@ VaRP
 ```{r, echo=FALSE, message=FALSE,fig.cap='Rendimientos'}
 
 options(digits = 3)
-q=quantile(wheat,probs=c(0.025,0.05,0.1))
+qt=quantile(wheat,probs=c(0.025,0.05,0.1))
+qp=quantile(wti,probs=c(0.025,0.05,0.1))
+par(mfrow=c(1,2))
 hist(as.numeric(wheat),breaks=30,main="VaR no paramétrico",xlab="Rendimientos Trigo", col="blue")
 abline(v = quantile(wheat,probs=c(0.025,0.05,0.1)), col="red", lwd=3, lty=2)
+hist(as.numeric(wti),breaks=30,main="VaR no paramétrico",xlab="Rendimientos Petroleo", col="blue")
+abline(v = quantile(wti,probs=c(0.025,0.05,0.1)), col="red", lwd=3, lty=2)
 
 ```
 
 ```{r, echo=FALSE, message=FALSE}
-VaRH=q[2]*sqrt(20) # No olvide incluir el monto de la inversión
-VaRH
-q[2]
+VaRHT=qt[2]*sqrt(20) # No olvide incluir el monto de la inversión
+VaRHP=qp[2]*sqrt(20)
+
 ```
 
 
@@ -235,9 +244,9 @@ caminatas <- function(s0, mu, sigma,
 Usando la función anterior, se deben pronósticar los precios
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
-S = c(as.numeric(tail(Wheat$Last , n=1)))
-mu = c(mean(wheat))
-sigma = c(sd(wheat))
+S = c(as.numeric(tail(Wheat$Last , n=1)),as.numeric(tail(WTI$Settle , n=1)))
+mu = c(mean(wheat),mean(wti))
+sigma = c(sd(wheat),sd(wti))
 
 N = 10000
 ```
@@ -247,12 +256,14 @@ N = 10000
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 periods = 0:20
 WHEAT = caminatas(S[1], mu[1], sigma[1], N, periods = periods)
+WTIC= caminatas(S[2], mu[2], sigma[2], N, periods = periods)
 ```
 
 ```{r TMB,fig.cap="Pronóstico de Precios",fig.width = 8, fig.height = 8,echo=FALSE, message=FALSE,warning=FALSE,echo=FALSE}
 tiempo=0:20
-
+par(mfrow=c(2,1))
 matplot(tiempo,WHEAT[,1:1000], type='l', xlab='días', ylab='Precios',main='Escenarios Trigo')
+matplot(tiempo,WTIC[,1:1000], type='l', xlab='días', ylab='Precios',main='Escenarios Petroleo')
 
 ```
 
@@ -285,24 +296,57 @@ WHEATS$VAR0.01=VAR0.01
 ```
 
 
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(dplyr)
+EVWTI=rowMeans(WTIC)
+VOLWTI=sqrt(rowMeans(WTIC^{2})-EVWTI^{2})
+VOLWTI[1]=0
+WTIS=as.data.frame(EVWTI)
+WTIS=mutate(WTIS, VOLMA =EVWTI+VOLWTI)
+WTIS=mutate(WTIS, VOLMI =EVWTI-VOLWTI)
+TWTIS=t(WTIS)
+VAR0.05WTI=rep(0,20)
+for (i in 1:dim(TWTIS)[2]){
+VAR0.05WTI[i]=quantile(TWTIS[,i],0.05)
+}
+WTIS$VAR0.05=VAR0.05WTI
+VAR0.01WTI=rep(0,20)
+for (i in 1:dim(TWTIS)[2]){
+VAR0.01WTI[i]=quantile(TWTIS[,i],0.01)
+}
+WTIS$VAR0.01=VAR0.01WTI
+
+
+```
+
+
+
+
+
+
 ```{r VEX,fig.cap="Valor esperado y Varianza",fig.width = 8, fig.height = 8,echo=FALSE, message=FALSE,warning=FALSE,echo=FALSE}
 
-
+par(mfrow=c(2,1))
 matplot(WHEATS[,], type='l', xlab='días', ylab='Precios',
         main='Escenarios Trigo', cex= 10.8 )
 text(10, 311, TeX("$S_{t}=S_{t-1}+ \\mu S_{t-1}dt+ \\sigma S_{t-1} \\sqrt{t} Z$"))
 text(15, 296, TeX("$VaR0.05$"))
 text(15, 295, TeX("$VaR0.01$"))
+matplot(WTIS[,], type='l', xlab='días', ylab='Precios',
+        main='Escenarios Trigo', cex= 10.8 )
+text(10, 66, TeX("$S_{t}=S_{t-1}+ \\mu S_{t-1}dt+ \\sigma S_{t-1} \\sqrt{t} Z$"))
+text(18, 61.5, TeX("$VaR0.05$"))
+text(15, 61, TeX("$VaR0.01$"))
 
 ```
 
-COn estos resultados hacen el análisis
+Con estos resultados hacen el análisis
 
 ```{r , echo=FALSE, warning=FALSE,message=FALSE}
 
 VaRSM0.5=log(WHEATS$VAR0.05[21]/WHEATS$EVWHEAT[1])# No olvide multiplicar por el valor de la inversión en este activo
+VaRSM0.5WTI=log(WTIS$VAR0.05WTI[21]/WTIS$EVWTI[1])
 
-VaRSM0.5
 
 ```
 
@@ -315,8 +359,8 @@ Obteniendo el VaR al $5\%$ por simulación montecarlo, la máxima perdida espera
 
 ```{r, echo=FALSE, warning=FALSE,message=FALSE}
 
-result=matrix(c(VaRP,VaRH,VaRSM0.5),nrow=3,ncol = 1)
-colnames(result)=c("Trigo")
+result=matrix(c(VaRPT,VaRHT,VaRSM0.5,VaRPP,VaRHP,VaRSM0.5WTI),nrow=3,ncol = 2)
+colnames(result)=c("Trigo","Petroleo")
 rownames(result)=c("VaRP","VaRH","VaRSM0.5")
 
 result=as.data.frame(result)
