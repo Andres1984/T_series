@@ -47,8 +47,8 @@ Como parte de la exploración de datos, primero se revisarán los precios de cie
 
 ```{r Precios, fig.width = 8, fig.height = 4,fig.cap=" Precios Acciones", echo=FALSE, message=FALSE}
 par(mfrow=c(2,1))
-plot(Wheat$Date, Wheat$Last,type="l",ylab="Precio",xlab="Fecha")
-plot(WTI$Date, WTI$Settle,type="l",xlab="Fecha",ylab="Precio")
+plot(Wheat$Date, Wheat$Last,type="l",ylab="Precio Trigo",xlab="Fecha")
+plot(WTI$Date, WTI$Settle,type="l",xlab="Fecha",ylab="Precio Petroleo", col="red")
 
 ```
 
